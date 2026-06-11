@@ -1,0 +1,24 @@
+<%#
+  name: field name
+  options: array of { value, label, group? }
+  selected: current value
+  required: boolean
+  id: optional id
+%>
+<select
+  name="<%= name %>"
+  <% if (typeof id !== 'undefined') { %>id="<%= id %>"<% } %>
+  class="form-select"
+  <%= typeof required !== 'undefined' && required ? 'required' : '' %>
+>
+  <% let currentGroup = null; %>
+  <% options.forEach((opt) => { %>
+    <% if (opt.group && opt.group !== currentGroup) { %>
+      <% if (currentGroup) { %></optgroup><% } %>
+      <optgroup label="<%= opt.group %>">
+      <% currentGroup = opt.group; %>
+    <% } %>
+    <option value="<%= opt.value %>" <%= String(selected || '') === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+  <% }); %>
+  <% if (currentGroup) { %></optgroup><% } %>
+</select>

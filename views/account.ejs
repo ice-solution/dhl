@@ -1,0 +1,31 @@
+<%- include('partials/header', { pageTitle: 'My Account - SUPER STARS', showNav: true }) %>
+
+<div class="max-w-lg mx-auto px-6 py-16">
+  <h2 class="text-xl font-semibold tracking-[0.2em] uppercase text-white mb-8 text-center">My Account</h2>
+
+  <div class="space-y-4 text-sm">
+    <div class="flex justify-between border-b border-gray-800 pb-3">
+      <span class="text-gray-400">User ID</span>
+      <span class="text-white"><%= user.userId %></span>
+    </div>
+    <div class="flex justify-between border-b border-gray-800 pb-3">
+      <span class="text-gray-400">Full Name</span>
+      <span class="text-white"><%= user.fullName || '-' %></span>
+    </div>
+    <div class="flex justify-between border-b border-gray-800 pb-3">
+      <span class="text-gray-400">Category</span>
+      <span class="text-white"><%= user.category || '-' %></span>
+    </div>
+    <div class="flex justify-between border-b border-gray-800 pb-3">
+      <span class="text-gray-400">Business Unit</span>
+      <span class="text-white"><%= user.businessUnit || '-' %></span>
+    </div>
+  </div>
+
+  <div class="mt-10 flex flex-col gap-3">
+    <a href="/application" class="btn-gold text-center">Go to Registration Form</a>
+    <a href="/logout" class="text-center text-xs text-gray-500 hover:text-white transition-colors uppercase tracking-widest">Logout</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

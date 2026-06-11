@@ -1,0 +1,419 @@
+<% const app = application || {}; %>
+<% const acct = app.accountLogin || {}; %>
+<% const prof = app.profile || {}; %>
+<% const addr = prof.officeAddress || {}; %>
+<% const mob = prof.mobile || {}; %>
+<% const pb = prof.powerBank || {}; %>
+<% const flight = app.flightDetails || {}; %>
+<% const arrDate = flight.arrivalDate || {}; %>
+<% const arrTime = flight.arrivalTime || {}; %>
+<% const depDate = flight.departureDate || {}; %>
+<% const depTime = flight.departureTime || {}; %>
+<% const lodge = app.lodging || {}; %>
+<% const issueDate = lodge.passportIssueDate || {}; %>
+<% const expiryDate = lodge.passportExpiryDate || {}; %>
+<% const dob = lodge.dateOfBirth || {}; %>
+<% const checkIn = lodge.checkInDate || {}; %>
+<% const checkOut = lodge.checkOutDate || {}; %>
+<% const tour = app.culturalTour || {}; %>
+<% const costume = app.costume || {}; %>
+<% const diets = getOptions('specialDietaryRequirements') || []; %>
+<% const dietarySelected = prof.dietaryRequirements || (prof.dietaryRequirement ? [prof.dietaryRequirement] : []); %>
+
+<%- include('partials/header', { pageTitle: 'Registration - SUPER STARS', showNav: true }) %>
+
+<div class="max-w-5xl mx-auto px-6 py-8">
+
+  <div class="mb-8 text-sm text-gray-300 leading-relaxed space-y-3">
+    <p>Dear Participant,</p>
+    <p>Welcome to the <strong class="text-white">SUPER STARS 2026</strong> registration portal. Please complete all sections of this application form accurately. Fields marked with an asterisk (*) are required.</p>
+    <p>For assistance, please contact our support team at <span class="text-gold">support@superstars-event.com</span> or call <span class="text-gold">+852 1234 5678</span>.</p>
+    <p>Thank you for your participation. We look forward to welcoming you.</p>
+  </div>
+
+  <% if (success === 'saved') { %>
+  <div class="bg-green-900/30 border border-green-700 text-green-300 text-sm px-4 py-3 rounded-sm mb-6">Your progress has been saved.</div>
+  <% } %>
+  <% if (success === 'submitted') { %>
+  <div class="bg-green-900/30 border border-green-700 text-green-300 text-sm px-4 py-3 rounded-sm mb-6">Your application has been submitted successfully.</div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+  <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm px-4 py-3 rounded-sm mb-6"><%= error %></div>
+  <% } %>
+
+  <form method="POST" action="/application">
+
+    <!-- ACCOUNT LOGIN -->
+    <h2 class="section-title">Account Login</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <label class="form-label">Category *</label>
+        <%- include('partials/select-field', { name: 'category', options: getOptions('titleGroup'), selected: acct.category || user.category, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">User ID *</label>
+        <input type="text" name="accountUserId" class="form-input" value="<%= acct.userId || user.userId || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Job Title *</label>
+        <input type="text" name="jobTitle" class="form-input" value="<%= acct.jobTitle || user.title || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Function Unit *</label>
+        <%- include('partials/select-field', { name: 'functionUnit', options: getOptions('functionUnit'), selected: acct.functionUnit, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">Function Unit (Others)</label>
+        <input type="text" name="functionUnitOthers" class="form-input" value="<%= acct.functionUnitOthers || '' %>" placeholder="Others">
+      </div>
+      <div>
+        <label class="form-label">Business Unit *</label>
+        <%- include('partials/select-field', { name: 'businessUnit', options: getOptions('businessUnit'), selected: acct.businessUnit || user.businessUnit, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">Year Joined DHL *</label>
+        <%- include('partials/select-field', { name: 'joinDhl', options: getOptions('joinDhl'), selected: acct.joinDhl, required: true }) %>
+      </div>
+      <div class="md:col-span-2">
+        <label class="form-label">Your Name (Full Name) *</label>
+        <input type="text" name="fullName" class="form-input" value="<%= acct.fullName || user.fullName || '' %>" required>
+      </div>
+    </div>
+
+    <!-- PROFILE -->
+    <h2 class="section-title">Profile</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="form-label">Salutation *</label>
+        <%- include('partials/select-field', { name: 'salutation', options: getOptions('salutation'), selected: prof.salutation, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">First Name (as on Passport) *</label>
+        <input type="text" name="firstName" class="form-input" value="<%= prof.firstName || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Other Name (as on Passport)</label>
+        <input type="text" name="otherName" class="form-input" value="<%= prof.otherName || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Surname (as on Passport) *</label>
+        <input type="text" name="surname" class="form-input" value="<%= prof.surname || '' %>" required>
+      </div>
+      <div class="md:col-span-2">
+        <label class="form-label">Name on Name Tag *</label>
+        <input type="text" name="nameOnTag" class="form-input" value="<%= prof.nameOnTag || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Gender *</label>
+        <%- include('partials/select-field', { name: 'gender', options: getOptions('gender'), selected: prof.gender, required: true }) %>
+      </div>
+    </div>
+
+    <p class="form-label mt-4 mb-2">Office Address</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="form-label">Street / Building</label>
+        <input type="text" name="officeStreet" class="form-input" value="<%= addr.street || '' %>">
+      </div>
+      <div>
+        <label class="form-label">City / County</label>
+        <input type="text" name="officeCity" class="form-input" value="<%= addr.city || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Country / Region</label>
+        <input type="text" name="officeCountry" class="form-input" value="<%= addr.country || '' %>">
+      </div>
+    </div>
+
+    <p class="form-label mt-4 mb-2">Mobile No.</p>
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <label class="form-label">Country Code</label>
+        <input type="text" name="mobileCountryCode" class="form-input" placeholder="+852" value="<%= mob.countryCode || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Area Code</label>
+        <input type="text" name="mobileAreaCode" class="form-input" value="<%= mob.areaCode || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Number *</label>
+        <input type="text" name="mobileNumber" class="form-input" value="<%= mob.number || '' %>" required>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div>
+        <label class="form-label">Special Physical Condition *</label>
+        <%- include('partials/select-field', { name: 'specialPhysicalCondition', options: getOptions('specialPhysicalCondition'), selected: prof.specialPhysicalCondition, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">Special Physical Condition (Please Specify)</label>
+        <input type="text" name="specialPhysicalConditionYes" class="form-input" value="<%= prof.specialPhysicalConditionYes || '' %>">
+      </div>
+    </div>
+
+    <p class="form-label mt-4 mb-2">Special Dietary Requirements *</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+      <% const dietOptions = [
+        'No Preference',
+        'Halal - No Pork / No Lard',
+        'Strict Halal',
+        'No Beef',
+        'No Spicy',
+        'No Raw Food',
+        'No Seafood',
+        'Vegetarian',
+        'Vegan'
+      ]; %>
+      <% dietOptions.forEach((d) => { %>
+        <label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
+          <input type="checkbox" name="dietaryRequirements" value="<%= d %>" class="accent-gold" <%= dietarySelected.includes(d) ? 'checked' : '' %>>
+          <%= d %>
+        </label>
+      <% }); %>
+    </div>
+
+    <div class="mt-4">
+      <label class="form-label">Other Dietary Requirements / Food Allergies (if any)</label>
+      <input type="text" name="otherDietaryRequirements" class="form-input" value="<%= prof.otherDietaryRequirements || '' %>">
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div>
+        <label class="form-label">Gala Dinner Main Course *</label>
+        <%- include('partials/select-field', { name: 'galaMainCourse', options: getOptions('galaMainCourse'), selected: prof.galaMainCourse, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">Blood Type</label>
+        <%- include('partials/select-field', { name: 'bloodType', options: getOptions('bloodType'), selected: prof.bloodType }) %>
+      </div>
+    </div>
+
+    <p class="form-label mt-4 mb-2">Power Bank Details</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="form-label">Brand</label>
+        <input type="text" name="powerBankBrand" class="form-input" value="<%= pb.brand || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Model Type</label>
+        <input type="text" name="powerBankModel" class="form-input" value="<%= pb.modelType || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Power Capacity</label>
+        <input type="text" name="powerBankCapacity" class="form-input" placeholder="e.g. 10000mAh" value="<%= pb.powerCapacity || '' %>">
+      </div>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+    </div>
+
+    <!-- FLIGHT DETAILS -->
+    <h2 class="section-title">Flight Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <p class="form-label mb-2">Arrival Date *</p>
+        <%- include('partials/date-selects', { prefix: 'arrival', val: arrDate }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Arrival Time (ETA) *</p>
+        <%- include('partials/time-selects', { prefix: 'arrival', val: arrTime }) %>
+      </div>
+      <div>
+        <label class="form-label">Arrival Flight No. *</label>
+        <input type="text" name="arrivalFlightNo" class="form-input" value="<%= flight.arrivalFlightNo || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Airline Registration</label>
+        <input type="text" name="airlineRegistration" class="form-input" value="<%= flight.airlineRegistration || '' %>">
+      </div>
+      <div>
+        <label class="form-label">Arrival Airport *</label>
+        <%- include('partials/select-field', { name: 'arrivalAirport', options: getOptions('arrAirport'), selected: flight.arrivalAirport, required: true }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Do you require arrival pick up? *</p>
+        <div class="radio-group flex gap-6">
+          <% ['Yes','No'].forEach(v => { %>
+            <label><input type="radio" name="airportPickup" value="<%= v %>" <%= flight.airportPickup === v ? 'checked' : '' %> required> <%= v %></label>
+          <% }); %>
+        </div>
+      </div>
+      <div>
+        <p class="form-label mb-2">Departure Date *</p>
+        <%- include('partials/date-selects', { prefix: 'departure', val: depDate }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Departure Time (ETD) *</p>
+        <%- include('partials/time-selects', { prefix: 'departure', val: depTime }) %>
+      </div>
+      <div>
+        <label class="form-label">Departure Flight No. *</label>
+        <input type="text" name="departureFlightNo" class="form-input" value="<%= flight.departureFlightNo || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Departure Airport *</label>
+        <%- include('partials/select-field', { name: 'departureAirport', options: getOptions('depAirport'), selected: flight.departureAirport, required: true }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Do you require departure transfer? *</p>
+        <div class="radio-group flex gap-6">
+          <% ['Yes','No'].forEach(v => { %>
+            <label><input type="radio" name="airportDropoff" value="<%= v %>" <%= flight.airportDropoff === v ? 'checked' : '' %> required> <%= v %></label>
+          <% }); %>
+        </div>
+      </div>
+      <div>
+        <p class="form-label mb-2">Do you require accommodation during event period? *</p>
+        <div class="radio-group flex gap-6">
+          <% ['Yes','No'].forEach(v => { %>
+            <label><input type="radio" name="accommodationRequired" value="<%= v %>" <%= flight.accommodationRequired === v ? 'checked' : '' %> required> <%= v %></label>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+    </div>
+
+    <!-- LODGING INFORMATION -->
+    <h2 class="section-title">Lodging Information</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="form-label">Name on Passport *</label>
+        <input type="text" name="nameOnPassport" class="form-input" value="<%= lodge.nameOnPassport || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Passport Number *</label>
+        <input type="text" name="passportNumber" class="form-input" value="<%= lodge.passportNumber || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Nationality *</label>
+        <input type="text" name="nationality" class="form-input" value="<%= lodge.nationality || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Place of Issue *</label>
+        <%- include('partials/select-field', { name: 'passportPlaceIssue', options: getOptions('passportPlaceIssue'), selected: lodge.passportPlaceIssue, required: true }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Passport Issue Date *</p>
+        <%- include('partials/date-selects', { prefix: 'issue', val: issueDate }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Passport Expiry Date *</p>
+        <%- include('partials/date-selects', { prefix: 'expiry', val: expiryDate }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Date of Birth *</p>
+        <%- include('partials/date-selects', { prefix: 'dob', val: dob }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Check-in Date *</p>
+        <%- include('partials/date-selects', { prefix: 'checkIn', val: checkIn }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Check-out Date *</p>
+        <%- include('partials/date-selects', { prefix: 'checkOut', val: checkOut }) %>
+      </div>
+      <div>
+        <p class="form-label mb-2">Bed Type *</p>
+        <div class="radio-group flex gap-6">
+          <% ['King','Twin'].forEach(v => { %>
+            <label><input type="radio" name="bedType" value="<%= v %>" <%= lodge.bedType === v ? 'checked' : '' %> required> <%= v %><% if (v === 'Twin') { %> (Two Beds)<% } %></label>
+          <% }); %>
+        </div>
+      </div>
+      <div>
+        <label class="form-label">Primary Stay Duration</label>
+        <input type="text" name="primaryStayDuration" class="form-input" placeholder="e.g. 3 nights" value="<%= lodge.primaryStayDuration || '' %>">
+      </div>
+      <div class="md:col-span-2">
+        <label class="form-label">Other Request(s)</label>
+        <textarea name="otherRequests" class="form-input h-24 resize-y" placeholder="Any special requests..."><%= lodge.otherRequests || '' %></textarea>
+      </div>
+    </div>
+
+    <div class="mt-6 p-4 border border-gray-700 text-xs text-gray-400 leading-relaxed">
+      <p class="text-white text-xs font-semibold tracking-widest uppercase mb-2">Terms &amp; Conditions</p>
+      <p>By submitting this form, you agree to comply with all event policies including cancellation terms, dress code requirements, and health &amp; safety guidelines. Accommodation is subject to availability. The organizer reserves the right to modify the program schedule. Personal data collected will be used solely for event administration purposes in accordance with applicable privacy laws.</p>
+    </div>
+
+    <!-- CULTURAL TOUR SELECTION -->
+    <h2 class="section-title">Cultural Tour Selection</h2>
+    <div class="text-sm text-gray-300 space-y-3 mb-4">
+      <p><strong class="text-white">Option 1:</strong> Adventure Tour — Cu Chi Tunnel &amp; Coffee Workshop</p>
+      <p><strong class="text-white">Option 2:</strong> Sightseeing Tour — Mekong Delta</p>
+    </div>
+    <div class="max-w-md">
+      <label class="form-label">Please select your preferred tour option *</label>
+      <%- include('partials/select-field', { name: 'tourSelection', options: getOptions('tour'), selected: tour.tourSelection, required: true }) %>
+    </div>
+    <div class="flex justify-end mt-4">
+      <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+    </div>
+
+    <!-- VIETNAMESE NATIONAL COSTUME -->
+    <h2 class="section-title">Vietnamese National Costume</h2>
+    <p class="text-sm text-gray-300 mb-4">Please provide your measurements for the traditional Vietnamese costume. Measurements should be taken in cm/kg.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label class="form-label">Height (cm) *</label>
+        <input type="text" name="height" class="form-input" value="<%= costume.height || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Weight (kg) *</label>
+        <input type="text" name="weight" class="form-input" value="<%= costume.weight || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Chest (cm) *</label>
+        <input type="text" name="chest" class="form-input" value="<%= costume.chest || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Waist (cm) *</label>
+        <input type="text" name="waist" class="form-input" value="<%= costume.waist || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Upper arm (cm) *</label>
+        <input type="text" name="upperArm" class="form-input" value="<%= costume.upperArm || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Neck (cm) *</label>
+        <input type="text" name="neck" class="form-input" value="<%= costume.neck || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Length of shoulder (cm) *</label>
+        <input type="text" name="lengthShoulder" class="form-input" value="<%= costume.lengthShoulder || '' %>" required>
+      </div>
+      <div>
+        <label class="form-label">Length of sleeve (cm) *</label>
+        <input type="text" name="lengthSleeve" class="form-input" value="<%= costume.lengthSleeve || '' %>" required>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div>
+        <label class="form-label">Áo Dài Colour (Top only) *</label>
+        <%- include('partials/select-field', { name: 'aodaiColor', options: getOptions('aodaiColor'), selected: costume.aodaiColor, required: true }) %>
+      </div>
+      <div>
+        <label class="form-label">Áo Bà Ba Colour (Top only) *</label>
+        <%- include('partials/select-field', { name: 'aobabaColor', options: getOptions('aobabaColor'), selected: costume.aobabaColor, required: true }) %>
+      </div>
+    </div>
+
+    <!-- EVENT T-SHIRT -->
+    <h2 class="section-title">Event T-Shirt</h2>
+    <div class="max-w-xs">
+      <label class="form-label">T-shirt size *</label>
+      <%- include('partials/select-field', { name: 'shirtSize', options: getOptions('shirtSize'), selected: costume.shirtSize, required: true }) %>
+    </div>
+
+    <div class="flex justify-end gap-4 mt-10 mb-8">
+      <button type="submit" name="action" value="save" class="btn-gold">Save Draft</button>
+      <button type="submit" name="action" value="submit" class="btn-gold">Submit Application</button>
+    </div>
+
+  </form>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,21 @@
+{
+  "name": "super-stars-registration",
+  "version": "1.0.0",
+  "description": "SUPER STARS event registration form",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seed.js",
+    "extract-options": "node scripts/extract-form-options.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "mongoose": "^8.7.0"
+  }
+}

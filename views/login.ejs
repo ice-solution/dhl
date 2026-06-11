@@ -1,0 +1,34 @@
+<%- include('partials/header', { pageTitle: 'Login - SUPER STARS', showNav: false }) %>
+
+<div class="max-w-md mx-auto px-6 py-16">
+  <div class="text-center mb-10">
+    <h2 class="text-xl font-semibold tracking-[0.2em] uppercase text-white mb-2">Account Login</h2>
+    <p class="text-gray-400 text-sm">Please sign in to access the registration form.</p>
+  </div>
+
+  <% if (error) { %>
+  <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm px-4 py-3 rounded-sm mb-6">
+    <%= error %>
+  </div>
+  <% } %>
+
+  <form method="POST" action="/login" class="space-y-5">
+    <div>
+      <label class="form-label" for="userId">User ID</label>
+      <input type="text" id="userId" name="userId" class="form-input" required autocomplete="username" placeholder="Enter your User ID">
+    </div>
+    <div>
+      <label class="form-label" for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password" placeholder="Enter your Password">
+    </div>
+    <div class="pt-4 flex justify-center">
+      <button type="submit" class="btn-gold w-full">Login</button>
+    </div>
+  </form>
+
+  <p class="text-center text-xs text-gray-600 mt-8">
+    Demo account: User ID <span class="text-gray-400">demo</span> / Password <span class="text-gray-400">demo123</span>
+  </p>
+</div>
+
+<%- include('partials/footer') %>

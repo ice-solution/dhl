@@ -1,0 +1,38 @@
+<%#
+  prefix: arrival | departure
+  val: { hour, minute }
+%>
+<% const hourOpts = getTimeOptions(prefix, 'hour'); %>
+<% const minuteOpts = getTimeOptions(prefix, 'minute'); %>
+<div class="grid grid-cols-2 gap-2">
+  <div>
+    <label class="form-label">Hour (24 Hr)</label>
+    <select name="<%= prefix %>Hour" class="form-select">
+      <% if (hourOpts.length === 0) { %>
+        <option value="">--</option>
+        <% for (let h = 0; h <= 23; h++) { %>
+          <option value="<%= h %>" <%= val && String(val.hour) === String(h) ? 'selected' : '' %>><%= String(h).padStart(2, '0') %></option>
+        <% } %>
+      <% } else { %>
+        <% hourOpts.forEach((opt) => { %>
+          <option value="<%= opt.value %>" <%= val && String(val.hour) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+        <% }); %>
+      <% } %>
+    </select>
+  </div>
+  <div>
+    <label class="form-label">Minute</label>
+    <select name="<%= prefix %>Minute" class="form-select">
+      <% if (minuteOpts.length === 0) { %>
+        <option value="">--</option>
+        <% for (let m = 0; m <= 59; m += 5) { %>
+          <option value="<%= m %>" <%= val && String(val.minute) === String(m) ? 'selected' : '' %>><%= String(m).padStart(2, '0') %></option>
+        <% } %>
+      <% } else { %>
+        <% minuteOpts.forEach((opt) => { %>
+          <option value="<%= opt.value %>" <%= val && String(val.minute) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+        <% }); %>
+      <% } %>
+    </select>
+  </div>
+</div>

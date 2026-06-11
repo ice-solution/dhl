@@ -1,0 +1,55 @@
+<%#
+  prefix: arrival | departure | issue | expiry | dob | checkIn | checkOut
+  val: { day, month, year }
+%>
+<% const dayOpts = getDateOptions(prefix, 'day'); %>
+<% const monthOpts = getDateOptions(prefix, 'month'); %>
+<% const yearOpts = getDateOptions(prefix, 'year'); %>
+<div class="grid grid-cols-3 gap-2">
+  <div>
+    <label class="form-label">Day</label>
+    <select name="<%= prefix %>Day" class="form-select">
+      <% if (dayOpts.length === 0) { %>
+        <option value="">--</option>
+        <% for (let d = 1; d <= 31; d++) { %>
+          <option value="<%= d %>" <%= val && String(val.day) === String(d) ? 'selected' : '' %>><%= d %></option>
+        <% } %>
+      <% } else { %>
+        <% dayOpts.forEach((opt) => { %>
+          <option value="<%= opt.value %>" <%= val && String(val.day) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+        <% }); %>
+      <% } %>
+    </select>
+  </div>
+  <div>
+    <label class="form-label">Month</label>
+    <select name="<%= prefix %>Month" class="form-select">
+      <% if (monthOpts.length === 0) { %>
+        <option value="">--</option>
+        <% const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; %>
+        <% months.forEach((m, i) => { %>
+          <option value="<%= i + 1 %>" <%= val && String(val.month) === String(i + 1) ? 'selected' : '' %>><%= m %></option>
+        <% }); %>
+      <% } else { %>
+        <% monthOpts.forEach((opt) => { %>
+          <option value="<%= opt.value %>" <%= val && String(val.month) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+        <% }); %>
+      <% } %>
+    </select>
+  </div>
+  <div>
+    <label class="form-label">Year</label>
+    <select name="<%= prefix %>Year" class="form-select">
+      <% if (yearOpts.length === 0) { %>
+        <option value="">--</option>
+        <% for (let y = 2026; y >= 1950; y--) { %>
+          <option value="<%= y %>" <%= val && String(val.year) === String(y) ? 'selected' : '' %>><%= y %></option>
+        <% } %>
+      <% } else { %>
+        <% yearOpts.forEach((opt) => { %>
+          <option value="<%= opt.value %>" <%= val && String(val.year) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+        <% }); %>
+      <% } %>
+    </select>
+  </div>
+</div>

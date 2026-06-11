@@ -1,0 +1,34 @@
+<%- include('../partials/header', { pageTitle: 'Admin Login - SUPER STARS', showNav: false }) %>
+
+<div class="max-w-md mx-auto px-6 py-16">
+  <div class="text-center mb-10">
+    <h2 class="text-xl font-semibold tracking-[0.2em] uppercase text-white mb-2">Admin Login</h2>
+    <p class="text-gray-400 text-sm">Administrator access only.</p>
+  </div>
+
+  <% if (error) { %>
+  <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm px-4 py-3 rounded-sm mb-6">
+    <%= error %>
+  </div>
+  <% } %>
+
+  <form method="POST" action="/admin/login" class="space-y-5">
+    <div>
+      <label class="form-label" for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-input" required autocomplete="username">
+    </div>
+    <div>
+      <label class="form-label" for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-input" required autocomplete="current-password">
+    </div>
+    <div class="pt-4 flex justify-center">
+      <button type="submit" class="btn-gold w-full">Login</button>
+    </div>
+  </form>
+
+  <p class="text-center text-xs text-gray-600 mt-8">
+    <a href="/login" class="hover:text-gray-400 transition-colors">Back to participant login</a>
+  </p>
+</div>
+
+<%- include('../partials/footer') %>
