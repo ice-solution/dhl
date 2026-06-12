@@ -8,6 +8,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth');
 const applicationRoutes = require('./routes/application');
 const adminRoutes = require('./routes/admin');
+const homeRoutes = require('./routes/home');
 const formOptions = require('./data/form-options');
 
 const app = express();
@@ -44,16 +45,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(homeRoutes);
 app.use(authRoutes);
 app.use(applicationRoutes);
 app.use(adminRoutes);
-
-app.get('/', (req, res) => {
-  if (req.session.userId) {
-    return res.redirect('/application');
-  }
-  res.redirect('/login');
-});
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

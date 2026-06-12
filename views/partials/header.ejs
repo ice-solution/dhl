@@ -22,13 +22,25 @@
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
 
-<header class="site-header<%= (typeof showNav === 'undefined' || !showNav) ? ' site-header--solo' : '' %>">
+<header class="site-header<%= (typeof navType === 'undefined' || navType !== 'home') && (typeof showNav === 'undefined' || !showNav) ? ' site-header--solo' : '' %>">
   <div class="site-header-brand">
     <img src="/images/logo.jpg" alt="DHL Super Stars Logo" class="site-logo">
     <img src="/images/company.jpg" alt="Super Stars Employee of the Year" class="site-company">
   </div>
 
-  <% if (typeof showNav !== 'undefined' && showNav) { %>
+  <% if (typeof navType !== 'undefined' && navType === 'home') { %>
+  <nav class="nav-bar">
+    <div class="nav-bar-inner nav-bar-inner--wrap">
+      <a href="#home" class="nav-bar-link">Home</a>
+      <a href="#registration" class="nav-bar-link">Registration</a>
+      <a href="#visa" class="nav-bar-link">Seoul Visa</a>
+      <a href="#hotel" class="nav-bar-link">Hotel</a>
+      <a href="#seoul-info" class="nav-bar-link">Seoul Info</a>
+      <a href="#contact" class="nav-bar-link">Contact</a>
+      <a href="/login" class="nav-bar-link">Login</a>
+    </div>
+  </nav>
+  <% } else if (typeof showNav !== 'undefined' && showNav) { %>
   <nav class="nav-bar">
     <div class="nav-bar-inner">
       <a href="/account" class="nav-bar-link">My Account</a>
