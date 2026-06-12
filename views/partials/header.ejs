@@ -29,10 +29,10 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
 <header class="site-header<%= (typeof navType === 'undefined' || navType !== 'home') && (typeof showNav === 'undefined' || !showNav) ? ' site-header--solo' : '' %>">
-  <div class="site-header-brand">
+  <a href="/" class="site-header-brand">
     <img src="/images/logo.jpg" alt="DHL Super Stars Logo" class="site-logo">
     <img src="/images/company.jpg" alt="Super Stars Employee of the Year" class="site-company">
-  </div>
+  </a>
 
   <% if (typeof navType !== 'undefined' && navType === 'home') { %>
   <nav class="nav-bar">
@@ -43,7 +43,13 @@
       <a href="#hotel" class="nav-bar-link">Hotel</a>
       <a href="#seoul-info" class="nav-bar-link">Seoul Info</a>
       <a href="#contact" class="nav-bar-link">Contact</a>
+      <% if (session && session.userId) { %>
+      <a href="/application" class="nav-bar-link">Application</a>
+      <a href="/account" class="nav-bar-link">My Account</a>
+      <a href="/logout" class="nav-bar-link">Logout</a>
+      <% } else { %>
       <a href="/login" class="nav-bar-link">Login</a>
+      <% } %>
     </div>
   </nav>
   <% } else if (typeof showNav !== 'undefined' && showNav) { %>
