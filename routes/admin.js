@@ -2,6 +2,8 @@ const express = require('express');
 const User = require('../models/User');
 const Application = require('../models/Application');
 const { requireAdmin } = require('../middleware/auth');
+const { buildAdminReview, createReviewSnapshot } = require('../lib/admin-review');
+const { exportToBuffer, buildExportFilename } = require('../lib/admin-export');
 
 const router = express.Router();
 
@@ -54,11 +56,63 @@ router.get('/admin', requireAdmin, async (req, res) => {
   res.render('admin/users', { rows });
 });
 
+router.get('/admin/export', requireAdmin, async (req, res) => {
+  try {
+    const users = await User.find().sort({ createdAt: -1 }).lean();
+    const applications = await Application.find().lean();
+    const buffer = exportToBuffer(users, applications);
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+    res.setHeader('Content-Disposition', `attachment; filename="${buildExportFilename()}"`);
+    res.send(buffer);
+  } catch (err) {
+    console.error('Admin export failed:', err);
+    res.status(500).send('Failed to export registration data.');
+  }
+});
+
+router.get('/admin/users/:userId', requireAdmin, async (req, res) => {
+  const user = await User.findById(req.params.userId).lean();
+  if (!user) {
+    return res.redirect('/admin');
+  }
+
+  const application = await Application.findOne({ user: user._id }).lean();
+  const review = buildAdminReview(user, application);
+
+  res.render('admin/user-detail', {
+    user,
+    application,
+    review,
+    success: req.query.success || null,
+  });
+});
+
 router.post('/admin/acknowledge/:userId', requireAdmin, async (req, res) => {
-  await Application.findOneAndUpdate(
-    { user: req.params.userId },
-    { hasChanges: false }
-  );
+  const user = await User.findById(req.params.userId);
+  const application = await Application.findOne({ user: req.params.userId });
+
+  if (user && application) {
+    await Application.findOneAndUpdate(
+      { user: req.params.userId },
+      {
+        hasChanges: false,
+        lastReviewedSnapshot: createReviewSnapshot(user, application),
+      }
+    );
+    return res.redirect(`/admin/users/${req.params.userId}?success=reviewed`);
+  }
+
+  if (application) {
+    await Application.findOneAndUpdate(
+      { user: req.params.userId },
+      { hasChanges: false }
+    );
+  }
+
   res.redirect('/admin');
 });
 

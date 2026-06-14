@@ -1,0 +1,172 @@
+<% const v = typeof values !== 'undefined' ? values : {}; %>
+<% const val = (key, fallback) => v[key] !== undefined ? v[key] : (fallback || ''); %>
+<% const selected = typeof selectedCategory !== 'undefined' ? selectedCategory : ''; %>
+
+<%- include('../partials/header', { pageTitle: 'Create Account - SUPER STARS', navType: 'home', activeNav: 'registration' }) %>
+
+<div class="reg-page">
+  <div class="reg-container reg-container--wide">
+    <div class="reg-intro">
+      <p>Please take a moment to complete your personal particulars below.</p>
+      <ol class="reg-intro-list">
+        <li>Information will be kept strictly confidential to the EOY Event</li>
+        <li><span class="reg-required">*</span> is Mandatory Field. You are recommended to complete all your personal particulars.</li>
+      </ol>
+    </div>
+
+    <% if (error) { %>
+    <div class="reg-error"><%= error %></div>
+    <% } %>
+
+    <form method="POST" action="/register/new" class="reg-form" id="registerForm">
+      <h2 class="reg-section-heading">Account Login</h2>
+
+      <div class="reg-field">
+        <label class="form-label" for="category"><span class="reg-required">*</span> Category</label>
+        <%- include('../partials/select-field', { name: 'category', id: 'category', options: categories, selected: selected || val('category'), required: true }) %>
+      </div>
+
+      <div id="regFieldsWrap" class="reg-fields-wrap" <%= selected ? '' : 'hidden' %>>
+        <div class="reg-field reg-field--hidden" data-reg-field="jobTitle">
+          <label class="form-label"><span class="reg-required">*</span> Job Title</label>
+          <input type="text" name="jobTitle" class="form-input" value="<%= val('jobTitle') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="functionUnit">
+          <label class="form-label"><span class="reg-required">*</span> Function Unit</label>
+          <%- include('../partials/select-field', { name: 'functionUnit', options: getOptions('functionUnit'), selected: val('functionUnit') }) %>
+        </div>
+        <div class="reg-field reg-field--conditional reg-field--hidden" id="functionUnitOthersWrap" data-reg-field="functionUnitOthers">
+          <label class="form-label"><span class="reg-required">*</span> Function Unit (Others)</label>
+          <input type="text" name="functionUnitOthers" class="form-input" value="<%= val('functionUnitOthers') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="businessUnit">
+          <label class="form-label"><span class="reg-required">*</span> Business Unit</label>
+          <%- include('../partials/select-field', { name: 'businessUnit', options: getOptions('businessUnit'), selected: val('businessUnit') }) %>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="workEmail">
+          <label class="form-label"><span class="reg-required">*</span> Work Email Address</label>
+          <input type="email" name="workEmail" class="form-input" value="<%= val('workEmail') %>" autocomplete="username">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="password">
+          <label class="form-label"><span class="reg-required">*</span> Password</label>
+          <input type="password" name="password" class="form-input" autocomplete="new-password">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="confirmPassword">
+          <label class="form-label"><span class="reg-required">*</span> Confirm Password</label>
+          <input type="password" name="confirmPassword" class="form-input" autocomplete="new-password">
+        </div>
+
+        <!-- PART 2 -->
+        <h2 class="reg-section-heading" data-reg-section="part2">Profile</h2>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="salutation">
+          <label class="form-label"><span class="reg-required">*</span> Salutation</label>
+          <%- include('../partials/select-field', { name: 'salutation', options: getOptions('salutation'), selected: val('salutation') }) %>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="surname">
+          <label class="form-label"><span class="reg-required">*</span> Surname (As in Passport)</label>
+          <input type="text" name="surname" class="form-input" value="<%= val('surname') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="givenName">
+          <label class="form-label"><span class="reg-required">*</span> Given Name (As in Passport)</label>
+          <input type="text" name="givenName" class="form-input" value="<%= val('givenName') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="nameOnBadge">
+          <label class="form-label"><span class="reg-required">*</span> Name to be printed on badge</label>
+          <input type="text" name="nameOnBadge" class="form-input" value="<%= val('nameOnBadge') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="gender">
+          <label class="form-label"><span class="reg-required">*</span> Gender</label>
+          <%- include('../partials/select-field', { name: 'gender', options: getOptions('gender'), selected: val('gender') }) %>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="officePhone">
+          <label class="form-label">Office Phone</label>
+          <div class="reg-phone-row">
+            <input type="text" name="officeTelCountry" class="form-input" placeholder="Country Code" value="<%= val('officeTelCountry') %>">
+            <input type="text" name="officeTelArea" class="form-input" placeholder="Area Code" value="<%= val('officeTelArea') %>">
+            <input type="text" name="officeTel" class="form-input" placeholder="Number" value="<%= val('officeTel') %>">
+          </div>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="mobilePhone">
+          <label class="form-label"><span class="reg-required">*</span> Mobile Phone</label>
+          <div class="reg-phone-row">
+            <input type="text" name="mobileCountry" class="form-input" placeholder="Country Code" value="<%= val('mobileCountry') %>">
+            <input type="text" name="mobileArea" class="form-input" placeholder="Area Code" value="<%= val('mobileArea') %>">
+            <input type="text" name="mobileNumber" class="form-input" placeholder="Number" value="<%= val('mobileNumber') %>">
+          </div>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="specialPhysicalCondition">
+          <label class="form-label"><span class="reg-required">*</span> Special Physical Condition</label>
+          <div class="radio-group flex gap-6">
+            <label><input type="radio" name="specialPhysicalCondition" value="Yes" <%= val('specialPhysicalCondition') === 'Yes' ? 'checked' : '' %>> Yes</label>
+            <label><input type="radio" name="specialPhysicalCondition" value="No" <%= val('specialPhysicalCondition', 'No') === 'No' ? 'checked' : '' %>> No</label>
+          </div>
+        </div>
+        <div class="reg-field reg-field--conditional reg-field--hidden" id="specialPhysicalDetailWrap" data-reg-field="specialPhysicalDetail">
+          <label class="form-label">Please specify</label>
+          <input type="text" name="specialPhysicalConditionDetail" class="form-input" value="<%= val('specialPhysicalConditionDetail') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="dietaryRequirements">
+          <label class="form-label"><span class="reg-required">*</span> Special Dietary Requirements</label>
+          <div class="reg-checkbox-grid">
+            <% const selectedDiets = Array.isArray(v.dietaryRequirements) ? v.dietaryRequirements : (v.dietaryRequirements ? [v.dietaryRequirements] : ['No Preference']); %>
+            <% dietaryOptions.forEach((d) => { %>
+              <label class="reg-checkbox-label">
+                <input type="checkbox" name="dietaryRequirements" value="<%= d %>" class="accent-gold" <%= selectedDiets.includes(d) ? 'checked' : '' %>>
+                <%= d %>
+              </label>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="otherDietaryRequirements">
+          <label class="form-label">Other Dietary Requirements / Food Allergies (if any)</label>
+          <input type="text" name="otherDietaryRequirements" class="form-input" value="<%= val('otherDietaryRequirements') %>">
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="galaMainCourse">
+          <label class="form-label"><span class="reg-required">*</span> Gala Dinner Main Course</label>
+          <%- include('../partials/select-field', { name: 'galaMainCourse', options: getOptions('galaMainCourse'), selected: val('galaMainCourse') }) %>
+        </div>
+
+        <div class="reg-field reg-field--hidden" data-reg-field="shirtSize">
+          <label class="form-label"><span class="reg-required">*</span> T-shirt size</label>
+          <%- include('../partials/select-field', { name: 'shirtSize', options: getOptions('shirtSize'), selected: val('shirtSize') }) %>
+        </div>
+
+        <div class="reg-agreement">
+          <label class="reg-checkbox-label reg-checkbox-label--block">
+            <input type="checkbox" name="photoConsent" value="1" class="accent-gold" required <%= v.photoConsent ? 'checked' : '' %>>
+            <span>Please note that at this event photos and videos will be taken.</span>
+          </label>
+          <p class="reg-agreement-text">I understand that photos and videos taken during the event may be used for internal and external communications related to DHL events and activities.</p>
+        </div>
+
+        <div class="reg-actions">
+          <button type="submit" class="btn-gold btn-gold--lg">Submit</button>
+          <a href="/register" class="btn-back">Back</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  window.REG_VISIBILITY = <%- JSON.stringify(visibilityMatrix) %>;
+  window.REG_SELECTED_CATEGORY = <%- JSON.stringify(selected || val('category') || '') %>;
+</script>
+<script src="/js/register-form.js"></script>
+<%- include('../partials/footer') %>

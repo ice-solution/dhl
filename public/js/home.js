@@ -54,4 +54,17 @@
       target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
     });
   });
+
+  const hotelSlideshow = document.getElementById('hotelSlideshow');
+  if (hotelSlideshow && !prefersReducedMotion) {
+    const slides = hotelSlideshow.querySelectorAll('.home-hotel-slide');
+    if (slides.length > 1) {
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('is-active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-active');
+      }, 5000);
+    }
+  }
 })();

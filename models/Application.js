@@ -54,8 +54,10 @@ const applicationSchema = new mongoose.Schema({
     departureDate: { day: String, month: String, year: String },
     departureTime: { hour: String, minute: String },
     departureFlightNo: String,
+    departureAirline: String,
     departureAirport: String,
     airportDropoff: String,
+    apecCard: String,
     accommodationRequired: String,
   },
 
@@ -73,11 +75,26 @@ const applicationSchema = new mongoose.Schema({
     bedType: String,
     otherRequests: String,
     primaryStayDuration: String,
+    reservationLinkEmail: String,
   },
 
   culturalTour: {
     tourSelection: String,
   },
+
+  photoUpload: {
+    uniformPhoto: String,
+    nicePhoto: String,
+    winnerMessage: String,
+  },
+
+  emergencyContact: {
+    name: String,
+    contactNumber: String,
+    relationship: String,
+  },
+
+  agreementAccepted: { type: Boolean, default: false },
 
   costume: {
     height: String,
@@ -95,6 +112,8 @@ const applicationSchema = new mongoose.Schema({
 
   status: { type: String, enum: ['draft', 'submitted'], default: 'draft' },
   hasChanges: { type: Boolean, default: false },
+  registrationConfirmationEmailSent: { type: Boolean, default: false },
+  lastReviewedSnapshot: { type: mongoose.Schema.Types.Mixed, default: null },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Application', applicationSchema);

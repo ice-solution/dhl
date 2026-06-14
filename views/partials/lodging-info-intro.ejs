@@ -1,0 +1,60 @@
+<% if (typeof lodgingInfoCopy !== 'undefined' && lodgingInfoCopy && block === 'top') { %>
+<div class="app-lodging-intro app-lodging-intro--top">
+  <p class="app-lodging-hotel-name"><%= lodgingInfoCopy.hotel.name %></p>
+  <p><strong>Address:</strong> <%= lodgingInfoCopy.hotel.address %></p>
+  <p><strong>Telephone:</strong> <%= lodgingInfoCopy.hotel.telephone %></p>
+  <p><%= lodgingInfoCopy.hotel.passportNote %></p>
+
+  <% if (lodgingInfoCopy.accommodationTable) { %>
+  <% const table = lodgingInfoCopy.accommodationTable; %>
+  <p class="app-lodging-table-title"><strong><%= table.title %></strong></p>
+  <table class="app-lodging-table">
+    <thead>
+      <tr>
+        <% table.headers.forEach((header) => { %>
+        <th><%= header %></th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% table.rows.forEach((row) => { %>
+      <tr>
+        <td><%= row.type %></td>
+        <td><%= row.rate %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <% if (table.footnote) { %>
+  <p><%= table.footnote %></p>
+  <% } %>
+  <% if (table.showReservationEmail) { %>
+  <div class="app-lodging-email-field">
+    <label class="form-label"><span class="form-required">*</span> Email Address to send the reservation link</label>
+    <input type="email" name="reservationLinkEmail" class="form-input" value="<%= typeof reservationLinkEmail !== 'undefined' ? reservationLinkEmail : '' %>" placeholder="Email Address to send the reservation link">
+    <p class="app-lodging-email-hint">(The reservation link will be sent to the email address input in this field only)</p>
+  </div>
+  <% } %>
+  <% } %>
+</div>
+<% } %>
+
+<% if (typeof lodgingInfoCopy !== 'undefined' && lodgingInfoCopy && block === 'remarks' && lodgingInfoCopy.showRemarks) { %>
+<div class="app-lodging-intro app-lodging-intro--remarks">
+  <p class="app-lodging-remarks-heading"><strong>Remarks:</strong></p>
+  <% if (lodgingInfoCopy.remarkBullets && lodgingInfoCopy.remarkBullets.length) { %>
+  <ul class="app-lodging-remarks-list">
+    <% lodgingInfoCopy.remarkBullets.forEach((item) => { %>
+    <li><%= item %></li>
+    <% }); %>
+  </ul>
+  <% } %>
+  <% if (lodgingInfoCopy.numberedRemarks && lodgingInfoCopy.numberedRemarks.length) { %>
+  <ol class="app-lodging-remarks-list app-lodging-remarks-list--numbered">
+    <% lodgingInfoCopy.numberedRemarks.forEach((item) => { %>
+    <li><%= item %></li>
+    <% }); %>
+  </ol>
+  <% } %>
+</div>
+<% } %>

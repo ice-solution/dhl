@@ -30,8 +30,8 @@
       "group": "Non Awardees"
     },
     {
-      "value": "VN SMT",
-      "label": "VN SMT",
+      "value": "KR SMT",
+      "label": "KR SMT",
       "group": "Non Awardees"
     },
     {
@@ -110,116 +110,108 @@
       "label": "Please select"
     },
     {
-      "value": "APRO",
-      "label": "APRO"
+      "value": "EXP APRO",
+      "label": "EXP APRO"
     },
     {
-      "value": "APSSC",
-      "label": "APSSC"
+      "value": "EXP APSSC",
+      "label": "EXP APSSC"
     },
     {
-      "value": "Australia",
-      "label": "Australia"
+      "value": "EXP Australia",
+      "label": "EXP Australia"
     },
     {
-      "value": "Bangladesh",
-      "label": "Bangladesh"
+      "value": "EXP Bangladesh",
+      "label": "EXP Bangladesh"
     },
     {
-      "value": "Cambodia",
-      "label": "Cambodia"
+      "value": "EXP Cambodia",
+      "label": "EXP Cambodia"
     },
     {
-      "value": "Fiji",
-      "label": "Fiji"
+      "value": "EXP Fiji",
+      "label": "EXP Fiji"
     },
     {
-      "value": "GHO",
-      "label": "GHO"
+      "value": "EXP GHO",
+      "label": "EXP GHO"
     },
     {
-      "value": "Hong Kong",
-      "label": "Hong Kong"
+      "value": "EXP Hong Kong",
+      "label": "EXP Hong Kong"
     },
     {
-      "value": "Hub-BKKH",
-      "label": "Hub-BKKH"
+      "value": "EXP Hub-BKKH",
+      "label": "EXP Hub-BKKH"
     },
     {
-      "value": "Hub-CAH",
-      "label": "Hub-CAH"
+      "value": "EXP Hub-CAH",
+      "label": "EXP Hub-CAH"
     },
     {
-      "value": "Hub-SAH",
-      "label": "Hub-SAH"
+      "value": "EXP Hub-SAH",
+      "label": "EXP Hub-SAH"
     },
     {
-      "value": "India",
-      "label": "India"
+      "value": "EXP India",
+      "label": "EXP India"
     },
     {
-      "value": "Indonesia",
-      "label": "Indonesia"
+      "value": "EXP Indonesia",
+      "label": "EXP Indonesia"
     },
     {
-      "value": "Japan",
-      "label": "Japan"
+      "value": "EXP Japan",
+      "label": "EXP Japan"
     },
     {
-      "value": "Laos",
-      "label": "Laos"
+      "value": "EXP Laos",
+      "label": "EXP Laos"
     },
     {
-      "value": "Malaysia",
-      "label": "Malaysia"
+      "value": "EXP Malaysia",
+      "label": "EXP Malaysia"
     },
     {
-      "value": "Myanmar",
-      "label": "Myanmar"
+      "value": "EXP Myanmar",
+      "label": "EXP Myanmar"
     },
     {
-      "value": "Nepal",
-      "label": "Nepal"
+      "value": "EXP Nepal",
+      "label": "EXP Nepal"
     },
     {
-      "value": "New Zealand",
-      "label": "New Zealand"
+      "value": "EXP New Zealand",
+      "label": "EXP New Zealand"
     },
     {
-      "value": "Pakistan",
-      "label": "Pakistan"
+      "value": "EXP Papua New Guinea",
+      "label": "EXP Papua New Guinea"
     },
     {
-      "value": "Papua New Guinea",
-      "label": "Papua New Guinea"
+      "value": "EXP Philippines",
+      "label": "EXP Philippines"
     },
     {
-      "value": "Philippines",
-      "label": "Philippines"
+      "value": "EXP Singapore",
+      "label": "EXP Singapore"
     },
     {
-      "value": "Singapore",
-      "label": "Singapore"
+      "value": "EXP Sri Lanka",
+      "label": "EXP Sri Lanka"
     },
     {
-      "value": "South Korea",
-      "label": "South Korea"
+      "value": "EXP Taiwan",
+      "label": "EXP Taiwan"
     },
     {
-      "value": "Sri Lanka",
-      "label": "Sri Lanka"
+      "value": "EXP Thailand",
+      "label": "EXP Thailand"
     },
     {
-      "value": "Taiwan",
-      "label": "Taiwan"
-    },
-    {
-      "value": "Thailand",
-      "label": "Thailand"
-    },
-    {
-      "value": "Vietnam",
-      "label": "Vietnam"
+      "value": "EXP Vietnam",
+      "label": "EXP Vietnam"
     }
   ],
   "joinDhl": [
@@ -548,6 +540,46 @@
       "label": "Please select"
     },
     {
+      "value": "01",
+      "label": "01"
+    },
+    {
+      "value": "02",
+      "label": "02"
+    },
+    {
+      "value": "03",
+      "label": "03"
+    },
+    {
+      "value": "04",
+      "label": "04"
+    },
+    {
+      "value": "05",
+      "label": "05"
+    },
+    {
+      "value": "06",
+      "label": "06"
+    },
+    {
+      "value": "07",
+      "label": "07"
+    },
+    {
+      "value": "08",
+      "label": "08"
+    },
+    {
+      "value": "09",
+      "label": "09"
+    },
+    {
+      "value": "10",
+      "label": "10"
+    },
+    {
       "value": "11",
       "label": "11"
     },
@@ -570,12 +602,72 @@
     {
       "value": "16",
       "label": "16"
+    },
+    {
+      "value": "17",
+      "label": "17"
+    },
+    {
+      "value": "18",
+      "label": "18"
+    },
+    {
+      "value": "19",
+      "label": "19"
+    },
+    {
+      "value": "20",
+      "label": "20"
+    },
+    {
+      "value": "21",
+      "label": "21"
+    },
+    {
+      "value": "22",
+      "label": "22"
+    },
+    {
+      "value": "23",
+      "label": "23"
+    },
+    {
+      "value": "24",
+      "label": "24"
+    },
+    {
+      "value": "25",
+      "label": "25"
+    },
+    {
+      "value": "26",
+      "label": "26"
+    },
+    {
+      "value": "27",
+      "label": "27"
+    },
+    {
+      "value": "28",
+      "label": "28"
+    },
+    {
+      "value": "29",
+      "label": "29"
+    },
+    {
+      "value": "30",
+      "label": "30"
+    },
+    {
+      "value": "31",
+      "label": "31"
     }
   ],
   "arrDateMM": [
     {
-      "value": "04",
-      "label": "April"
+      "value": "09",
+      "label": "September"
     }
   ],
   "arrDateYY": [
@@ -944,6 +1036,74 @@
       "label": "Please select"
     },
     {
+      "value": "01",
+      "label": "01"
+    },
+    {
+      "value": "02",
+      "label": "02"
+    },
+    {
+      "value": "03",
+      "label": "03"
+    },
+    {
+      "value": "04",
+      "label": "04"
+    },
+    {
+      "value": "05",
+      "label": "05"
+    },
+    {
+      "value": "06",
+      "label": "06"
+    },
+    {
+      "value": "07",
+      "label": "07"
+    },
+    {
+      "value": "08",
+      "label": "08"
+    },
+    {
+      "value": "09",
+      "label": "09"
+    },
+    {
+      "value": "10",
+      "label": "10"
+    },
+    {
+      "value": "11",
+      "label": "11"
+    },
+    {
+      "value": "12",
+      "label": "12"
+    },
+    {
+      "value": "13",
+      "label": "13"
+    },
+    {
+      "value": "14",
+      "label": "14"
+    },
+    {
+      "value": "15",
+      "label": "15"
+    },
+    {
+      "value": "16",
+      "label": "16"
+    },
+    {
+      "value": "17",
+      "label": "17"
+    },
+    {
       "value": "18",
       "label": "18"
     },
@@ -966,12 +1126,44 @@
     {
       "value": "23",
       "label": "23"
+    },
+    {
+      "value": "24",
+      "label": "24"
+    },
+    {
+      "value": "25",
+      "label": "25"
+    },
+    {
+      "value": "26",
+      "label": "26"
+    },
+    {
+      "value": "27",
+      "label": "27"
+    },
+    {
+      "value": "28",
+      "label": "28"
+    },
+    {
+      "value": "29",
+      "label": "29"
+    },
+    {
+      "value": "30",
+      "label": "30"
+    },
+    {
+      "value": "31",
+      "label": "31"
     }
   ],
   "depDateMM": [
     {
-      "value": "04",
-      "label": "April"
+      "value": "09",
+      "label": "September"
     }
   ],
   "depDateYY": [
@@ -3104,12 +3296,20 @@
       "label": "Please select"
     },
     {
-      "value": "Option 1",
-      "label": "Option 1 - Adventure Tour"
+      "value": "Option 1 - Cultural Experience Tour",
+      "label": "Option 1 - Cultural Experience Tour"
     },
     {
-      "value": "Option 2",
-      "label": "Option 2 - Sightseeing Tour"
+      "value": "Option 2 - Korean Folk Heritage Tour",
+      "label": "Option 2 - Korean Folk Heritage Tour"
+    },
+    {
+      "value": "Option 3 - Wellness",
+      "label": "Option 3 - Wellness"
+    },
+    {
+      "value": "Option 4 - Free & Wasy",
+      "label": "Option 4 - Free & Wasy"
     }
   ],
   "aodaiColor": [

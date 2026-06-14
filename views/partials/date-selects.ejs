@@ -2,6 +2,11 @@
   prefix: arrival | departure | issue | expiry | dob | checkIn | checkOut
   val: { day, month, year }
 %>
+<% const isFlightDate = prefix === 'arrival' || prefix === 'departure'; %>
+<% const dateVal = val || {}; %>
+<% const selectedDay = dateVal.day || ''; %>
+<% const selectedMonth = dateVal.month || (isFlightDate ? '09' : ''); %>
+<% const selectedYear = dateVal.year || (isFlightDate ? '2026' : ''); %>
 <% const dayOpts = getDateOptions(prefix, 'day'); %>
 <% const monthOpts = getDateOptions(prefix, 'month'); %>
 <% const yearOpts = getDateOptions(prefix, 'year'); %>
@@ -12,11 +17,11 @@
       <% if (dayOpts.length === 0) { %>
         <option value="">--</option>
         <% for (let d = 1; d <= 31; d++) { %>
-          <option value="<%= d %>" <%= val && String(val.day) === String(d) ? 'selected' : '' %>><%= d %></option>
+          <option value="<%= String(d).padStart(2, '0') %>" <%= String(selectedDay) === String(d) || String(selectedDay) === String(d).padStart(2, '0') ? 'selected' : '' %>><%= String(d).padStart(2, '0') %></option>
         <% } %>
       <% } else { %>
         <% dayOpts.forEach((opt) => { %>
-          <option value="<%= opt.value %>" <%= val && String(val.day) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+          <option value="<%= opt.value %>" <%= String(selectedDay) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
         <% }); %>
       <% } %>
     </select>
@@ -26,13 +31,14 @@
     <select name="<%= prefix %>Month" class="form-select">
       <% if (monthOpts.length === 0) { %>
         <option value="">--</option>
-        <% const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; %>
+        <% const months = ['January','February','March','April','May','June','July','August','September','October','November','December']; %>
         <% months.forEach((m, i) => { %>
-          <option value="<%= i + 1 %>" <%= val && String(val.month) === String(i + 1) ? 'selected' : '' %>><%= m %></option>
+          <% const mv = String(i + 1).padStart(2, '0'); %>
+          <option value="<%= mv %>" <%= String(selectedMonth) === mv || String(selectedMonth) === String(i + 1) ? 'selected' : '' %>><%= m %></option>
         <% }); %>
       <% } else { %>
         <% monthOpts.forEach((opt) => { %>
-          <option value="<%= opt.value %>" <%= val && String(val.month) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+          <option value="<%= opt.value %>" <%= String(selectedMonth) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
         <% }); %>
       <% } %>
     </select>
@@ -43,11 +49,11 @@
       <% if (yearOpts.length === 0) { %>
         <option value="">--</option>
         <% for (let y = 2026; y >= 1950; y--) { %>
-          <option value="<%= y %>" <%= val && String(val.year) === String(y) ? 'selected' : '' %>><%= y %></option>
+          <option value="<%= y %>" <%= String(selectedYear) === String(y) ? 'selected' : '' %>><%= y %></option>
         <% } %>
       <% } else { %>
         <% yearOpts.forEach((opt) => { %>
-          <option value="<%= opt.value %>" <%= val && String(val.year) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
+          <option value="<%= opt.value %>" <%= String(selectedYear) === String(opt.value) ? 'selected' : '' %>><%= opt.label %></option>
         <% }); %>
       <% } %>
     </select>

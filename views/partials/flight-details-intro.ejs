@@ -1,0 +1,39 @@
+<% if (typeof flightDetailsCopy !== 'undefined' && flightDetailsCopy) { %>
+<div class="app-flight-intro">
+  <% flightDetailsCopy.intro.forEach((paragraph) => { %>
+  <p><%= paragraph %></p>
+  <% }); %>
+
+  <p>
+    You are required to provide flight details no later than <strong><%= flightDetailsCopy.deadline %></strong>.
+    Flight details could be amended after registration is submitted through re-login.
+  </p>
+  <p>Should you require hotel transfer information, please see below for your reference.</p>
+
+  <% if (flightDetailsCopy.transferTable) { %>
+  <p class="app-flight-intro-table-title"><%= flightDetailsCopy.transferTable.title %></p>
+  <table class="app-flight-table">
+    <thead>
+      <tr>
+        <% flightDetailsCopy.transferTable.headers.forEach((header) => { %>
+        <th><%= header %></th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% flightDetailsCopy.transferTable.rows.forEach((row) => { %>
+      <tr>
+        <td><%= row.route %></td>
+        <td><%= row.price %></td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <% } %>
+
+  <p class="app-flight-intro-footnote">
+    * For any reason where you cannot provide your flight details by this date, please notify the Event secretariat at Email:
+    <a href="mailto:<%= flightDetailsCopy.secretariatEmail %>" class="app-flight-intro-link"><%= flightDetailsCopy.secretariatEmail %></a>
+  </p>
+</div>
+<% } %>

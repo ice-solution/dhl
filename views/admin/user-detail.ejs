@@ -1,0 +1,116 @@
+<%- include('../partials/header', { pageTitle: 'Admin - User Review', showNav: false }) %>
+
+<div class="admin-review max-w-5xl mx-auto px-6 py-8">
+  <div class="flex flex-wrap items-start justify-between gap-4 mb-8">
+    <div>
+      <a href="/admin" class="admin-review-back">&larr; Back to User List</a>
+      <h2 class="admin-review-title">User Review</h2>
+      <p class="admin-review-subtitle"><%= user.userId %></p>
+    </div>
+    <div class="admin-review-actions">
+      <% if (review.hasChanges) { %>
+      <form method="POST" action="/admin/acknowledge/<%= user._id %>" class="inline">
+        <button type="submit" class="admin-review-btn">Mark Reviewed</button>
+      </form>
+      <% } %>
+      <a href="/admin/logout" class="admin-review-logout">Logout</a>
+    </div>
+  </div>
+
+  <% if (typeof success !== 'undefined' && success === 'reviewed') { %>
+  <div class="admin-review-alert admin-review-alert--success">Changes marked as reviewed.</div>
+  <% } %>
+
+  <div class="admin-review-meta">
+    <div class="admin-review-meta-item">
+      <span class="admin-review-meta-label">Full Name</span>
+      <span class="admin-review-meta-value"><%= user.fullName || '—' %></span>
+    </div>
+    <div class="admin-review-meta-item">
+      <span class="admin-review-meta-label">Category</span>
+      <span class="admin-review-meta-value"><%= review.category || '—' %></span>
+    </div>
+    <div class="admin-review-meta-item">
+      <span class="admin-review-meta-label">Status</span>
+      <span class="admin-review-meta-value">
+        <% if (review.status === 'submitted') { %>Submitted<% } else if (review.status === 'draft') { %>Draft<% } else { %>No Application<% } %>
+      </span>
+    </div>
+    <div class="admin-review-meta-item">
+      <span class="admin-review-meta-label">Last Updated</span>
+      <span class="admin-review-meta-value">
+        <%= review.updatedAt ? new Date(review.updatedAt).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) : '—' %>
+      </span>
+    </div>
+    <div class="admin-review-meta-item">
+      <span class="admin-review-meta-label">Pending Changes</span>
+      <span class="admin-review-meta-value">
+        <% if (review.hasChanges) { %>
+          <span class="admin-review-badge"><%= review.changedCount %> field<%= review.changedCount === 1 ? '' : 's' %></span>
+        <% } else { %>
+          None
+        <% } %>
+      </span>
+    </div>
+  </div>
+
+  <% if (review.hasChanges) { %>
+  <div class="admin-review-legend">
+    <span class="admin-review-legend-swatch"></span>
+    <span>Yellow highlight = field changed since last review</span>
+  </div>
+  <% } %>
+
+  <% if (!application) { %>
+  <div class="admin-review-empty">This user has not started an application yet.</div>
+  <% } else { %>
+    <% review.sections.forEach((section) => { %>
+    <section class="admin-review-section">
+      <h3 class="admin-review-section-title"><%= section.title %></h3>
+      <% if (section.id === 'photo') { %>
+      <% const photoFields = section.fields.filter((field) => field.type === 'photo'); %>
+      <% const textFields = section.fields.filter((field) => field.type !== 'photo'); %>
+      <% if (photoFields.length) { %>
+      <div class="admin-review-photo-grid">
+        <% photoFields.forEach((field) => { %>
+        <div class="admin-review-photo-card <%= field.changed ? 'admin-review-field--changed' : '' %>">
+          <div class="admin-review-field-label"><%= field.label %></div>
+          <% if (field.photoPath) { %>
+          <div class="admin-review-photo-preview">
+            <a href="<%= field.photoPath %>" target="_blank" rel="noopener noreferrer">
+              <img src="<%= field.photoPath %>" alt="<%= field.label %>">
+            </a>
+          </div>
+          <% } else { %>
+          <div class="admin-review-field-value"><%= field.value %></div>
+          <% } %>
+        </div>
+        <% }); %>
+      </div>
+      <% } %>
+      <% if (textFields.length) { %>
+      <div class="admin-review-grid <%= photoFields.length ? 'mt-4' : '' %>">
+        <% textFields.forEach((field) => { %>
+        <div class="admin-review-field <%= field.changed ? 'admin-review-field--changed' : '' %>">
+          <div class="admin-review-field-label"><%= field.label %></div>
+          <div class="admin-review-field-value"><%= field.value %></div>
+        </div>
+        <% }); %>
+      </div>
+      <% } %>
+      <% } else { %>
+      <div class="admin-review-grid">
+        <% section.fields.forEach((field) => { %>
+        <div class="admin-review-field <%= field.changed ? 'admin-review-field--changed' : '' %>">
+          <div class="admin-review-field-label"><%= field.label %></div>
+          <div class="admin-review-field-value"><%= field.value %></div>
+        </div>
+        <% }); %>
+      </div>
+      <% } %>
+    </section>
+    <% }); %>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

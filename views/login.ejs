@@ -15,7 +15,7 @@
   <form method="POST" action="/login" class="space-y-5">
     <div>
       <label class="form-label" for="userId">User ID</label>
-      <input type="text" id="userId" name="userId" class="form-input" required autocomplete="username" placeholder="Enter your User ID">
+      <input type="text" id="userId" name="userId" class="form-input" required autocomplete="username" placeholder="Enter your User ID" value="<%= typeof userId !== 'undefined' ? userId : '' %>">
     </div>
     <div>
       <label class="form-label" for="password">Password</label>
@@ -24,6 +24,9 @@
     <div class="pt-4 flex justify-center">
       <button type="submit" class="btn-gold w-full">Login</button>
     </div>
+    <p class="text-center mt-4">
+      <a href="/forgot-password" class="login-forgot-link">Forgotten your password?</a>
+    </p>
   </form>
 
   <p class="text-center text-xs text-gray-600 mt-8">

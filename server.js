@@ -1,14 +1,14 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const mongoose = require('mongoose');
-const path = require('path');
-
 const authRoutes = require('./routes/auth');
 const applicationRoutes = require('./routes/application');
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
+const registerRoutes = require('./routes/register');
 const formOptions = require('./data/form-options');
 
 const app = express();
@@ -46,6 +46,7 @@ app.use((req, res, next) => {
 });
 
 app.use(homeRoutes);
+app.use(registerRoutes);
 app.use(authRoutes);
 app.use(applicationRoutes);
 app.use(adminRoutes);

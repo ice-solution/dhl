@@ -1,0 +1,29 @@
+<% if (typeof photoUploadCopy !== 'undefined' && photoUploadCopy) { %>
+<div class="app-photo-intro">
+  <ul class="app-photo-instructions">
+    <% photoUploadCopy.instructions.forEach((item) => { %>
+    <li>
+      <% if (typeof item === 'object' && item.html) { %>
+      <%- item.html %>
+      <% } else { %>
+      <%= item %>
+      <% } %>
+    </li>
+    <% }); %>
+  </ul>
+
+  <% if (photoUploadCopy.referenceImages && photoUploadCopy.referenceImages.length) { %>
+  <div class="app-photo-references">
+    <% photoUploadCopy.referenceImages.forEach((ref) => { %>
+    <figure class="app-photo-reference">
+      <figcaption class="app-photo-reference-label"><%= ref.label %></figcaption>
+      <img src="<%= ref.src %>" alt="<%= ref.alt %>" class="app-photo-reference-img">
+    </figure>
+    <% }); %>
+  </div>
+  <% if (photoUploadCopy.referenceCaption) { %>
+  <p class="app-photo-reference-caption"><%= photoUploadCopy.referenceCaption %></p>
+  <% } %>
+  <% } %>
+</div>
+<% } %>

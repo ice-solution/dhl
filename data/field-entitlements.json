@@ -1,0 +1,885 @@
+{
+  "categories": [
+    {
+      "col": 6,
+      "key": "GMB",
+      "label": "GMB"
+    },
+    {
+      "col": 7,
+      "key": "APMB",
+      "label": "APMB"
+    },
+    {
+      "col": 8,
+      "key": "AP Country Manager",
+      "label": "AP Country Manager"
+    },
+    {
+      "col": 9,
+      "key": "AP Hub Manager",
+      "label": "AP Hub Manager"
+    },
+    {
+      "col": 10,
+      "key": "KR SMT",
+      "label": "KR SMT"
+    },
+    {
+      "col": 11,
+      "key": "GHO",
+      "label": "GHO"
+    },
+    {
+      "col": 12,
+      "key": "Organising Committee",
+      "label": "Organising Committee"
+    },
+    {
+      "col": 13,
+      "key": "Other",
+      "label": "Other"
+    },
+    {
+      "col": 15,
+      "key": "Employee of the Year - Overall Excellence",
+      "label": "Employee of the Year - Overall Excellence"
+    },
+    {
+      "col": 16,
+      "key": "Employee of the Year - Sales Excellence",
+      "label": "Employee of the Year - Sales Excellence"
+    },
+    {
+      "col": 17,
+      "key": "Supervisor of the Year",
+      "label": "Supervisor of the Year"
+    },
+    {
+      "col": 18,
+      "key": "DHL's Got Heart Finalist",
+      "label": "DHL's Got Heart Finalist"
+    }
+  ],
+  "fields": [
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "CATEGORY <dropdown list>",
+      "key": "category_dropdown_list",
+      "typeHint": "",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": false,
+        "Employee of the Year - Sales Excellence": false,
+        "Supervisor of the Year": false,
+        "DHL's Got Heart Finalist": false
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "JOB TITLE",
+      "key": "job_title",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "FUNCTION UNIT",
+      "key": "function_unit",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "Commercial / Customer Service / Finance & Administration / Human Resources / Information Technology / Operations / Others",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "BUSINESS UNIT",
+      "key": "business_unit",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "EXP APRO \nEXP APSSC \nEXP Australia\nEXP Bangladesh \nEXP Cambodia \nEXP Fiji \nEXP GHO \nEXP Hong Kong \nEXP Hub-BKKH \nEXP Hub-CAH \nEXP Hub-SAH\nEXP India\nEXP Indonesia \nEXP Japan \nEXP Laos \nEXP Malaysia \nEXP Myanmar \nEXP Nepal \nEXP New Zealand\nEXP Papua New Guinea \nEXP Philippines \nEXP Singapore\nEXP Sri Lanka \nEXP Taiwan \nEXP Thailand \nEXP Vietnam",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "WORK EMAIL ADDRESS",
+      "key": "work_email_address",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "PASSWORD",
+      "key": "password",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "ACCOUNT LOGIN (Part 1)",
+      "name": "CONIRM PASSWORD",
+      "key": "conirm_password",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "SALUTATION",
+      "key": "salutation",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "Mr / Mrs / Ms / Miss",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "SURNAME (AS IN PASSPORT)",
+      "key": "surname_as_in_passport",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "GIVEN NAME (AS IN PASSPORT)",
+      "key": "given_name_as_in_passport",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "NAME TO BE PRINTED ON BADGE",
+      "key": "name_to_be_printed_on_badge",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "GENDER",
+      "key": "gender",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "Male / Female",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "OFFICE PHONE",
+      "key": "office_phone",
+      "typeHint": "<text field>",
+      "optionsHint": "Country Code - Area Code - Number",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "MOBILE PHONE",
+      "key": "mobile_phone",
+      "typeHint": "<text field>",
+      "optionsHint": "Country Code - Area Code - Number",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 1st)",
+      "name": "SPECIAL PHYSICAL CONDITION",
+      "key": "special_physical_condition",
+      "typeHint": "YES",
+      "optionsHint": "Please specify:",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 2nd)",
+      "name": "SPECIAL DIETARY REQUIREMENTS",
+      "key": "special_dietary_requirements",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "No Preference",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 2nd)",
+      "name": "OTHER DIETARY REQUIRMENTS / FOOD ALLEGIES (IF ANY)",
+      "key": "other_dietary_requirments_food_allegies_if_any",
+      "typeHint": "Please specify:",
+      "optionsHint": "<text field>",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 2nd)",
+      "name": "GALA DINNER MAIN COURSE",
+      "key": "gala_dinner_main_course",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "Beef",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PROFILE (Part 2 - 2nd)",
+      "name": "T-SHIRT SIZE",
+      "key": "t_shirt_size",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "XS, S, M, L, XL, 2XL, 3XL, 4XL",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": true,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "ARRIVAL DATE",
+      "key": "arrival_date",
+      "typeHint": "DATE",
+      "optionsHint": "<text field>",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "ARRIVAL TIME (ETA)",
+      "key": "arrival_time_eta",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "HH:MM",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "ARRIVAL AIRLINE",
+      "key": "arrival_airline",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "ARRIVAL FLIGHT NUMBER",
+      "key": "arrival_flight_number",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DO YOU REQUIRE ARRIVAL PICK UP?\n<Flight details will appear on top>",
+      "key": "do_you_require_arrival_pick_up_flight_details_will_appear_on_top",
+      "typeHint": "YES",
+      "optionsHint": "<Tick box>",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DEPARTURE DATE",
+      "key": "departure_date",
+      "typeHint": "DATE",
+      "optionsHint": "<text field>",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DEPARTURE TIME (ETD)",
+      "key": "departure_time_etd",
+      "typeHint": "<dropdown list>",
+      "optionsHint": "HH:MM",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DEPARTURE AIRLINE",
+      "key": "departure_airline",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DEPARTURE FLIGHT NUMBER",
+      "key": "departure_flight_number",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DO YOU REQUIRE DEPARTURE TRANSFER?",
+      "key": "do_you_require_departure_transfer",
+      "typeHint": "YES",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "FLIGHT DETAILS (Part 3)",
+      "name": "DO YOU HAVE APEC BUSINESS TRAVEL CARD?",
+      "key": "do_you_have_apec_business_travel_card",
+      "typeHint": "YES",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": false,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": false,
+        "Employee of the Year - Sales Excellence": false,
+        "Supervisor of the Year": false,
+        "DHL's Got Heart Finalist": false
+      }
+    },
+    {
+      "section": "LODGING INFORMATION (Part 4)",
+      "name": "DO YOU REQUIRE ACCOMMODATION DURING EVENT PERIOD",
+      "key": "do_you_require_accommodation_during_event_period",
+      "typeHint": "YES",
+      "optionsHint": "NAME PRINTED ON PASSPORT",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "TOUR SELECTION",
+      "name": "PLEASE SELECT YOUR PREFERRED YOUR OPTION",
+      "key": "please_select_your_preferred_your_option",
+      "typeHint": "Option 1 - Cultural Experience Tour​",
+      "optionsHint": "<dropbox selections>",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PHOTO UPLOAD",
+      "name": "UNIFORM PHOTO",
+      "key": "uniform_photo",
+      "typeHint": "<Browse>",
+      "optionsHint": "<Photo Upload Information will appear>",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PHOTO UPLOAD",
+      "name": "NICE PHOTO OF YOURSELF",
+      "key": "nice_photo_of_yourself",
+      "typeHint": "<Browse>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "PHOTO UPLOAD",
+      "name": "WINNER'S MESSAGE",
+      "key": "winner_s_message",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": false,
+        "APMB": false,
+        "AP Country Manager": false,
+        "AP Hub Manager": false,
+        "KR SMT": false,
+        "GHO": false,
+        "Organising Committee": false,
+        "Other": false,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "EMERGENCY PERSONAL CONTACT",
+      "name": "NAME",
+      "key": "name",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "EMERGENCY PERSONAL CONTACT",
+      "name": "CONTACT NUMBER",
+      "key": "contact_number",
+      "typeHint": "<text field>",
+      "optionsHint": "Country Code - Area Code - Number",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "EMERGENCY PERSONAL CONTACT",
+      "name": "RELATIONSHIP",
+      "key": "relationship",
+      "typeHint": "<text field>",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    },
+    {
+      "section": "AGREEMENT",
+      "name": "[tick box] Please note that at this event photos and videos will be taken.\nBy checking this box I agree to the following:\n\nI acknowledge and agree that I may be included in photos, headshots and videos of the event and those may be unremunerated used by DHL International GmbH in connection with internal and external communications about the event and internal and external company presentations of DHL International GmbH and its affiliates. This might include the right to use them in printed (including the event Yearbook and Hall of Fame) and online publicity of DPDHL Group (e.g. on the intranet/mynet), on the public event website, for social media, presentations and/or press releases. Usage of the images for purposes other than described above is prohibited.",
+      "key": "tick_box_please_note_that_at_this_event_photos_and_videos_will_be_taken_by_checking_this_box_i_agree_to_the_following_i_acknowledge_and_agree_that_i_may_be_included_in_photos_headshots_and_videos_of_the_event_and_those_may_be_unremunerated_used_by_dhl_international_gmbh_in_connection_with_internal_and_external_communications_about_the_event_and_internal_and_external_company_presentations_of_dhl_international_gmbh_and_its_affiliates_this_might_include_the_right_to_use_them_in_printed_including_the_event_yearbook_and_hall_of_fame_and_online_publicity_of_dpdhl_group_e_g_on_the_intranet_mynet_on_the_public_event_website_for_social_media_presentations_and_or_press_releases_usage_of_the_images_for_purposes_other_than_described_above_is_prohibited",
+      "typeHint": "",
+      "optionsHint": "",
+      "visibility": {
+        "GMB": true,
+        "APMB": true,
+        "AP Country Manager": true,
+        "AP Hub Manager": true,
+        "KR SMT": true,
+        "GHO": true,
+        "Organising Committee": true,
+        "Other": true,
+        "Employee of the Year - Overall Excellence": true,
+        "Employee of the Year - Sales Excellence": true,
+        "Supervisor of the Year": true,
+        "DHL's Got Heart Finalist": true
+      }
+    }
+  ]
+}

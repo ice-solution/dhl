@@ -1,0 +1,59 @@
+<%- include('../partials/header', { pageTitle: 'Registration Confirmation - SUPER STARS', navType: 'home', activeNav: 'registration' }) %>
+
+<div class="reg-page">
+  <div class="reg-container reg-container--wide">
+    <div class="reg-intro">
+      <p>Please take a moment to complete your personal particulars below.</p>
+      <ol class="reg-intro-list">
+        <li>Information will be kept strictly confidential to the EOY Event</li>
+        <li><span class="reg-required">*</span> is Mandatory Field. You are recommended to complete all your personal particulars.</li>
+      </ol>
+    </div>
+
+    <% if (error) { %>
+    <div class="reg-error"><%= error %></div>
+    <% } %>
+
+    <section class="reg-confirm-section">
+      <h2 class="reg-section-heading">Account Login</h2>
+      <% display.part1.forEach((row) => { %>
+      <div class="reg-confirm-row">
+        <div class="reg-confirm-label"><%= row.label %></div>
+        <div class="reg-confirm-value"><%= row.value %></div>
+      </div>
+      <% }); %>
+    </section>
+
+    <section class="reg-confirm-section">
+      <h2 class="reg-section-heading">Profile</h2>
+      <% display.part2.forEach((row) => { %>
+      <div class="reg-confirm-row">
+        <div class="reg-confirm-label"><%= row.label %></div>
+        <div class="reg-confirm-value"><%= row.value %></div>
+      </div>
+      <% }); %>
+    </section>
+
+    <section class="reg-confirm-section">
+      <h2 class="reg-section-heading">Agreement</h2>
+      <div class="reg-agreement reg-agreement--confirm">
+        <label class="reg-checkbox-label reg-checkbox-label--block reg-checkbox-label--readonly">
+          <input type="checkbox" checked disabled class="accent-gold">
+          <span>Please note that at this event photos and videos will be taken.</span>
+        </label>
+        <p class="reg-agreement-text">
+          I understand that photos and videos taken during the event may be used for internal and external communications related to DHL events and activities. I hereby consent to DHL International GmbH and its affiliates using photos and videos in which I appear for internal and external communications, including but not limited to publications, websites, social media and marketing materials.
+        </p>
+      </div>
+    </section>
+
+    <div class="reg-actions">
+      <form method="POST" action="/register/confirm" class="inline">
+        <button type="submit" class="btn-gold btn-gold--lg">Confirm</button>
+      </form>
+      <a href="/register/new" class="btn-back">Back</a>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
