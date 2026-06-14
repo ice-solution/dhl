@@ -10,6 +10,7 @@ const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
 const registerRoutes = require('./routes/register');
 const formOptions = require('./data/form-options');
+const { getSiteUrl } = require('./lib/site-url');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -39,6 +40,7 @@ app.use(session({
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
+  res.locals.siteUrl = getSiteUrl(req);
   res.locals.getOptions = formOptions.getOptions;
   res.locals.getDateOptions = formOptions.getDateOptions;
   res.locals.getTimeOptions = formOptions.getTimeOptions;
