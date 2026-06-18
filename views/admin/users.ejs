@@ -12,6 +12,13 @@
     </div>
   </div>
 
+  <% if (success === 'deleted') { %>
+  <div class="admin-review-alert admin-review-alert--success mb-6">User has been deleted.</div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error === 'delete_failed') { %>
+  <div class="admin-review-alert admin-review-alert--error mb-6">Failed to delete user. Please try again.</div>
+  <% } %>
+
   <div class="overflow-x-auto border border-gray-800 rounded-sm">
     <table class="w-full text-sm text-left">
       <thead class="bg-gray-900 text-xs uppercase tracking-wider text-gray-400">
@@ -25,12 +32,13 @@
           <th class="px-4 py-3 font-medium">Changes</th>
           <th class="px-4 py-3 font-medium">Action</th>
           <th class="px-4 py-3 font-medium">Review</th>
+          <th class="px-4 py-3 font-medium">Delete</th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-800">
         <% if (rows.length === 0) { %>
         <tr>
-          <td colspan="9" class="px-4 py-8 text-center text-gray-500">No users found.</td>
+          <td colspan="10" class="px-4 py-8 text-center text-gray-500">No users found.</td>
         </tr>
         <% } %>
         <% rows.forEach(row => { %>
@@ -76,6 +84,11 @@
             <a href="/admin/users/<%= row.id %>" class="text-xs font-semibold uppercase tracking-wider <%= row.hasChanges ? 'text-black hover:text-gray-800 underline' : 'text-gold hover:text-gold-light' %>">
               View
             </a>
+          </td>
+          <td class="px-4 py-3">
+            <form method="POST" action="/admin/delete/<%= row.id %>" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?\n\nThis will permanently remove their account, application, and uploaded photos.');">
+              <button type="submit" class="admin-delete-btn">Delete</button>
+            </form>
           </td>
         </tr>
         <% }); %>

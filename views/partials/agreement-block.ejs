@@ -1,0 +1,21 @@
+<% const agreementCheckboxName = typeof checkboxName !== 'undefined' ? checkboxName : 'agreementAccepted'; %>
+<% const agreementChecked = typeof checked !== 'undefined' ? checked : false; %>
+<% const agreementReadonly = typeof readonly !== 'undefined' ? readonly : false; %>
+<% const agreementRequired = typeof required !== 'undefined' ? required : false; %>
+
+<div class="reg-agreement reg-agreement--confirm">
+  <label class="reg-checkbox-label reg-checkbox-label--block<%= agreementReadonly ? ' reg-checkbox-label--readonly' : '' %>">
+    <input
+      type="checkbox"
+      name="<%= agreementCheckboxName %>"
+      value="1"
+      class="accent-gold"
+      <%= agreementChecked ? 'checked' : '' %>
+      <%= agreementReadonly ? 'disabled' : '' %>
+      <%= agreementRequired ? 'required' : '' %>
+    >
+    <span>Please note that at this event photos and videos will be taken.</span>
+  </label>
+  <p class="reg-agreement-text reg-agreement-text--intro">By checking this box I agree to the following:</p>
+  <p class="reg-agreement-text">I acknowledge and agree that I may be included in photos, headshots and videos of the event and those may be unremunerated used by DHL International GmbH in connection with internal and external communications about the event and internal and external company presentations of DHL International GmbH and its affiliates. This might include the right to use them in printed (including the event Yearbook and Hall of Fame) and online publicity of DPDHL Group (e.g. on the intranet/mynet), on the public event website, for social media, presentations and/or press releases. Usage of the images for purposes other than described above is prohibited.</p>
+</div>

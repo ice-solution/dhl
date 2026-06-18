@@ -56,7 +56,6 @@ const APPLICATION_FIELD_MAP = {
   checkInDate: null,
   checkOutDate: null,
   bedType: null,
-  primaryStayDuration: null,
   otherRequests: null,
   tourSelection: 'please_select_your_preferred_your_option',
   uniformPhoto: 'uniform_photo',
@@ -103,7 +102,7 @@ function isAppFieldVisible(fieldId, category, options = {}) {
   if (fieldId === 'mobileCountryCode' || fieldId === 'mobileAreaCode' || fieldId === 'mobileNumber') {
     return isEntitlementVisible('mobile_phone', category);
   }
-  if (fieldId === 'otherRequests' || fieldId === 'primaryStayDuration') {
+  if (fieldId === 'otherRequests') {
     if (!rules.lodgingRemarks) return false;
   }
 

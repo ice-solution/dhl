@@ -95,14 +95,20 @@ function getLodgingInfoGroup(category) {
   return 'awardees_oc_others';
 }
 
+function getLodgingRemarksVisible(category) {
+  if (!category || category === 'GMB') return false;
+  const groupKey = getLodgingInfoGroup(category);
+  if (!groupKey) return false;
+  return LODGING_INFO_COPY[groupKey]?.showRemarks !== false;
+}
+
 function getLodgingInfoCopy(category) {
   const groupKey = getLodgingInfoGroup(category);
   if (!groupKey) return null;
 
-  const base = LODGING_INFO_COPY[groupKey];
   return {
-    ...base,
-    showRemarks: category === 'GMB' ? false : base.showRemarks,
+    ...LODGING_INFO_COPY[groupKey],
+    showRemarks: getLodgingRemarksVisible(category),
   };
 }
 
@@ -112,4 +118,5 @@ module.exports = {
   APMB_TIER_CATEGORIES,
   getLodgingInfoGroup,
   getLodgingInfoCopy,
+  getLodgingRemarksVisible,
 };

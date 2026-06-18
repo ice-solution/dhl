@@ -82,18 +82,44 @@ const FLOW_FIELD_RULES = {
   },
 };
 
+/** Per-category overrides (e.g. GMB / KR SMT have no flight section) */
+const CATEGORY_RULE_OVERRIDES = {
+  GMB: {
+    flight: false,
+    excludedSections: ['flight'],
+  },
+  'KR SMT': {
+    flight: false,
+    excludedSections: ['flight'],
+  },
+  'VN SMT': {
+    flight: false,
+    excludedSections: ['flight'],
+  },
+};
+
 function getFlowType(category) {
   return CATEGORY_TO_FLOW[category] || 'gmb';
 }
 
 function getFlowSections(category) {
   const flow = getFlowType(category);
-  return FLOW_SECTIONS[flow] || FLOW_SECTIONS.gmb;
+  let sections = FLOW_SECTIONS[flow] || FLOW_SECTIONS.gmb;
+  const override = CATEGORY_RULE_OVERRIDES[category];
+  if (override?.excludedSections?.length) {
+    sections = sections.filter((s) => !override.excludedSections.includes(s));
+  }
+  return sections;
 }
 
 function getFlowRules(category) {
   const flow = getFlowType(category);
-  return FLOW_FIELD_RULES[flow] || FLOW_FIELD_RULES.gmb;
+  const rules = { ...(FLOW_FIELD_RULES[flow] || FLOW_FIELD_RULES.gmb) };
+  const override = CATEGORY_RULE_OVERRIDES[category];
+  if (override?.flight === false) {
+    rules.flight = false;
+  }
+  return rules;
 }
 
 function isFlowSectionEnabled(category, sectionId) {

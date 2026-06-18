@@ -147,13 +147,11 @@
           <%- include('../partials/select-field', { name: 'shirtSize', options: getOptions('shirtSize'), selected: val('shirtSize') }) %>
         </div>
 
-        <div class="reg-agreement">
-          <label class="reg-checkbox-label reg-checkbox-label--block">
-            <input type="checkbox" name="photoConsent" value="1" class="accent-gold" required <%= v.photoConsent ? 'checked' : '' %>>
-            <span>Please note that at this event photos and videos will be taken.</span>
-          </label>
-          <p class="reg-agreement-text">I understand that photos and videos taken during the event may be used for internal and external communications related to DHL events and activities.</p>
-        </div>
+        <%- include('../partials/agreement-block', {
+          checkboxName: 'photoConsent',
+          checked: !!v.photoConsent,
+          required: true,
+        }) %>
 
         <div class="reg-actions">
           <button type="submit" class="btn-gold btn-gold--lg">Submit</button>

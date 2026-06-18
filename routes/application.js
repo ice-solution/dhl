@@ -14,7 +14,7 @@ const {
 } = require('../data/application-fields');
 const { getFlowRules } = require('../data/category-flows');
 const { getFlightDetailsCopy, getFlightDetailsGroup } = require('../data/flight-details-copy');
-const { getLodgingInfoCopy, getLodgingInfoGroup } = require('../data/lodging-info-copy');
+const { getLodgingInfoCopy, getLodgingInfoGroup, getLodgingRemarksVisible, LODGING_INFO_COPY } = require('../data/lodging-info-copy');
 const { getPhotoUploadCopy } = require('../data/photo-upload-copy');
 const { saveUserPhoto } = require('../lib/upload-photos');
 const formOptions = require('../data/form-options');
@@ -41,10 +41,10 @@ function buildCategoryMeta() {
     const lodgingGroup = getLodgingInfoGroup(cat);
     lodgingGroupByCategory[cat] = lodgingGroup;
     if (lodgingGroup && !lodgingCopyByGroup[lodgingGroup]) {
-      lodgingCopyByGroup[lodgingGroup] = getLodgingInfoCopy(cat);
+      lodgingCopyByGroup[lodgingGroup] = { ...LODGING_INFO_COPY[lodgingGroup] };
     }
 
-    lodgingRemarksByCategory[cat] = getFlowRules(cat).lodgingRemarks;
+    lodgingRemarksByCategory[cat] = getLodgingRemarksVisible(cat);
   });
 
   return {
@@ -159,7 +159,6 @@ function parseBody(body) {
       checkOutDate: { day: body.checkOutDay || '', month: body.checkOutMonth || '', year: body.checkOutYear || '' },
       bedType: body.bedType || '',
       otherRequests: body.otherRequests || '',
-      primaryStayDuration: body.primaryStayDuration || '',
       reservationLinkEmail: body.reservationLinkEmail || '',
     },
     culturalTour: {

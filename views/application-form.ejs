@@ -210,7 +210,7 @@
           <label class="form-label">Arrival Flight Number <span class="form-required">*</span></label>
           <input type="text" name="arrivalFlightNo" class="form-input" value="<%= flight.arrivalFlightNo || '' %>">
         </div>
-        <div class="<%= fieldClass('airportPickup') %>" data-app-field="airportPickup">
+        <div class="<%= fieldClass('airportPickup') %> md:col-span-2" data-app-field="airportPickup">
           <p class="form-label mb-2">Do you require arrival pick up? <span class="form-required">*</span></p>
           <div class="radio-group flex gap-6">
             <% ['Yes','No'].forEach(v => { %>
@@ -318,7 +318,7 @@
           <p class="form-label mb-2">Bed Type <span class="form-required">*</span></p>
           <div class="radio-group flex gap-6">
             <% ['King','Twin'].forEach(v => { %>
-              <label><input type="radio" name="bedType" value="<%= v %>" <%= lodge.bedType === v ? 'checked' : '' %>> <%= v %></label>
+              <label><input type="radio" name="bedType" value="<%= v %>" <%= (lodge.bedType ? lodge.bedType === v : v === 'King') ? 'checked' : '' %>> <%= v %></label>
             <% }); %>
           </div>
         </div>
@@ -326,15 +326,12 @@
           <label class="form-label">Other Request(s)</label>
           <textarea name="otherRequests" class="form-input h-24 resize-y"><%= lodge.otherRequests || '' %></textarea>
         </div>
-        <div class="<%= fieldClass('primaryStayDuration') %>" data-app-field="primaryStayDuration">
-          <label class="form-label">Primary Stay Duration</label>
-          <input type="text" name="primaryStayDuration" class="form-input" value="<%= lodge.primaryStayDuration || '' %>">
-        </div>
       </div>
       <% Object.entries(lodgingCopyByGroup).forEach(([group, copy]) => { %>
-      <% const showRemarks = copy.showRemarks !== false; %>
-      <div class="app-copy-block" data-lodging-copy-group="<%= group %>" data-lodging-block="remarks" <%= (lodgingGroupByCategory[currentCategory] !== group || !showRemarks || currentCategory === 'GMB') ? 'hidden' : '' %>>
-        <%- include('partials/lodging-info-intro', { block: 'remarks', lodgingInfoCopy: copy }) %>
+      <% const showLodgingRemarks = lodgingRemarksByCategory[currentCategory] !== false; %>
+      <% const remarksCopy = Object.assign({}, copy, { showRemarks: true }); %>
+      <div class="app-copy-block" data-lodging-copy-group="<%= group %>" data-lodging-block="remarks" <%= (lodgingGroupByCategory[currentCategory] !== group || !showLodgingRemarks) ? 'hidden' : '' %>>
+        <%- include('partials/lodging-info-intro', { block: 'remarks', lodgingInfoCopy: remarksCopy }) %>
       </div>
       <% }); %>
     </div>
@@ -411,13 +408,10 @@
     <!-- Agreement -->
     <div data-app-section-wrap="agreement" class="<%= sectionClass('agreement') %>">
       <h2 class="section-title" data-app-section="agreement">Agreement</h2>
-      <div class="reg-agreement reg-agreement--confirm">
-        <label class="reg-checkbox-label reg-checkbox-label--block">
-          <input type="checkbox" name="agreementAccepted" value="1" class="accent-gold" <%= app.agreementAccepted || user.photoConsent ? 'checked' : '' %>>
-          <span>Please note that at this event photos and videos will be taken.</span>
-        </label>
-        <p class="reg-agreement-text">I acknowledge and agree that I may be included in photos, headshots and videos of the event and those may be used by DHL International GmbH in connection with internal and external communications about the event.</p>
-      </div>
+      <%- include('partials/agreement-block', {
+        checkboxName: 'agreementAccepted',
+        checked: !!(app.agreementAccepted || user.photoConsent),
+      }) %>
     </div>
 
     <div class="flex justify-end gap-4 mt-10 mb-8">

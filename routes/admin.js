@@ -4,6 +4,7 @@ const Application = require('../models/Application');
 const { requireAdmin } = require('../middleware/auth');
 const { buildAdminReview, createReviewSnapshot } = require('../lib/admin-review');
 const { exportToBuffer, buildExportFilename } = require('../lib/admin-export');
+const { deleteUserUploads } = require('../lib/upload-photos');
 
 const router = express.Router();
 
@@ -53,7 +54,11 @@ router.get('/admin', requireAdmin, async (req, res) => {
     };
   });
 
-  res.render('admin/users', { rows });
+  res.render('admin/users', {
+    rows,
+    success: req.query.success || null,
+    error: req.query.error || null,
+  });
 });
 
 router.get('/admin/export', requireAdmin, async (req, res) => {
@@ -114,6 +119,30 @@ router.post('/admin/acknowledge/:userId', requireAdmin, async (req, res) => {
   }
 
   res.redirect('/admin');
+});
+
+router.post('/admin/delete/:userId', requireAdmin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userId);
+    if (!user) {
+      return res.redirect('/admin');
+    }
+
+    const userId = user._id.toString();
+    await Application.deleteOne({ user: user._id });
+    await User.deleteOne({ _id: user._id });
+
+    try {
+      await deleteUserUploads(userId);
+    } catch (uploadErr) {
+      console.error('Failed to delete user uploads:', uploadErr);
+    }
+
+    res.redirect('/admin?success=deleted');
+  } catch (err) {
+    console.error('Admin delete user failed:', err);
+    res.redirect('/admin?error=delete_failed');
+  }
 });
 
 module.exports = router;

@@ -51,7 +51,10 @@
       const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
-      target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+      const nav = document.getElementById('siteNav');
+      const navOffset = nav?.classList.contains('nav-bar--fixed') ? nav.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
   });
 

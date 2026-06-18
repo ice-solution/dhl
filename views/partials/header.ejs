@@ -53,34 +53,36 @@
   <a href="/" class="site-header-brand">
     <img src="/images/logo.png" alt="DHL Super Stars Employee of the Year" class="site-logo">
   </a>
-
-  <% if (typeof navType !== 'undefined' && navType === 'home') { %>
-  <% const onRegisterFlow = typeof activeNav !== 'undefined' && activeNav === 'registration'; %>
-  <% const navRoot = onRegisterFlow ? '/' : ''; %>
-  <nav class="nav-bar">
-    <div class="nav-bar-inner nav-bar-inner--wrap">
-      <a href="<%= navRoot %>#home" class="nav-bar-link">Home</a>
-      <a href="<%= onRegisterFlow ? '/register' : navRoot + '#registration' %>" class="nav-bar-link<%= onRegisterFlow ? ' nav-bar-link--active' : '' %>">Registration</a>
-      <a href="<%= navRoot %>#visa" class="nav-bar-link">Seoul Visa</a>
-      <a href="<%= navRoot %>#hotel" class="nav-bar-link">Hotel</a>
-      <a href="<%= navRoot %>#seoul-info" class="nav-bar-link">Seoul Info</a>
-      <a href="<%= navRoot %>#contact" class="nav-bar-link">Contact</a>
-      <% if (session && session.userId) { %>
-      <a href="/account" class="nav-bar-link">My Account</a>
-      <% } else { %>
-      <a href="/login" class="nav-bar-link">Login</a>
-      <% } %>
-    </div>
-  </nav>
-  <% } else if (typeof showNav !== 'undefined' && showNav) { %>
-  <nav class="nav-bar">
-    <div class="nav-bar-inner nav-bar-inner--wrap">
-      <a href="/" class="nav-bar-link">Home</a>
-      <a href="/account" class="nav-bar-link">My Account</a>
-      <a href="/logout" class="nav-bar-link">Logout</a>
-    </div>
-  </nav>
-  <% } %>
 </header>
+
+<% if (typeof navType !== 'undefined' && navType === 'home') { %>
+<% const onRegisterFlow = typeof activeNav !== 'undefined' && activeNav === 'registration'; %>
+<% const navRoot = onRegisterFlow ? '/' : ''; %>
+<nav class="nav-bar" id="siteNav">
+  <div class="nav-bar-inner nav-bar-inner--wrap">
+    <a href="<%= navRoot %>#home" class="nav-bar-link">Home</a>
+    <a href="<%= onRegisterFlow ? '/register' : navRoot + '#registration' %>" class="nav-bar-link<%= onRegisterFlow ? ' nav-bar-link--active' : '' %>">Registration</a>
+    <a href="<%= navRoot %>#visa" class="nav-bar-link">Seoul Visa</a>
+    <a href="<%= navRoot %>#hotel" class="nav-bar-link">Hotel</a>
+    <a href="<%= navRoot %>#seoul-info" class="nav-bar-link">Seoul Info</a>
+    <a href="<%= navRoot %>#contact" class="nav-bar-link">Contact</a>
+    <% if (session && session.userId) { %>
+    <a href="/account" class="nav-bar-link">My Account</a>
+    <% } else { %>
+    <a href="/login" class="nav-bar-link">Login</a>
+    <% } %>
+  </div>
+</nav>
+<div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
+<% } else if (typeof showNav !== 'undefined' && showNav) { %>
+<nav class="nav-bar" id="siteNav">
+  <div class="nav-bar-inner nav-bar-inner--wrap">
+    <a href="/" class="nav-bar-link">Home</a>
+    <a href="/account" class="nav-bar-link">My Account</a>
+    <a href="/logout" class="nav-bar-link">Logout</a>
+  </div>
+</nav>
+<div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
+<% } %>
 
 <main class="flex-1">

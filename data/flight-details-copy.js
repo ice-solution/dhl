@@ -38,7 +38,6 @@ const FLIGHT_DETAILS_COPY = {
 const INCLUDED_AWARDEE_GMB_CATEGORIES = [
   ...AWARDEES_CATEGORIES,
   'Organising Committee',
-  'GMB',
 ];
 
 function getFlightDetailsGroup(category) {

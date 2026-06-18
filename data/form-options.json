@@ -3238,8 +3238,8 @@
   ],
   "checkInDateMM": [
     {
-      "value": "04",
-      "label": "April"
+      "value": "09",
+      "label": "September"
     }
   ],
   "checkInDateYY": [
@@ -3280,8 +3280,8 @@
   ],
   "checkOutDateMM": [
     {
-      "value": "04",
-      "label": "April"
+      "value": "09",
+      "label": "September"
     }
   ],
   "checkOutDateYY": [

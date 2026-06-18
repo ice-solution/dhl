@@ -3,9 +3,10 @@
   val: { day, month, year }
 %>
 <% const isFlightDate = prefix === 'arrival' || prefix === 'departure'; %>
+<% const isLodgingDate = prefix === 'checkIn' || prefix === 'checkOut'; %>
 <% const dateVal = val || {}; %>
 <% const selectedDay = dateVal.day || ''; %>
-<% const selectedMonth = dateVal.month || (isFlightDate ? '09' : ''); %>
+<% const selectedMonth = dateVal.month || (isFlightDate || isLodgingDate ? '09' : ''); %>
 <% const selectedYear = dateVal.year || (isFlightDate ? '2026' : ''); %>
 <% const dayOpts = getDateOptions(prefix, 'day'); %>
 <% const monthOpts = getDateOptions(prefix, 'month'); %>

@@ -52,11 +52,12 @@
     });
 
     const lodgingGroup = lodgingGroupByCategory[category];
+    const lodgingRemarks = getLodgingRemarks(category);
     document.querySelectorAll('[data-lodging-copy-group]').forEach((el) => {
       const matchGroup = el.dataset.lodgingCopyGroup === lodgingGroup;
       const isRemarks = el.dataset.lodgingBlock === 'remarks';
       let show = matchGroup;
-      if (isRemarks && category === 'GMB') show = false;
+      if (isRemarks) show = matchGroup && lodgingRemarks;
       el.hidden = !show;
     });
   }
@@ -75,7 +76,7 @@
 
       if (isLodgingField(id)) {
         visible = lodgingVisible;
-        if (!lodgingRemarks && (id === 'otherRequests' || id === 'primaryStayDuration')) {
+        if (!lodgingRemarks && id === 'otherRequests') {
           visible = false;
         }
       }

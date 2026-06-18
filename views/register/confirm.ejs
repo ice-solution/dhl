@@ -36,15 +36,11 @@
 
     <section class="reg-confirm-section">
       <h2 class="reg-section-heading">Agreement</h2>
-      <div class="reg-agreement reg-agreement--confirm">
-        <label class="reg-checkbox-label reg-checkbox-label--block reg-checkbox-label--readonly">
-          <input type="checkbox" checked disabled class="accent-gold">
-          <span>Please note that at this event photos and videos will be taken.</span>
-        </label>
-        <p class="reg-agreement-text">
-          I understand that photos and videos taken during the event may be used for internal and external communications related to DHL events and activities. I hereby consent to DHL International GmbH and its affiliates using photos and videos in which I appear for internal and external communications, including but not limited to publications, websites, social media and marketing materials.
-        </p>
-      </div>
+      <%- include('../partials/agreement-block', {
+        checkboxName: 'photoConsent',
+        checked: true,
+        readonly: true,
+      }) %>
     </section>
 
     <div class="reg-actions">
