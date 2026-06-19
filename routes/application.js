@@ -104,6 +104,7 @@ function parseBody(body) {
       functionUnit: body.functionUnit || '',
       functionUnitOthers: body.functionUnitOthers || '',
       businessUnit: body.businessUnit || '',
+      globalId: body.globalId?.trim() || '',
       joinDhl: body.joinDhl || '',
       fullName: body.fullName || [firstName, surname].filter(Boolean).join(' '),
     },
@@ -245,6 +246,7 @@ async function syncUserProfile(userId, body) {
   user.functionUnit = body.functionUnit || '';
   user.functionUnitOthers = body.functionUnitOthers || '';
   user.businessUnit = body.businessUnit || '';
+  user.globalId = body.globalId?.trim() || '';
   user.salutation = body.salutation || '';
   user.surname = surname;
   user.givenName = firstName;

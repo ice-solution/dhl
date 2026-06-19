@@ -90,9 +90,14 @@
           <label class="form-label">Work Email Address</label>
           <input type="email" class="form-input bg-gray-100" value="<%= acct.userId || user.userId || '' %>" readonly>
         </div>
+        <div class="<%= fieldClass('globalId') %> md:col-span-2" data-app-field="globalId">
+          <label class="form-label">Global ID (GID) <span class="form-required">*</span></label>
+          <input type="text" name="globalId" class="form-input" value="<%= acct.globalId || user.globalId || '' %>" maxlength="100" placeholder="Global ID (GID)">
+          <p class="text-xs text-gray-400 mt-1">You may check your GID at <a href="<%= siteDocuments.gidLookup %>" class="text-gold underline" target="_blank" rel="noopener noreferrer"><%= siteDocuments.gidLookup %></a></p>
+        </div>
       </div>
       <div class="flex justify-end mt-4">
-        <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+        <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>
     </div>
 
@@ -177,11 +182,11 @@
         <div class="<%= fieldClass('shirtSize') %>" data-app-field="shirtSize">
           <label class="form-label">T-shirt size <span class="form-required">*</span></label>
           <%- include('partials/select-field', { name: 'shirtSize', options: getOptions('shirtSize'), selected: costume.shirtSize || user.shirtSize }) %>
-          <p class="text-xs text-gray-500 mt-1"><a href="#" class="text-gold underline">Size chart PDF</a></p>
+          <p class="text-xs text-gray-500 mt-1"><a href="<%= siteDocuments.tShirtSizeChart %>" class="text-gold underline" target="_blank" rel="noopener noreferrer">T-shirt size chart (PDF)</a></p>
         </div>
       </div>
       <div class="flex justify-end mt-4">
-        <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+        <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>
     </div>
 
@@ -252,7 +257,7 @@
         </div>
       </div>
       <div class="flex justify-end mt-4">
-        <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+        <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>
     </div>
 
@@ -302,9 +307,11 @@
           <p class="form-label mb-2">Passport Expiry Date <span class="form-required">*</span></p>
           <%- include('partials/date-selects', { prefix: 'expiry', val: expiryDate }) %>
         </div>
-        <div class="<%= fieldClass('dateOfBirth') %>" data-app-field="dateOfBirth">
-          <p class="form-label mb-2">Date of Birth <span class="form-required">*</span></p>
-          <%- include('partials/date-selects', { prefix: 'dob', val: dob }) %>
+        <div class="<%= fieldClass('dateOfBirth') %> md:col-span-2" data-app-field="dateOfBirth">
+          <div class="md:w-1/2">
+            <p class="form-label mb-2">Date of Birth <span class="form-required">*</span></p>
+            <%- include('partials/date-selects', { prefix: 'dob', val: dob }) %>
+          </div>
         </div>
         <div class="<%= fieldClass('checkInDate') %>" data-app-field="checkInDate">
           <p class="form-label mb-2">Check-in Date <span class="form-required">*</span></p>
@@ -314,7 +321,7 @@
           <p class="form-label mb-2">Check-out Date <span class="form-required">*</span></p>
           <%- include('partials/date-selects', { prefix: 'checkOut', val: checkOut }) %>
         </div>
-        <div class="<%= fieldClass('bedType') %>" data-app-field="bedType">
+        <div class="<%= fieldClass('bedType') %> md:col-span-2" data-app-field="bedType">
           <p class="form-label mb-2">Bed Type <span class="form-required">*</span></p>
           <div class="radio-group flex gap-6">
             <% ['King','Twin'].forEach(v => { %>
@@ -345,7 +352,7 @@
         <%- include('partials/select-field', { name: 'tourSelection', options: getOptions('tour'), selected: tour.tourSelection }) %>
       </div>
       <div class="flex justify-end mt-4">
-        <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+        <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>
     </div>
 
@@ -382,7 +389,7 @@
         </div>
       </div>
       <div class="flex justify-end mt-4">
-        <button type="submit" name="action" value="save" class="btn-gold">Save Section</button>
+        <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>
     </div>
 

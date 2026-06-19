@@ -4,7 +4,10 @@
   <div class="site-footer-inner site-footer-inner--compact">
     <div class="site-footer-bottom">
       <p class="site-footer-copyright">Copyrights &copy; <%= new Date().getFullYear() %> All Rights Reserved by DHL EOY</p>
-      <a href="#" class="site-footer-privacy">Data Privacy Policy Consent Settings</a>
+      <div class="site-footer-links">
+        <a href="<%= siteDocuments.personalInfoCollection %>" class="site-footer-privacy" target="_blank" rel="noopener noreferrer">Personal Information Collection Statement</a>
+        <a href="<%= siteDocuments.dataPrivacyPolicy %>" class="site-footer-privacy">Data Privacy Policy Consent Settings</a>
+      </div>
     </div>
   </div>
 </footer>

@@ -3,7 +3,7 @@
   const fieldsWrap = document.getElementById('regFieldsWrap');
   const visibility = window.REG_VISIBILITY || {};
   const requiredFields = new Set([
-    'jobTitle', 'functionUnit', 'businessUnit', 'workEmail', 'password', 'confirmPassword',
+    'jobTitle', 'functionUnit', 'businessUnit', 'workEmail', 'globalId', 'password', 'confirmPassword',
     'salutation', 'surname', 'givenName', 'nameOnBadge', 'gender', 'mobilePhone',
     'specialPhysicalCondition', 'dietaryRequirements', 'galaMainCourse', 'shirtSize',
   ]);

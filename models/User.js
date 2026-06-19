@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema({
   functionUnit: { type: String, default: '' },
   functionUnitOthers: { type: String, default: '' },
   businessUnit: { type: String, default: '' },
+  globalId: { type: String, default: '' },
   title: { type: String, default: '' },
   fullName: { type: String, default: '' },
   salutation: { type: String, default: '' },

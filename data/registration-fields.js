@@ -1,6 +1,7 @@
 const entitlements = require('./field-entitlements.json');
 const { entitlementKey } = require('./category-aliases');
 const { sortByEntitlementOrder } = require('./form-field-order');
+const { AWARDEES_CATEGORIES } = require('./category-flows');
 
 const FIELD_MAP = {
   job_title: { id: 'jobTitle', label: 'Job Title', type: 'text', required: true, section: 'part1' },
@@ -66,6 +67,10 @@ function getFieldsBySection(category) {
   };
 }
 
+function isGlobalIdVisible(category) {
+  return AWARDEES_CATEGORIES.includes(category);
+}
+
 function getVisibilityMatrix(categoryValues) {
   const matrix = {};
   categoryValues
@@ -75,6 +80,7 @@ function getVisibilityMatrix(categoryValues) {
       Object.entries(FIELD_MAP).forEach(([entKey, field]) => {
         matrix[category][field.id] = isFieldVisible(entKey, category);
       });
+      matrix[category].globalId = isGlobalIdVisible(category);
     });
   return matrix;
 }
@@ -139,6 +145,13 @@ function getConfirmDisplay(category, body, resolveLabel) {
     else part2.push(item);
   });
 
+  if (AWARDEES_CATEGORIES.includes(category)) {
+    const workEmailIdx = part1.findIndex((item) => item.label === 'Work Email Address');
+    const gidItem = { label: 'Global ID (GID)', value: body.globalId || '—' };
+    if (workEmailIdx >= 0) part1.splice(workEmailIdx + 1, 0, gidItem);
+    else part1.push(gidItem);
+  }
+
   return { part1, part2 };
 }
 
@@ -157,6 +170,7 @@ function normalizeRegistrationBody(body) {
 
 module.exports = {
   DIETARY_OPTIONS,
+  isGlobalIdVisible,
   isFieldVisible,
   getRegistrationFields,
   getFieldsBySection,

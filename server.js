@@ -11,6 +11,7 @@ const homeRoutes = require('./routes/home');
 const registerRoutes = require('./routes/register');
 const formOptions = require('./data/form-options');
 const { getSiteUrl } = require('./lib/site-url');
+const { SITE_DOCUMENTS } = require('./data/site-documents');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
   res.locals.getOptions = formOptions.getOptions;
   res.locals.getDateOptions = formOptions.getDateOptions;
   res.locals.getTimeOptions = formOptions.getTimeOptions;
+  res.locals.siteDocuments = SITE_DOCUMENTS;
   next();
 });
 

@@ -9,6 +9,7 @@ const {
 const SECRETARIAT_EMAIL = 'apeceoy@dhl.com';
 const REGISTRATION_DEADLINE = '24 July 2026';
 const EVENT_NAME = 'DHL EOY 2025';
+const EMAIL_FONT = 'Arial, Helvetica, sans-serif';
 
 function formatGreetingName(firstName, lastName) {
   const given = (firstName || '').trim();
@@ -18,9 +19,19 @@ function formatGreetingName(firstName, lastName) {
 }
 
 function buildCtaButtonHtml(url, label = 'Complete Registration') {
-  return `<p style="margin:24px 0;">
+  return `<p style="margin:24px 0;font-family:${EMAIL_FONT};">
   <a href="${url}" style="display:inline-block;padding:14px 32px;background:#FFCC00;color:#D40511;font-weight:bold;text-decoration:none;border-radius:4px;">${label}</a>
 </p>`;
+}
+
+function buildEmailSignatureText() {
+  return `With Regards,
+Eva Ng
+Event Secretariat`;
+}
+
+function buildEmailSignatureHtml() {
+  return `<p style="font-family:${EMAIL_FONT};">With Regards,<br>Eva Ng<br>Event Secretariat</p>`;
 }
 
 const ACCOUNT_CREATED_PAGE = {
@@ -32,7 +43,7 @@ const ACCOUNT_CREATED_PAGE = {
   deadlineReminder: `To ensure smooth arrangement, please be reminded to complete your personal and traveling details by ${REGISTRATION_DEADLINE}.`,
   loginReminder: 'You can log in to your account to update these details before the deadline.',
   closing: 'Thank you and we look forward to welcoming you in Seoul, South Korea!',
-  signOff: 'Sincerely,\nEvent Secretariat\nEva Ng',
+  signOff: 'Sincerely,\nEva Ng\nEvent Secretariat',
 };
 
 const ACCOUNT_CREATED_EMAIL = {
@@ -58,10 +69,7 @@ A confirmation note with the event details will be sent to you closer to the eve
 
 In the meantime, if you have any inquiries regarding this event, please contact our event secretariat by email at ${SECRETARIAT_EMAIL}.
 
-With Regards,
-Event Secretariat
-Eva Ng
-e: ${SECRETARIAT_EMAIL}`;
+${buildEmailSignatureText()}`;
   },
   buildEmailHtml({ firstName, lastName, applicationUrl, user }) {
     const name = formatGreetingName(firstName, lastName);
@@ -69,7 +77,7 @@ e: ${SECRETARIAT_EMAIL}`;
 
     return `<!DOCTYPE html>
 <html>
-<body style="font-family:Arial,sans-serif;color:#333;line-height:1.6;max-width:600px;">
+<body style="font-family:${EMAIL_FONT};color:#333;line-height:1.6;max-width:600px;">
   <p>Dear ${name},</p>
   <p>Thank you for registering for ${EVENT_NAME}.</p>
   <p>If you would like to modify your registration information or update us your flight details, please click the button below. The deadline to complete your registration is <strong>${REGISTRATION_DEADLINE}</strong>.</p>
@@ -79,7 +87,7 @@ e: ${SECRETARIAT_EMAIL}`;
   ${summaryHtml}
   <p style="margin-top:24px;">A confirmation note with the event details will be sent to you closer to the event date.</p>
   <p>In the meantime, if you have any inquiries regarding this event, please contact our event secretariat by email at <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a>.</p>
-  <p>With Regards,<br>Event Secretariat<br>Eva Ng<br>e: <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a></p>
+  ${buildEmailSignatureHtml()}
 </body>
 </html>`;
   },
@@ -104,17 +112,14 @@ Should you have any enquiries, please contact our event secretariat by email at 
 
 Thank you and we look forward to welcoming you in Seoul, South Korea!
 
-With Regards,
-Event Secretariat
-Eva Ng
-e: ${SECRETARIAT_EMAIL}`;
+${buildEmailSignatureText()}`;
   },
   buildEmailHtml({ firstName, lastName, applicationUrl }) {
     const name = formatGreetingName(firstName, lastName);
 
     return `<!DOCTYPE html>
 <html>
-<body style="font-family:Arial,sans-serif;color:#333;line-height:1.6;max-width:600px;">
+<body style="font-family:${EMAIL_FONT};color:#333;line-height:1.6;max-width:600px;">
   <p>Dear ${name},</p>
   <p>Thank you for updating the information.</p>
   <p>To ensure smooth arrangement, please be reminded to complete your personal and traveling details by <strong>${REGISTRATION_DEADLINE}</strong>.</p>
@@ -123,7 +128,7 @@ e: ${SECRETARIAT_EMAIL}`;
   <p style="font-size:13px;color:#666;">Or copy this link: <a href="${applicationUrl}">${applicationUrl}</a></p>
   <p>Should you have any enquiries, please contact our event secretariat by email at <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a></p>
   <p>Thank you and we look forward to welcoming you in Seoul, South Korea!</p>
-  <p>With Regards,<br>Event Secretariat<br>Eva Ng<br>e: <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a></p>
+  ${buildEmailSignatureHtml()}
 </body>
 </html>`;
   },
@@ -150,10 +155,7 @@ New Password: ${password}
 A confirmation note with the event details will be sent to you closer to the event date.
 In the meantime, if you have any inquiries regarding this event, please contact our event secretariat by email at ${SECRETARIAT_EMAIL}.
 
-With Regards,
-Event Secretariat
-Eva Ng
-e: ${SECRETARIAT_EMAIL}`;
+${buildEmailSignatureText()}`;
   },
 };
 

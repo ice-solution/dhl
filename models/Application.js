@@ -10,6 +10,7 @@ const applicationSchema = new mongoose.Schema({
     functionUnit: String,
     functionUnitOthers: String,
     businessUnit: String,
+    globalId: String,
     joinDhl: String,
     fullName: String,
   },

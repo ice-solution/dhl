@@ -38,6 +38,7 @@ const FLIGHT_DETAILS_COPY = {
 const INCLUDED_AWARDEE_GMB_CATEGORIES = [
   ...AWARDEES_CATEGORIES,
   'Organising Committee',
+  'GMB',
 ];
 
 function getFlightDetailsGroup(category) {
@@ -56,7 +57,7 @@ function getFlightDetailsCopy(category) {
     ...base,
     deadline: FLIGHT_DEADLINE,
     secretariatEmail: SECRETARIAT_EMAIL,
-    transferTable: TRANSFER_TABLE,
+    transferTable: category === 'GMB' ? null : TRANSFER_TABLE,
   };
 }
 

@@ -43,6 +43,7 @@ const FLOW_FIELD_RULES = {
   awardees: {
     specialPhysicalCondition: true,
     shirtSize: true,
+    globalId: true,
     flight: true,
     tour: true,
     photo: true,
@@ -51,6 +52,7 @@ const FLOW_FIELD_RULES = {
   gmb: {
     specialPhysicalCondition: false,
     shirtSize: false,
+    globalId: false,
     flight: true,
     tour: false,
     photo: false,
@@ -82,12 +84,8 @@ const FLOW_FIELD_RULES = {
   },
 };
 
-/** Per-category overrides (e.g. GMB / KR SMT have no flight section) */
+/** Per-category overrides */
 const CATEGORY_RULE_OVERRIDES = {
-  GMB: {
-    flight: false,
-    excludedSections: ['flight'],
-  },
   'KR SMT': {
     flight: false,
     excludedSections: ['flight'],

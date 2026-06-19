@@ -7,7 +7,7 @@
   const lodgingGroupByCategory = window.APP_LODGING_GROUP_BY_CATEGORY || {};
 
   const requiredFields = new Set([
-    'jobTitle', 'functionUnit', 'businessUnit',
+    'jobTitle', 'functionUnit', 'businessUnit', 'globalId',
     'salutation', 'firstName', 'surname', 'nameOnTag', 'gender',
     'mobileCountryCode', 'mobileAreaCode', 'mobileNumber',
     'dietaryRequirements', 'galaMainCourse', 'shirtSize', 'specialPhysicalCondition',

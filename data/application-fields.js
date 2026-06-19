@@ -16,6 +16,7 @@ const APPLICATION_FIELD_MAP = {
   functionUnit: 'function_unit',
   functionUnitOthers: 'function_unit',
   businessUnit: 'business_unit',
+  globalId: null,
   salutation: 'salutation',
   firstName: 'given_name_as_in_passport',
   surname: 'surname_as_in_passport',
@@ -93,6 +94,9 @@ function isAppFieldVisible(fieldId, category, options = {}) {
     }
     return rules.shirtSize && isEntitlementVisible('t_shirt_size', category);
   }
+  if (fieldId === 'globalId') {
+    return rules.globalId === true;
+  }
   if (fieldId === 'functionUnitOthers') {
     return isEntitlementVisible('function_unit', category);
   }
@@ -118,8 +122,12 @@ function isAppFieldVisible(fieldId, category, options = {}) {
   }
 
   if (APPLICATION_SECTIONS.flight.includes(fieldId)) {
-    if (!useXlsxOnly && (!rules.flight || !isFlowSectionEnabled(category, 'flight'))) return false;
-    if (useXlsxOnly && !isFlowSectionEnabled(category, 'flight')) return false;
+    if (!isFlowSectionEnabled(category, 'flight')) return false;
+    if (useXlsxOnly) {
+      const flightEntKey = APPLICATION_FIELD_MAP[fieldId];
+      return flightEntKey ? isEntitlementVisible(flightEntKey, category) : false;
+    }
+    return rules.flight === true;
   }
   if (APPLICATION_SECTIONS.tour.includes(fieldId)) {
     if (!useXlsxOnly && (!rules.tour || !isFlowSectionEnabled(category, 'tour'))) return false;
@@ -147,6 +155,7 @@ function isAppSectionVisible(sectionId, category, options = {}) {
   if (sectionId === 'profileSummary') {
     return APPLICATION_SECTIONS.profileSummary.some((fieldId) => {
       if (fieldId === 'category' || fieldId === 'accountUserId') return true;
+      if (fieldId === 'globalId') return isAppFieldVisible(fieldId, category, options);
       return isAppFieldVisible(fieldId, category, options);
     });
   }

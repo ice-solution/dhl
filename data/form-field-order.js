@@ -25,6 +25,7 @@ const APPLICATION_FIELD_ORDER = {
     'functionUnitOthers',
     'businessUnit',
     'accountUserId',
+    'globalId',
   ],
   profilePart2: [
     'salutation',

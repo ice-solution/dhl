@@ -51,6 +51,12 @@
           <input type="email" name="workEmail" class="form-input" value="<%= val('workEmail') %>" autocomplete="username">
         </div>
 
+        <div class="reg-field reg-field--hidden" data-reg-field="globalId">
+          <label class="form-label"><span class="reg-required">*</span> Global ID (GID)</label>
+          <input type="text" name="globalId" class="form-input" value="<%= val('globalId') %>" maxlength="100" placeholder="Global ID (GID)">
+          <p class="form-hint text-xs text-gray-400 mt-1">You may check your GID at <a href="<%= siteDocuments.gidLookup %>" class="text-gold underline" target="_blank" rel="noopener noreferrer"><%= siteDocuments.gidLookup %></a></p>
+        </div>
+
         <div class="reg-field reg-field--hidden" data-reg-field="password">
           <label class="form-label"><span class="reg-required">*</span> Password</label>
           <input type="password" name="password" class="form-input" autocomplete="new-password">
@@ -145,6 +151,7 @@
         <div class="reg-field reg-field--hidden" data-reg-field="shirtSize">
           <label class="form-label"><span class="reg-required">*</span> T-shirt size</label>
           <%- include('../partials/select-field', { name: 'shirtSize', options: getOptions('shirtSize'), selected: val('shirtSize') }) %>
+          <p class="form-hint text-xs text-gray-400 mt-1"><a href="<%= siteDocuments.tShirtSizeChart %>" class="text-gold underline" target="_blank" rel="noopener noreferrer">T-shirt size chart (PDF)</a></p>
         </div>
 
         <%- include('../partials/agreement-block', {

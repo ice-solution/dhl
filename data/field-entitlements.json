@@ -468,7 +468,7 @@
       "typeHint": "DATE",
       "optionsHint": "<text field>",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -489,7 +489,7 @@
       "typeHint": "<dropdown list>",
       "optionsHint": "HH:MM",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -510,7 +510,7 @@
       "typeHint": "<text field>",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -531,7 +531,7 @@
       "typeHint": "<text field>",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -552,7 +552,7 @@
       "typeHint": "YES",
       "optionsHint": "<Tick box>",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -573,7 +573,7 @@
       "typeHint": "DATE",
       "optionsHint": "<text field>",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -594,7 +594,7 @@
       "typeHint": "<dropdown list>",
       "optionsHint": "HH:MM",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -615,7 +615,7 @@
       "typeHint": "<text field>",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -636,7 +636,7 @@
       "typeHint": "<text field>",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -657,7 +657,7 @@
       "typeHint": "YES",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
@@ -678,7 +678,7 @@
       "typeHint": "YES",
       "optionsHint": "",
       "visibility": {
-        "GMB": false,
+        "GMB": true,
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,

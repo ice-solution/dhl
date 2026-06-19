@@ -3,6 +3,7 @@ const User = require('../models/User');
 const Application = require('../models/Application');
 const {
   isFieldVisible,
+  isGlobalIdVisible,
   DIETARY_OPTIONS,
   getVisibilityMatrix,
   getConfirmDisplay,
@@ -77,6 +78,9 @@ function validateRegistration(body) {
   if (isFieldVisible('conirm_password', category) && password !== confirmPassword) {
     errors.push('Passwords do not match.');
   }
+  if (isGlobalIdVisible(category) && !body.globalId?.trim()) {
+    errors.push('Global ID (GID) is required.');
+  }
   if (!body.photoConsent) {
     errors.push('You must agree to the photo/video notice.');
   }
@@ -101,6 +105,7 @@ async function createRegistration(req, body) {
     functionUnit: body.functionUnit || '',
     functionUnitOthers: body.functionUnitOthers || '',
     businessUnit: body.businessUnit || '',
+    globalId: body.globalId?.trim() || '',
     salutation: body.salutation || '',
     surname: body.surname || '',
     givenName: body.givenName || '',
@@ -134,6 +139,7 @@ async function createRegistration(req, body) {
       jobTitle: body.jobTitle || '',
       functionUnit: body.functionUnit || '',
       businessUnit: body.businessUnit || '',
+      globalId: body.globalId?.trim() || '',
       fullName: user.fullName,
     },
     profile: {
