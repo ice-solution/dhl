@@ -1,12 +1,20 @@
 const express = require('express');
+const multer = require('multer');
 const User = require('../models/User');
 const Application = require('../models/Application');
 const { requireAdmin } = require('../middleware/auth');
 const { buildAdminReview, createReviewSnapshot } = require('../lib/admin-review');
 const { exportToBuffer, buildExportFilename } = require('../lib/admin-export');
-const { deleteUserUploads } = require('../lib/upload-photos');
+const { deleteUserUploads, saveUserPhoto } = require('../lib/upload-photos');
+const {
+  buildApplicationRenderContext,
+  parseApplicationBody,
+  mergeApplicationData,
+  syncUserProfile,
+} = require('../lib/application-data');
 
 const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
 
 router.get('/admin/login', (req, res) => {
   if (req.session.isAdmin) {
@@ -94,6 +102,76 @@ router.get('/admin/users/:userId', requireAdmin, async (req, res) => {
     review,
     success: req.query.success || null,
   });
+});
+
+router.get('/admin/users/:userId/edit', requireAdmin, async (req, res) => {
+  const user = await User.findById(req.params.userId);
+  if (!user) {
+    return res.redirect('/admin');
+  }
+
+  const application = await Application.findOne({ user: user._id });
+  res.render('application-form', buildApplicationRenderContext(user, application, {
+    adminMode: true,
+    adminUserId: user._id.toString(),
+    success: req.query.success || null,
+    error: null,
+  }));
+});
+
+router.post('/admin/users/:userId/edit', requireAdmin, upload.fields([
+  { name: 'uniformPhotoFile', maxCount: 1 },
+  { name: 'nicePhotoFile', maxCount: 1 },
+]), async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.redirect('/admin');
+    }
+
+    const existing = await Application.findOne({ user: userId });
+    const parsed = parseApplicationBody(req.body);
+    parsed.status = existing?.status || 'draft';
+
+    const data = mergeApplicationData(existing, parsed);
+
+    const uniformFile = req.files?.uniformPhotoFile?.[0];
+    const niceFile = req.files?.nicePhotoFile?.[0];
+    if (uniformFile) {
+      data.photoUpload.uniformPhoto = await saveUserPhoto(userId, 'uniform', uniformFile);
+    }
+    if (niceFile) {
+      data.photoUpload.nicePhoto = await saveUserPhoto(userId, 'nice', niceFile);
+    }
+
+    const updatedUser = await syncUserProfile(userId, req.body);
+    const snapshot = createReviewSnapshot(updatedUser, { ...data, status: parsed.status });
+
+    await Application.findOneAndUpdate(
+      { user: userId },
+      {
+        ...data,
+        user: userId,
+        hasChanges: false,
+        lastReviewedSnapshot: snapshot,
+      },
+      { upsert: true, new: true }
+    );
+
+    res.redirect(`/admin/users/${userId}/edit?success=saved`);
+  } catch (err) {
+    console.error('Admin edit save failed:', err);
+    const user = await User.findById(userId);
+    const application = await Application.findOne({ user: userId });
+    res.render('application-form', buildApplicationRenderContext(user, application, {
+      adminMode: true,
+      adminUserId: userId,
+      error: err.message || 'Failed to save changes. Please try again.',
+      success: null,
+    }));
+  }
 });
 
 router.post('/admin/acknowledge/:userId', requireAdmin, async (req, res) => {

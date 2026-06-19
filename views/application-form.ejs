@@ -22,11 +22,26 @@
 <% const currentCategory = category || acct.category || user.category || ''; %>
 <% const fieldClass = (id) => showAppField(id) ? 'app-field' : 'app-field app-field--hidden'; %>
 <% const sectionClass = (id) => showAppSection(id) ? '' : 'app-field--hidden'; %>
+<% const isAdminMode = typeof adminMode !== 'undefined' && adminMode; %>
+<% const formAction = isAdminMode ? ('/admin/users/' + adminUserId + '/edit') : '/application'; %>
 
-<%- include('partials/header', { pageTitle: 'Application - SUPER STARS', showNav: true }) %>
+<%- include('partials/header', { pageTitle: isAdminMode ? 'Admin - Edit Application' : 'Application - SUPER STARS', showNav: !isAdminMode }) %>
 
 <div class="application-form max-w-5xl mx-auto px-6 py-8">
 
+  <% if (isAdminMode) { %>
+  <div class="admin-edit-header mb-8">
+    <a href="/admin/users/<%= adminUserId %>" class="admin-review-back">&larr; Back to User Review</a>
+    <h2 class="admin-review-title mt-4">Edit Application</h2>
+    <p class="admin-review-subtitle"><%= user.userId %> &middot; <%= user.fullName || '—' %></p>
+  </div>
+  <% if (success === 'saved') { %>
+  <div class="admin-review-alert admin-review-alert--success mb-6">Changes saved successfully.</div>
+  <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+  <div class="admin-review-alert admin-review-alert--error mb-6"><%= error %></div>
+  <% } %>
+  <% } else { %>
   <div class="application-intro mb-8 text-sm text-gray-300 leading-relaxed space-y-3">
     <p>Dear Participant,</p>
     <p>Welcome to the DHL EOY 2025 registration portal.</p>
@@ -38,7 +53,9 @@
     </ol>
     <p>For assistance, please contact the Event Secretariat at <a href="mailto:apeceoy@dhl.com" class="application-intro-link">apeceoy@dhl.com</a>.</p>
   </div>
+  <% } %>
 
+  <% if (!isAdminMode) { %>
   <% if (success === 'confirmed') { %>
   <div class="bg-green-900/30 border border-green-700 text-green-300 text-sm px-4 py-3 rounded-sm mb-6">Your registration has been saved. A confirmation email has been sent to your registered email address.</div>
   <% } %>
@@ -57,8 +74,9 @@
   <% if (typeof error !== 'undefined' && error) { %>
   <div class="bg-red-900/40 border border-red-700 text-red-300 text-sm px-4 py-3 rounded-sm mb-6"><%= error %></div>
   <% } %>
+  <% } %>
 
-  <form method="POST" action="/application" id="applicationForm" enctype="multipart/form-data">
+  <form method="POST" action="<%= formAction %>" id="applicationForm" enctype="multipart/form-data">
     <input type="hidden" name="accountUserId" value="<%= acct.userId || user.userId || '' %>">
 
     <!-- Part 1 – Account Login -->
@@ -422,8 +440,13 @@
     </div>
 
     <div class="flex justify-end gap-4 mt-10 mb-8">
+      <% if (isAdminMode) { %>
+      <a href="/admin/users/<%= adminUserId %>" class="btn-back">Cancel</a>
+      <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Changes</button>
+      <% } else { %>
       <button type="submit" name="action" value="save" class="btn-gold">Save Draft</button>
       <button type="submit" name="action" value="submit" class="btn-gold">Submit Application</button>
+      <% } %>
     </div>
   </form>
 </div>
