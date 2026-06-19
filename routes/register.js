@@ -11,6 +11,8 @@ const {
 } = require('../data/registration-fields');
 const formOptions = require('../data/form-options');
 const { SECRETARIAT_EMAIL } = require('../data/message-templates');
+const { clearUserSession } = require('../middleware/auth');
+const { sendAccountWelcomeEmail } = require('../lib/registration-emails');
 
 const router = express.Router();
 
@@ -186,7 +188,7 @@ router.get('/register/success', async (req, res) => {
   try {
     const user = await User.findById(req.session.userId);
     if (!user) {
-      delete req.session.regJustCreated;
+      clearUserSession(req);
       return res.redirect('/login');
     }
 
@@ -202,16 +204,24 @@ router.get('/register/success', async (req, res) => {
   }
 });
 
-router.get('/register', (req, res) => {
+router.get('/register', async (req, res) => {
   if (req.session.userId) {
-    return res.redirect('/application');
+    const user = await User.findById(req.session.userId);
+    if (user) {
+      return res.redirect('/application');
+    }
+    clearUserSession(req);
   }
   res.render('register/landing');
 });
 
-router.get('/register/new', (req, res) => {
+router.get('/register/new', async (req, res) => {
   if (req.session.userId) {
-    return res.redirect('/application');
+    const user = await User.findById(req.session.userId);
+    if (user) {
+      return res.redirect('/application');
+    }
+    clearUserSession(req);
   }
   const draft = req.session.regDraft || {};
   renderRegisterForm(res, {
@@ -300,6 +310,17 @@ router.post('/register/confirm', async (req, res) => {
     req.session.userId = user._id.toString();
     req.session.displayName = user.fullName || user.userId;
     req.session.regJustCreated = true;
+
+    try {
+      const emailResult = await sendAccountWelcomeEmail(req, user);
+      if (emailResult.sent) {
+        console.log(`[email] Account welcome email sent to ${user.userId}`);
+      } else if (emailResult.reason) {
+        console.error(`[email] Account welcome email skipped: ${emailResult.reason}`);
+      }
+    } catch (emailErr) {
+      console.error('Account welcome email failed:', emailErr);
+    }
 
     res.redirect('/register/success');
   } catch (err) {

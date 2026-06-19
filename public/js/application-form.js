@@ -129,6 +129,38 @@
     detailWrap.classList.toggle('app-field--hidden', !show);
   }
 
+  function clearRequiredOnHiddenFields() {
+    document.querySelectorAll('[data-app-field]').forEach((el) => {
+      const sectionHidden = el.closest('[data-app-section-wrap].app-field--hidden');
+      const fieldHidden = el.classList.contains('app-field--hidden');
+      if (fieldHidden || sectionHidden) {
+        setFieldRequired(el, false);
+      }
+    });
+  }
+
+  function handleFormSubmit(e) {
+    const form = e.currentTarget;
+    const submitter = e.submitter;
+    const action = submitter?.getAttribute('value') ?? submitter?.value ?? '';
+
+    // Save Section / Save Draft / Save Changes — no validation
+    if (action === 'save' || submitter?.hasAttribute('formnovalidate')) {
+      return;
+    }
+
+    // Submit Application — validate visible fields only
+    if (action === 'submit') {
+      clearRequiredOnHiddenFields();
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        form.reportValidity();
+      }
+      const category = categorySelect?.value || window.APP_CATEGORY || '';
+      applyVisibility(category);
+    }
+  }
+
   function init() {
     const category = window.APP_CATEGORY || categorySelect?.value || '';
     if (category && categorySelect) categorySelect.value = category;
@@ -144,6 +176,8 @@
     document.querySelector('[name="functionUnit"]')?.addEventListener('change', () => {
       applyVisibility(categorySelect?.value || '');
     });
+
+    document.getElementById('applicationForm')?.addEventListener('submit', handleFormSubmit);
   }
 
   if (document.readyState === 'loading') {

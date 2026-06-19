@@ -12,6 +12,7 @@ const registerRoutes = require('./routes/register');
 const formOptions = require('./data/form-options');
 const { getSiteUrl } = require('./lib/site-url');
 const { SITE_DOCUMENTS } = require('./data/site-documents');
+const { logEmailConfigOnStartup } = require('./lib/email');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -57,4 +58,5 @@ app.use(adminRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  logEmailConfigOnStartup();
 });

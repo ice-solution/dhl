@@ -1,7 +1,7 @@
 <% const app = application || {}; %>
 <% const acct = app.accountLogin || {}; %>
 <% const prof = app.profile || {}; %>
-<% const mob = prof.mobile || user.mobile || {}; %>
+<% const mob = prof.mobile || (user && user.mobile) || {}; %>
 <% const flight = app.flightDetails || {}; %>
 <% const arrDate = flight.arrivalDate || {}; %>
 <% const arrTime = flight.arrivalTime || {}; %>
@@ -76,7 +76,7 @@
   <% } %>
   <% } %>
 
-  <form method="POST" action="<%= formAction %>" id="applicationForm" enctype="multipart/form-data">
+  <form method="POST" action="<%= formAction %>" id="applicationForm" enctype="multipart/form-data" novalidate>
     <input type="hidden" name="accountUserId" value="<%= acct.userId || user.userId || '' %>">
 
     <!-- Part 1 – Account Login -->

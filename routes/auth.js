@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, clearUserSession } = require('../middleware/auth');
 const { sendEmail } = require('../lib/email');
 const { generatePassword } = require('../lib/password');
 const { getSiteUrl } = require('../lib/site-url');
@@ -23,16 +23,24 @@ function findUserByEmail(email) {
   });
 }
 
-router.get('/login', (req, res) => {
+router.get('/login', async (req, res) => {
   if (req.session.userId) {
-    return res.redirect('/application');
+    const user = await User.findById(req.session.userId);
+    if (user) {
+      return res.redirect('/application');
+    }
+    clearUserSession(req);
   }
   res.render('login', { error: null, userId: '' });
 });
 
-router.get('/forgot-password', (req, res) => {
+router.get('/forgot-password', async (req, res) => {
   if (req.session.userId) {
-    return res.redirect('/application');
+    const user = await User.findById(req.session.userId);
+    if (user) {
+      return res.redirect('/application');
+    }
+    clearUserSession(req);
   }
   res.render('forgot-password', {
     error: null,
@@ -128,8 +136,7 @@ router.get('/logout', (req, res) => {
 });
 
 router.get('/account', requireAuth, async (req, res) => {
-  const user = await User.findById(req.session.userId);
-  res.render('account', { user });
+  res.render('account', { user: req.user });
 });
 
 module.exports = router;

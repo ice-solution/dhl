@@ -7,6 +7,7 @@ const {
 } = require('../lib/registration-summary');
 
 const SECRETARIAT_EMAIL = 'apeceoy@dhl.com';
+const ENQUIRY_EMAIL = 'secretariat@dhlapeoy.com';
 const REGISTRATION_DEADLINE = '24 July 2026';
 const EVENT_NAME = 'DHL EOY 2025';
 const EMAIL_FONT = 'Arial, Helvetica, sans-serif';
@@ -34,6 +35,17 @@ function buildEmailSignatureHtml() {
   return `<p style="font-family:${EMAIL_FONT};">With Regards,<br>Eva Ng<br>Event Secretariat</p>`;
 }
 
+function buildWelcomeSignOffText() {
+  return `Sincerely,
+Event Secretariat
+Eva Ng
+e: ${SECRETARIAT_EMAIL}`;
+}
+
+function buildWelcomeSignOffHtml() {
+  return `<p style="font-family:${EMAIL_FONT};">Sincerely,<br>Event Secretariat<br>Eva Ng<br>e: <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a></p>`;
+}
+
 const ACCOUNT_CREATED_PAGE = {
   title: 'Your Account has been CREATED!',
   bodyParagraphs: [
@@ -46,6 +58,53 @@ const ACCOUNT_CREATED_PAGE = {
   signOff: 'Sincerely,\nEva Ng\nEvent Secretariat',
 };
 
+/** Email 1 — sent immediately when account is created (register) */
+const ACCOUNT_WELCOME_EMAIL = {
+  emailSubject: `${EVENT_NAME} – Account Created`,
+  ctaLabel: 'Complete Registration',
+  buildEmailBody({ firstName, lastName, applicationUrl }) {
+    const name = formatGreetingName(firstName, lastName);
+
+    return `Dear ${name},
+
+Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.
+
+Please click on the button below to complete your registration.
+
+Registration link: ${applicationUrl}
+
+To ensure smooth arrangement, please be reminded to complete your personal and traveling details by ${REGISTRATION_DEADLINE}.
+
+You can log in to your account to update these details before the deadline.
+
+Should you have any enquiries, please contact our event secretariat by email ${ENQUIRY_EMAIL}
+
+Thank you and we look forward to welcoming you in Seoul, South Korea!
+
+${buildWelcomeSignOffText()}`;
+  },
+  buildEmailHtml({ firstName, lastName, applicationUrl }) {
+    const name = formatGreetingName(firstName, lastName);
+
+    return `<!DOCTYPE html>
+<html>
+<body style="font-family:${EMAIL_FONT};color:#333;line-height:1.6;max-width:600px;">
+  <p>Dear ${name},</p>
+  <p>Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.</p>
+  <p>Please click on the button below to complete your registration.</p>
+  ${buildCtaButtonHtml(applicationUrl, ACCOUNT_WELCOME_EMAIL.ctaLabel)}
+  <p style="font-size:13px;color:#666;">Or copy this link: <a href="${applicationUrl}">${applicationUrl}</a></p>
+  <p>To ensure smooth arrangement, please be reminded to complete your personal and traveling details by <strong>${REGISTRATION_DEADLINE}</strong>.</p>
+  <p>You can log in to your account to update these details before the deadline.</p>
+  <p>Should you have any enquiries, please contact our event secretariat by email <a href="mailto:${ENQUIRY_EMAIL}">${ENQUIRY_EMAIL}</a></p>
+  <p>Thank you and we look forward to welcoming you in Seoul, South Korea!</p>
+  ${buildWelcomeSignOffHtml()}
+</body>
+</html>`;
+  },
+};
+
+/** Email 2 — sent on first application save (includes registration summary) */
 const ACCOUNT_CREATED_EMAIL = {
   emailSubject: `${EVENT_NAME} – Registration Confirmation`,
   ctaLabel: 'Complete Registration',
@@ -93,6 +152,7 @@ ${buildEmailSignatureText()}`;
   },
 };
 
+/** Email 3 — sent on subsequent application saves */
 const REGISTRATION_UPDATED_EMAIL = {
   emailSubject: `${EVENT_NAME} – Registration Updated`,
   buildEmailBody({ firstName, lastName, applicationUrl }) {
@@ -134,6 +194,7 @@ ${buildEmailSignatureText()}`;
   },
 };
 
+/** Email 4 — forgot password */
 const FORGOT_PASSWORD = {
   pageTitle: 'Forgotten your password?',
   pageInstruction: 'Please fill in your registered email',
@@ -161,9 +222,11 @@ ${buildEmailSignatureText()}`;
 
 module.exports = {
   SECRETARIAT_EMAIL,
+  ENQUIRY_EMAIL,
   REGISTRATION_DEADLINE,
   EVENT_NAME,
   ACCOUNT_CREATED_PAGE,
+  ACCOUNT_WELCOME_EMAIL,
   ACCOUNT_CREATED_EMAIL,
   REGISTRATION_UPDATED_EMAIL,
   FORGOT_PASSWORD,
