@@ -85,6 +85,13 @@ router.post('/forgot-password', async (req, res) => {
       to: recipient,
       subject: FORGOT_PASSWORD.emailSubject,
       body: emailBody,
+      html: FORGOT_PASSWORD.buildEmailHtml({
+        firstName: user.givenName || '',
+        lastName: user.surname || '',
+        email: user.userId,
+        password: newPassword,
+        siteUrl: getSiteUrl(req),
+      }),
     });
 
     user.password = newPassword;

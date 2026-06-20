@@ -2,17 +2,14 @@
 
 <div class="reg-page">
   <div class="reg-container reg-container--wide">
-    <div class="reg-intro">
-      <p>Please take a moment to complete your personal particulars below.</p>
-      <ol class="reg-intro-list">
-        <li>Information will be kept strictly confidential to the EOY Event</li>
-        <li><span class="reg-required">*</span> is Mandatory Field. You are recommended to complete all your personal particulars.</li>
-      </ol>
-    </div>
-
     <% if (error) { %>
     <div class="reg-error"><%= error %></div>
     <% } %>
+
+    <div class="reg-summary-header">
+      <h1 class="reg-summary-title">REGISTRATION SUMMARY</h1>
+      <p class="reg-summary-subtitle">Take a moment to review your registration information before continue</p>
+    </div>
 
     <section class="reg-confirm-section">
       <h2 class="reg-section-heading">Account Login</h2>
@@ -47,7 +44,6 @@
       <form method="POST" action="/register/confirm" class="inline">
         <button type="submit" class="btn-gold btn-gold--lg">Confirm</button>
       </form>
-      <a href="/register/new" class="btn-back">Back</a>
     </div>
   </div>
 </div>

@@ -58,6 +58,9 @@ function getFlightDetailsCopy(category) {
     deadline: FLIGHT_DEADLINE,
     secretariatEmail: SECRETARIAT_EMAIL,
     transferTable: category === 'GMB' ? null : TRANSFER_TABLE,
+    showBottomRemarks: category !== 'GMB',
+    bottomRemarksText:
+      'Should you need to book any additional hotel transfers, please see below information for your reference.',
   };
 }
 

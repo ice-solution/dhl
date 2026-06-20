@@ -83,7 +83,6 @@ const APMB_TIER_CATEGORIES = [
   'AP Country Manager',
   'AP Hub Manager',
   'GHO',
-  'HR Manager',
 ];
 
 function getLodgingInfoGroup(category) {
@@ -106,8 +105,13 @@ function getLodgingInfoCopy(category) {
   const groupKey = getLodgingInfoGroup(category);
   if (!groupKey) return null;
 
+  const base = { ...LODGING_INFO_COPY[groupKey] };
+  if (category === 'Organising Committee' && base.remarkBullets?.length) {
+    base.remarkBullets = base.remarkBullets.slice(1);
+  }
+
   return {
-    ...LODGING_INFO_COPY[groupKey],
+    ...base,
     showRemarks: getLodgingRemarksVisible(category),
   };
 }

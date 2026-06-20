@@ -549,7 +549,7 @@ button {
 }
 
 .home-section-title {
-  font-size: 1.125rem;
+  font-size: 1.375rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -560,14 +560,14 @@ button {
 
 .home-section-subtitle {
   color: #9ca3af;
-  font-size: 0.875rem;
+  font-size: 1.125rem;
   margin-bottom: 2rem;
   text-align: center;
 }
 
 .home-section-intro {
   color: #9ca3af;
-  font-size: 0.875rem;
+  font-size: 1.125rem;
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -637,9 +637,19 @@ button {
 
 .btn-gold--lg {
   display: inline-block;
-  padding: 0.75rem 2.5rem;
-  font-size: 0.8125rem;
+  padding: 0.875rem 2.75rem;
+  font-size: 1rem;
   text-decoration: none;
+}
+
+.homepage--compact .home-section {
+  padding: 5rem 0;
+}
+
+.homepage--compact .home-contact-name,
+.homepage--compact .home-contact-detail,
+.homepage--compact .home-contact-heading {
+  font-size: 1.125rem;
 }
 
 /* Scroll animations */
@@ -1064,7 +1074,7 @@ button {
 .reg-container {
   max-width: 42rem;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 2.5rem 1.5rem 0;
 }
 
 .reg-container--wide {
@@ -1294,6 +1304,26 @@ button {
   margin-bottom: 2rem;
 }
 
+.reg-summary-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.reg-summary-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 0.75rem;
+}
+
+.reg-summary-subtitle {
+  font-size: 0.9375rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
 .reg-confirm-row {
   margin-bottom: 1.25rem;
 }
@@ -1387,6 +1417,10 @@ button {
 .app-flight-intro-footnote {
   font-size: 0.8125rem;
   color: #9ca3af;
+}
+
+.app-flight-remarks-heading {
+  margin-bottom: 0.5rem;
 }
 
 .app-flight-intro-link {
@@ -1584,12 +1618,12 @@ button {
 .reg-success-title {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  gap: 0.5rem;
   font-size: 1.375rem;
   font-weight: 400;
   color: #fff;
-  margin: 0 0 2rem;
-  line-height: 1.3;
+  margin: 0 0 1rem;
+  line-height: 1.25;
 }
 
 .reg-success-title strong {
@@ -1607,24 +1641,24 @@ button {
 .reg-success-greeting {
   font-size: 0.9375rem;
   color: #fff;
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.75rem;
 }
 
 .reg-success-body {
   font-size: 0.9375rem;
   color: #e5e7eb;
   line-height: 1.65;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.25rem;
 }
 
 .reg-success-body p {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
 }
 
 .reg-success-cta {
   display: inline-block;
   text-decoration: none;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .reg-success-footer {

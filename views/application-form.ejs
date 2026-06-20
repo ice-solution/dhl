@@ -104,14 +104,14 @@
           <label class="form-label">Business Unit <span class="form-required">*</span></label>
           <%- include('partials/select-field', { name: 'businessUnit', options: getOptions('businessUnit'), selected: acct.businessUnit || user.businessUnit }) %>
         </div>
-        <div class="app-field" data-app-field="accountUserId">
-          <label class="form-label">Work Email Address</label>
-          <input type="email" class="form-input bg-gray-100" value="<%= acct.userId || user.userId || '' %>" readonly>
-        </div>
         <div class="<%= fieldClass('globalId') %> md:col-span-2" data-app-field="globalId">
           <label class="form-label">Global ID (GID) <span class="form-required">*</span></label>
           <input type="text" name="globalId" class="form-input" value="<%= acct.globalId || user.globalId || '' %>" maxlength="100" placeholder="Global ID (GID)">
           <p class="text-xs text-gray-400 mt-1">You may check your GID at <a href="<%= siteDocuments.gidLookup %>" class="text-gold underline" target="_blank" rel="noopener noreferrer"><%= siteDocuments.gidLookup %></a></p>
+        </div>
+        <div class="app-field md:col-span-2" data-app-field="accountUserId">
+          <label class="form-label">Work Email Address</label>
+          <input type="email" class="form-input bg-gray-100" value="<%= acct.userId || user.userId || '' %>" readonly>
         </div>
       </div>
       <div class="flex justify-end mt-4">
@@ -212,8 +212,8 @@
     <div data-app-section-wrap="flight" class="<%= sectionClass('flight') %>">
       <h2 class="section-title" data-app-section="flight">Flight Details</h2>
       <% Object.entries(flightCopyByGroup).forEach(([group, copy]) => { %>
-      <div class="app-copy-block" data-flight-copy-group="<%= group %>" <%= flightGroupByCategory[currentCategory] !== group ? 'hidden' : '' %>>
-        <%- include('partials/flight-details-intro', { flightDetailsCopy: copy }) %>
+      <div class="app-copy-block" data-flight-copy-group="<%= group %>" data-flight-block="top" <%= flightGroupByCategory[currentCategory] !== group ? 'hidden' : '' %>>
+        <%- include('partials/flight-details-intro', { block: 'top', flightDetailsCopy: copy }) %>
       </div>
       <% }); %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -274,6 +274,11 @@
           </div>
         </div>
       </div>
+      <% Object.entries(flightCopyByGroup).forEach(([group, copy]) => { %>
+      <div class="app-copy-block mt-6" data-flight-copy-group="<%= group %>" data-flight-block="bottom" <%= flightGroupByCategory[currentCategory] !== group ? 'hidden' : '' %>>
+        <%- include('partials/flight-details-intro', { block: 'bottom', flightDetailsCopy: copy }) %>
+      </div>
+      <% }); %>
       <div class="flex justify-end mt-4">
         <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
       </div>

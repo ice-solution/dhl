@@ -145,10 +145,10 @@ function getConfirmDisplay(category, body, resolveLabel) {
     else part2.push(item);
   });
 
-  if (AWARDEES_CATEGORIES.includes(category)) {
-    const workEmailIdx = part1.findIndex((item) => item.label === 'Work Email Address');
+  if (isGlobalIdVisible(category)) {
+    const businessUnitIdx = part1.findIndex((item) => item.label === 'Business Unit');
     const gidItem = { label: 'Global ID (GID)', value: body.globalId || '—' };
-    if (workEmailIdx >= 0) part1.splice(workEmailIdx + 1, 0, gidItem);
+    if (businessUnitIdx >= 0) part1.splice(businessUnitIdx + 1, 0, gidItem);
     else part1.push(gidItem);
   }
 

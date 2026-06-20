@@ -17,7 +17,6 @@ const GMB_FLOW_CATEGORIES = [
   'AP Country Manager',
   'AP Hub Manager',
   'GHO',
-  'HR Manager',
 ];
 
 const CATEGORY_TO_FLOW = {};

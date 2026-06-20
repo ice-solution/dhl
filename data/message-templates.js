@@ -60,7 +60,7 @@ const ACCOUNT_CREATED_PAGE = {
 
 /** Email 1 — sent immediately when account is created (register) */
 const ACCOUNT_WELCOME_EMAIL = {
-  emailSubject: `${EVENT_NAME} – Account Created`,
+  emailSubject: `${EVENT_NAME} - Your Account has been CREATED!`,
   ctaLabel: 'Complete Registration',
   buildEmailBody({ firstName, lastName, applicationUrl }) {
     const name = formatGreetingName(firstName, lastName);
@@ -93,7 +93,7 @@ ${buildWelcomeSignOffText()}`;
   <p>Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.</p>
   <p>Please click on the button below to complete your registration.</p>
   ${buildCtaButtonHtml(applicationUrl, ACCOUNT_WELCOME_EMAIL.ctaLabel)}
-  <p style="font-size:13px;color:#666;">Or copy this link: <a href="${applicationUrl}">${applicationUrl}</a></p>
+  <p style="font-size:13px;color:#666;font-family:${EMAIL_FONT};">Or copy this link: <a href="${applicationUrl}" style="font-family:${EMAIL_FONT};">${applicationUrl}</a></p>
   <p>To ensure smooth arrangement, please be reminded to complete your personal and traveling details by <strong>${REGISTRATION_DEADLINE}</strong>.</p>
   <p>You can log in to your account to update these details before the deadline.</p>
   <p>Should you have any enquiries, please contact our event secretariat by email <a href="mailto:${ENQUIRY_EMAIL}">${ENQUIRY_EMAIL}</a></p>
@@ -106,7 +106,7 @@ ${buildWelcomeSignOffText()}`;
 
 /** Email 2 — sent on first application save (includes registration summary) */
 const ACCOUNT_CREATED_EMAIL = {
-  emailSubject: `${EVENT_NAME} – Registration Confirmation`,
+  emailSubject: `${EVENT_NAME} - Your Information has been REGISTERED!`,
   ctaLabel: 'Complete Registration',
   buildEmailBody({ firstName, lastName, applicationUrl, user }) {
     const name = formatGreetingName(firstName, lastName);
@@ -141,8 +141,8 @@ ${buildEmailSignatureText()}`;
   <p>Thank you for registering for ${EVENT_NAME}.</p>
   <p>If you would like to modify your registration information or update us your flight details, please click the button below. The deadline to complete your registration is <strong>${REGISTRATION_DEADLINE}</strong>.</p>
   ${buildCtaButtonHtml(applicationUrl, ACCOUNT_CREATED_EMAIL.ctaLabel)}
-  <p style="font-size:13px;color:#666;">Or copy this link: <a href="${applicationUrl}">${applicationUrl}</a></p>
-  <p style="margin-top:24px;font-weight:bold;">Registration Summary</p>
+  <p style="font-size:13px;color:#666;font-family:${EMAIL_FONT};">Or copy this link: <a href="${applicationUrl}" style="font-family:${EMAIL_FONT};">${applicationUrl}</a></p>
+  <p style="margin-top:24px;font-weight:bold;font-family:${EMAIL_FONT};">Registration Summary</p>
   ${summaryHtml}
   <p style="margin-top:24px;">A confirmation note with the event details will be sent to you closer to the event date.</p>
   <p>In the meantime, if you have any inquiries regarding this event, please contact our event secretariat by email at <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a>.</p>
@@ -154,7 +154,7 @@ ${buildEmailSignatureText()}`;
 
 /** Email 3 — sent on subsequent application saves */
 const REGISTRATION_UPDATED_EMAIL = {
-  emailSubject: `${EVENT_NAME} – Registration Updated`,
+  emailSubject: `${EVENT_NAME} - Your Information has been UPDATED!`,
   buildEmailBody({ firstName, lastName, applicationUrl }) {
     const name = formatGreetingName(firstName, lastName);
 
@@ -185,7 +185,7 @@ ${buildEmailSignatureText()}`;
   <p>To ensure smooth arrangement, please be reminded to complete your personal and traveling details by <strong>${REGISTRATION_DEADLINE}</strong>.</p>
   <p>You can log in to your account to update these details before the deadline.</p>
   ${buildCtaButtonHtml(applicationUrl, 'Continue Registration')}
-  <p style="font-size:13px;color:#666;">Or copy this link: <a href="${applicationUrl}">${applicationUrl}</a></p>
+  <p style="font-size:13px;color:#666;font-family:${EMAIL_FONT};">Or copy this link: <a href="${applicationUrl}" style="font-family:${EMAIL_FONT};">${applicationUrl}</a></p>
   <p>Should you have any enquiries, please contact our event secretariat by email at <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a></p>
   <p>Thank you and we look forward to welcoming you in Seoul, South Korea!</p>
   ${buildEmailSignatureHtml()}
@@ -202,7 +202,7 @@ const FORGOT_PASSWORD = {
   submitLabel: 'Submit',
   successMessage: 'A password reset email has been sent to your registered email address. Please check your inbox.',
   notRegisteredMessage: 'This email address is not registered. Please check your email or create a new account.',
-  emailSubject: `${EVENT_NAME} – Password Reset`,
+  emailSubject: `${EVENT_NAME} - Reset your PASSWORD!`,
   buildEmailBody({ firstName, lastName, email, password, siteUrl }) {
     const name = formatGreetingName(firstName, lastName);
     return `Dear ${name},
@@ -218,6 +218,21 @@ In the meantime, if you have any inquiries regarding this event, please contact 
 
 ${buildEmailSignatureText()}`;
   },
+  buildEmailHtml({ firstName, lastName, email, password, siteUrl }) {
+    const name = formatGreetingName(firstName, lastName);
+    return `<!DOCTYPE html>
+<html>
+<body style="font-family:${EMAIL_FONT};color:#333;line-height:1.6;max-width:600px;">
+  <p style="font-family:${EMAIL_FONT};">Dear ${name},</p>
+  <p style="font-family:${EMAIL_FONT};">Further to your request, please find below your login credential and new password. You may use these information to access your account through
+  <a href="${siteUrl}">${siteUrl}</a></p>
+  <p style="font-family:${EMAIL_FONT};">Email: ${email}<br>New Password: ${password}</p>
+  <p style="font-family:${EMAIL_FONT};">A confirmation note with the event details will be sent to you closer to the event date.</p>
+  <p style="font-family:${EMAIL_FONT};">In the meantime, if you have any inquiries regarding this event, please contact our event secretariat by email at <a href="mailto:${SECRETARIAT_EMAIL}">${SECRETARIAT_EMAIL}</a>.</p>
+  ${buildEmailSignatureHtml()}
+</body>
+</html>`;
+  },
 };
 
 module.exports = {
@@ -225,6 +240,7 @@ module.exports = {
   ENQUIRY_EMAIL,
   REGISTRATION_DEADLINE,
   EVENT_NAME,
+  EMAIL_FONT,
   ACCOUNT_CREATED_PAGE,
   ACCOUNT_WELCOME_EMAIL,
   ACCOUNT_CREATED_EMAIL,
