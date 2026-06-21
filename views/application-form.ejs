@@ -25,7 +25,7 @@
 <% const isAdminMode = typeof adminMode !== 'undefined' && adminMode; %>
 <% const formAction = isAdminMode ? ('/admin/users/' + adminUserId + '/edit') : '/application'; %>
 
-<%- include('partials/header', { pageTitle: isAdminMode ? 'Admin - Edit Application' : 'Application - SUPER STARS', showNav: !isAdminMode }) %>
+<%- include('partials/header', { pageTitle: isAdminMode ? 'Admin - Edit Application' : 'Application - SUPER STARS' }) %>
 
 <div class="application-form max-w-5xl mx-auto px-6 py-8">
 

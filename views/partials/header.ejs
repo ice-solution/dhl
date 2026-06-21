@@ -49,34 +49,30 @@
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
 
-<header class="site-header<%= (typeof navType === 'undefined' || navType !== 'home') && (typeof showNav === 'undefined' || !showNav) ? ' site-header--solo' : '' %>">
+<header class="site-header">
   <a href="/" class="site-header-brand">
     <img src="/images/logo.png" alt="DHL Super Stars Employee of the Year" class="site-logo">
   </a>
 </header>
 
-<% if (typeof navType !== 'undefined' && navType === 'home') { %>
 <% const onRegisterFlow = typeof activeNav !== 'undefined' && activeNav === 'registration'; %>
-<nav class="nav-bar" id="siteNav">
-  <div class="nav-bar-inner nav-bar-inner--wrap">
-    <a href="/register" class="nav-bar-link<%= onRegisterFlow ? ' nav-bar-link--active' : '' %>">Registration</a>
-    <a href="/#contact" class="nav-bar-link">Contact</a>
-    <% if (session && session.userId) { %>
-    <a href="/account" class="nav-bar-link">My Account</a>
-    <% } else { %>
-    <a href="/login" class="nav-bar-link">Login</a>
-    <% } %>
-  </div>
-</nav>
-<div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
-<% } else if (typeof showNav !== 'undefined' && showNav) { %>
+<% const onLoginFlow = typeof activeNav !== 'undefined' && activeNav === 'login'; %>
+<% if (session && session.userId) { %>
 <nav class="nav-bar" id="siteNav">
   <div class="nav-bar-inner nav-bar-inner--wrap">
     <a href="/account" class="nav-bar-link">My Account</a>
     <a href="/logout" class="nav-bar-link">Logout</a>
   </div>
 </nav>
-<div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
+<% } else { %>
+<nav class="nav-bar" id="siteNav">
+  <div class="nav-bar-inner nav-bar-inner--wrap">
+    <a href="/register" class="nav-bar-link<%= onRegisterFlow ? ' nav-bar-link--active' : '' %>">Registration</a>
+    <a href="/#contact" class="nav-bar-link">Contact</a>
+    <a href="/login" class="nav-bar-link<%= onLoginFlow ? ' nav-bar-link--active' : '' %>">Login</a>
+  </div>
+</nav>
 <% } %>
+<div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
 
 <main class="flex-1">
