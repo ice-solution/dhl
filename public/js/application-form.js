@@ -48,17 +48,23 @@
   function updateCopyBlocks(category) {
     const flightGroup = flightGroupByCategory[category];
     document.querySelectorAll('[data-flight-copy-group]').forEach((el) => {
+      if (el.dataset.flightBlock === 'bottom') return;
       el.hidden = el.dataset.flightCopyGroup !== flightGroup;
+    });
+    document.querySelectorAll('[data-flight-copy-category]').forEach((el) => {
+      if (el.dataset.flightBlock !== 'bottom') return;
+      el.hidden = el.dataset.flightCopyCategory !== category;
     });
 
     const lodgingGroup = lodgingGroupByCategory[category];
     const lodgingRemarks = getLodgingRemarks(category);
     document.querySelectorAll('[data-lodging-copy-group]').forEach((el) => {
-      const matchGroup = el.dataset.lodgingCopyGroup === lodgingGroup;
-      const isRemarks = el.dataset.lodgingBlock === 'remarks';
-      let show = matchGroup;
-      if (isRemarks) show = matchGroup && lodgingRemarks;
-      el.hidden = !show;
+      if (el.dataset.lodgingBlock === 'remarks') return;
+      el.hidden = el.dataset.lodgingCopyGroup !== lodgingGroup;
+    });
+    document.querySelectorAll('[data-lodging-copy-category]').forEach((el) => {
+      if (el.dataset.lodgingBlock !== 'remarks') return;
+      el.hidden = el.dataset.lodgingCopyCategory !== category || !lodgingRemarks;
     });
   }
 

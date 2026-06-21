@@ -24,17 +24,22 @@ const SHARED_NUMBERED_REMARKS = [
   'One night non refundable deposit will be charged upon reservation',
 ];
 
+const AWARDEES_OC_OTHERS_REMARK_BULLETS = [
+  'Payment has already been made for 4 nights on 06 -10 September 2026.',
+  'No complimentary early check-in and/or late check-out will be provided. Please adjust your room reservation to accommodate your requirements.',
+  'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Guest Room, Single Occupancy includes 1 breakfast is ~KRW 375,100/room/night',
+  'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT',
+];
+
+// Organising Committee: same group as Awardees/Others but without the payment sentence.
+const ORGANISING_COMMITTEE_REMARK_BULLETS = AWARDEES_OC_OTHERS_REMARK_BULLETS.slice(1);
+
 const LODGING_INFO_COPY = {
   awardees_oc_others: {
     key: 'awardees_oc_others',
     hotel: WESTIN_SEOUL,
     showRemarks: true,
-    remarkBullets: [
-      'Payment has already been made for 4 nights on 06 -10 September 2026.',
-      'No complimentary early check-in and/or late check-out will be provided. Please adjust your room reservation to accommodate your requirements.',
-      'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Guest Room, Single Occupancy includes 1 breakfast is ~KRW 375,100/room/night',
-      'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT',
-    ],
+    remarkBullets: AWARDEES_OC_OTHERS_REMARK_BULLETS,
     numberedRemarks: SHARED_NUMBERED_REMARKS,
     accommodationTable: null,
   },
@@ -106,8 +111,8 @@ function getLodgingInfoCopy(category) {
   if (!groupKey) return null;
 
   const base = { ...LODGING_INFO_COPY[groupKey] };
-  if (category === 'Organising Committee' && base.remarkBullets?.length) {
-    base.remarkBullets = base.remarkBullets.slice(1);
+  if (category === 'Organising Committee') {
+    base.remarkBullets = ORGANISING_COMMITTEE_REMARK_BULLETS;
   }
 
   return {

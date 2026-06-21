@@ -274,10 +274,16 @@
           </div>
         </div>
       </div>
-      <% Object.entries(flightCopyByGroup).forEach(([group, copy]) => { %>
-      <div class="app-copy-block mt-6" data-flight-copy-group="<%= group %>" data-flight-block="bottom" <%= flightGroupByCategory[currentCategory] !== group ? 'hidden' : '' %>>
-        <%- include('partials/flight-details-intro', { block: 'bottom', flightDetailsCopy: copy }) %>
+      <% categoryOptions.forEach((opt) => { %>
+      <% const cat = opt.value; %>
+      <% if (cat) { %>
+      <% const flightBottomCopy = flightCopyByCategory[cat]; %>
+      <% if (flightBottomCopy && flightBottomCopy.showBottomRemarks) { %>
+      <div class="app-copy-block mt-6" data-flight-copy-category="<%= cat %>" data-flight-block="bottom" <%= currentCategory !== cat ? 'hidden' : '' %>>
+        <%- include('partials/flight-details-intro', { block: 'bottom', flightDetailsCopy: flightBottomCopy }) %>
       </div>
+      <% } %>
+      <% } %>
       <% }); %>
       <div class="flex justify-end mt-4">
         <button type="submit" name="action" value="save" class="btn-gold" formnovalidate>Save Section</button>
@@ -357,12 +363,16 @@
           <textarea name="otherRequests" class="form-input h-24 resize-y"><%= lodge.otherRequests || '' %></textarea>
         </div>
       </div>
-      <% Object.entries(lodgingCopyByGroup).forEach(([group, copy]) => { %>
-      <% const showLodgingRemarks = lodgingRemarksByCategory[currentCategory] !== false; %>
-      <% const remarksCopy = Object.assign({}, copy, { showRemarks: true }); %>
-      <div class="app-copy-block" data-lodging-copy-group="<%= group %>" data-lodging-block="remarks" <%= (lodgingGroupByCategory[currentCategory] !== group || !showLodgingRemarks) ? 'hidden' : '' %>>
+      <% categoryOptions.forEach((opt) => { %>
+      <% const cat = opt.value; %>
+      <% if (cat) { %>
+      <% const remarksCopy = lodgingCopyByCategory[cat]; %>
+      <% if (remarksCopy && remarksCopy.showRemarks) { %>
+      <div class="app-copy-block" data-lodging-copy-category="<%= cat %>" data-lodging-block="remarks" <%= currentCategory !== cat ? 'hidden' : '' %>>
         <%- include('partials/lodging-info-intro', { block: 'remarks', lodgingInfoCopy: remarksCopy }) %>
       </div>
+      <% } %>
+      <% } %>
       <% }); %>
     </div>
 

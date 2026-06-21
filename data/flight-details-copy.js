@@ -64,9 +64,15 @@ function getFlightDetailsCopy(category) {
   };
 }
 
+function showFlightBottomRemarks(category) {
+  const copy = getFlightDetailsCopy(category);
+  return copy?.showBottomRemarks === true;
+}
+
 module.exports = {
   FLIGHT_DETAILS_COPY,
   INCLUDED_AWARDEE_GMB_CATEGORIES,
   getFlightDetailsGroup,
   getFlightDetailsCopy,
+  showFlightBottomRemarks,
 };
