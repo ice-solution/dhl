@@ -17,8 +17,14 @@
     <select name="<%= prefix %>Day" class="form-select">
       <% if (dayOpts.length === 0) { %>
         <option value="">--</option>
+        <% if (isFlightDate || isLodgingDate) { %>
+          <% for (let d = 3; d <= 13; d++) { %>
+            <option value="<%= String(d).padStart(2, '0') %>" <%= String(selectedDay) === String(d) || String(selectedDay) === String(d).padStart(2, '0') ? 'selected' : '' %>><%= String(d).padStart(2, '0') %></option>
+          <% } %>
+        <% } else { %>
         <% for (let d = 1; d <= 31; d++) { %>
           <option value="<%= String(d).padStart(2, '0') %>" <%= String(selectedDay) === String(d) || String(selectedDay) === String(d).padStart(2, '0') ? 'selected' : '' %>><%= String(d).padStart(2, '0') %></option>
+        <% } %>
         <% } %>
       <% } else { %>
         <% dayOpts.forEach((opt) => { %>

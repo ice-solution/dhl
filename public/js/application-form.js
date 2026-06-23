@@ -13,7 +13,7 @@
     'dietaryRequirements', 'galaMainCourse', 'shirtSize', 'specialPhysicalCondition',
     'arrivalDate', 'arrivalTime', 'airlineRegistration', 'arrivalFlightNo', 'airportPickup',
     'departureDate', 'departureTime', 'departureAirline', 'departureFlightNo', 'airportDropoff',
-    'accommodationRequired', 'tourSelection', 'emergencyName', 'emergencyContactNumber',
+    'accommodationRequired', 'emergencyName', 'emergencyContactNumber',
     'emergencyRelationship', 'agreement',
     'nameOnPassport', 'passportNumber', 'nationality', 'passportPlaceIssue',
     'passportIssueDate', 'passportExpiryDate', 'dateOfBirth', 'checkInDate', 'checkOutDate', 'bedType',

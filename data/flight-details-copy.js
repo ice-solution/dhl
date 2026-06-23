@@ -30,7 +30,7 @@ const FLIGHT_DETAILS_COPY = {
     label: 'NON-AWARDEE',
     intro: [
       'During event period, airport and ground transfer will be provided back and forth between airport, lodging hotel and event venues.',
-      'Please note that car sharing might be offered for management members who have the same flight scheduled.',
+      'Participants arriving on the same flight may be grouped for shared car transfers',
     ],
   },
 };
