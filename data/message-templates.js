@@ -49,7 +49,7 @@ function buildWelcomeSignOffHtml() {
 const ACCOUNT_CREATED_PAGE = {
   title: 'Your Account has been CREATED!',
   bodyParagraphs: [
-    `Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.`,
+    `Thank you for creating your ${EVENT_NAME} account. `,
     'Please click on the button below to complete your registration.',
   ],
   deadlineReminder: `To ensure smooth arrangement, please be reminded to complete your personal and traveling details by ${REGISTRATION_DEADLINE}.`,
