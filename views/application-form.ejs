@@ -77,6 +77,7 @@
   <% } %>
 
   <form method="POST" action="<%= formAction %>" id="applicationForm" enctype="multipart/form-data" novalidate>
+    <%- include('partials/csrf-field') %>
     <input type="hidden" name="accountUserId" value="<%= acct.userId || user.userId || '' %>">
 
     <!-- Part 1 – Account Login -->

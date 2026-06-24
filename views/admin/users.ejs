@@ -72,6 +72,7 @@
           <td class="px-4 py-3">
             <% if (row.hasChanges && row.status !== 'none') { %>
             <form method="POST" action="/admin/acknowledge/<%= row.id %>" class="inline">
+              <%- include('../partials/csrf-field') %>
               <button type="submit" class="text-xs font-semibold uppercase tracking-wider <%= row.hasChanges ? 'text-black hover:text-gray-800 underline' : 'text-gold hover:text-gold-light' %>">
                 Mark Reviewed
               </button>
@@ -87,6 +88,7 @@
           </td>
           <td class="px-4 py-3">
             <form method="POST" action="/admin/delete/<%= row.id %>" class="inline" onsubmit="return confirm('Are you sure you want to delete this user?\n\nThis will permanently remove their account, application, and uploaded photos.');">
+              <%- include('../partials/csrf-field') %>
               <button type="submit" class="admin-delete-btn">Delete</button>
             </form>
           </td>

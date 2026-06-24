@@ -13,6 +13,8 @@ const formOptions = require('./data/form-options');
 const { getSiteUrl } = require('./lib/site-url');
 const { SITE_DOCUMENTS } = require('./data/site-documents');
 const { logEmailConfigOnStartup } = require('./lib/email');
+const { configureSecurity } = require('./middleware/security');
+const { csrfProtection, exposeCsrfToken, handleCsrfError } = require('./middleware/csrf');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,6 +26,8 @@ mongoose.connect(MONGODB_URI)
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+configureSecurity(app);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -37,8 +41,13 @@ app.use(session({
   cookie: {
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
   },
 }));
+
+app.use(csrfProtection);
+app.use(exposeCsrfToken);
 
 app.use((req, res, next) => {
   res.locals.session = req.session;
@@ -55,6 +64,8 @@ app.use(registerRoutes);
 app.use(authRoutes);
 app.use(applicationRoutes);
 app.use(adminRoutes);
+
+app.use(handleCsrfError);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

@@ -19,6 +19,7 @@
     <% } %>
 
     <form method="POST" action="/register/new" class="reg-form" id="registerForm">
+      <%- include('../partials/csrf-field') %>
       <h2 class="reg-section-heading">Account Login</h2>
 
       <div class="reg-field">

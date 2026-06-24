@@ -13,6 +13,7 @@
   <% } %>
 
   <form method="POST" action="/admin/login" class="space-y-5">
+    <%- include('../partials/csrf-field') %>
     <div>
       <label class="form-label" for="username">Username</label>
       <input type="text" id="username" name="username" class="form-input" required autocomplete="username">
