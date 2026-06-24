@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: process.env.SESSION_SECRET || 'super-stars-secret',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   store: MongoStore.create({ mongoUrl: MONGODB_URI }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24,

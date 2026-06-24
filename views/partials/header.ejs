@@ -28,23 +28,11 @@
   <% if (ogImage) { %><meta name="twitter:image" content="<%= ogImage %>"><% } %>
   <% } %>
   <% if (ogUrl) { %><link rel="canonical" href="<%= ogUrl %>"><% } %>
-  <script src="https://cdn.tailwindcss.com" crossorigin="anonymous"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            gold: '#C9A84C',
-            'gold-light': '#E8D5A3',
-            'gold-dark': '#9A7B2F',
-          },
-          fontFamily: {
-            sans: ['Delivery', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
+  <% if (typeof csrfToken !== 'undefined' && csrfToken) { %>
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <% } %>
+  <script src="/js/tailwindcss.js" integrity="sha384-igm5BeiBt36UU4gqwWS7imYmelpTsZlQ45FZf+XBn9MuJbn4nQr7yx1yFydocC/K" crossorigin="anonymous"></script>
+  <script src="/js/tailwind-config.js" integrity="sha384-hwB+q1Z3BlUbQdH+ZguYjwf4bXZ/7GshYboxhApytHBjkfps0KMiJyq0218D6kLA" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
