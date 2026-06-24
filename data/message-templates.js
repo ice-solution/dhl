@@ -67,7 +67,7 @@ const ACCOUNT_WELCOME_EMAIL = {
 
     return `Dear ${name},
 
-Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.
+Thank you for creating your ${EVENT_NAME} account.
 
 Please click on the button below to complete your registration.
 
@@ -90,7 +90,7 @@ ${buildWelcomeSignOffText()}`;
 <html>
 <body style="font-family:${EMAIL_FONT};color:#333;line-height:1.6;max-width:600px;">
   <p>Dear ${name},</p>
-  <p>Thank you for creating your ${EVENT_NAME} account. An acknowledgement email has been sent to your registered email address.</p>
+  <p>Thank you for creating your ${EVENT_NAME} account. </p>
   <p>Please click on the button below to complete your registration.</p>
   ${buildCtaButtonHtml(applicationUrl, ACCOUNT_WELCOME_EMAIL.ctaLabel)}
   <p style="font-size:13px;color:#666;font-family:${EMAIL_FONT};">Or copy this link: <a href="${applicationUrl}" style="font-family:${EMAIL_FONT};">${applicationUrl}</a></p>
