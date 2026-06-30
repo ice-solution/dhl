@@ -445,7 +445,7 @@
       "name": "T-SHIRT SIZE",
       "key": "t_shirt_size",
       "typeHint": "<dropdown list>",
-      "optionsHint": "XS, S, M, L, XL, 2XL, 3XL, 4XL",
+      "optionsHint": "S, M, L, XL, 2XL, 3XL, 4XL, 5XL",
       "visibility": {
         "GMB": false,
         "APMB": false,

@@ -29,10 +29,6 @@ function getExtraOptions() {
       { value: 'Ms', label: 'Ms' },
       { value: 'Miss', label: 'Miss' },
     ],
-    shirtSize: [
-      { value: '', label: 'Please select' },
-      ...['XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL'].map((s) => ({ value: s, label: s })),
-    ],
   };
 }
 
