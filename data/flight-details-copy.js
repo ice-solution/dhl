@@ -5,6 +5,7 @@
  * Group 2: NON-AWARDEE (all other categories with flight section)
  */
 const { AWARDEES_CATEGORIES } = require('./category-flows');
+const { resolveCategory } = require('./category-aliases');
 
 const SECRETARIAT_EMAIL = 'apeceoy@dhl.com';
 const FLIGHT_DEADLINE = '24 July 2026';
@@ -28,7 +29,6 @@ const CATEGORIES_WITH_AIRPORT_MASTER_BILL_REMARK = [
   'AP Country Manager',
   'AP Hub Manager',
   'Guests',
-  'Others', // legacy records
   ...AWARDEES_CATEGORIES,
 ];
 
@@ -57,19 +57,21 @@ const INCLUDED_AWARDEE_GMB_CATEGORIES = [
 ];
 
 function getFlightDetailsGroup(category) {
-  if (!category) return null;
-  return INCLUDED_AWARDEE_GMB_CATEGORIES.includes(category)
+  const resolved = resolveCategory(category);
+  if (!resolved) return null;
+  return INCLUDED_AWARDEE_GMB_CATEGORIES.includes(resolved)
     ? 'included_awardee_gmb'
     : 'non_awardee';
 }
 
 function getFlightDetailsCopy(category) {
-  const group = getFlightDetailsGroup(category);
+  const resolved = resolveCategory(category);
+  const group = getFlightDetailsGroup(resolved);
   if (!group) return null;
 
   const base = FLIGHT_DETAILS_COPY[group];
   const bottomRemarks = [];
-  if (CATEGORIES_WITH_AIRPORT_MASTER_BILL_REMARK.includes(category)) {
+  if (CATEGORIES_WITH_AIRPORT_MASTER_BILL_REMARK.includes(resolved)) {
     bottomRemarks.push(AIRPORT_TRANSFER_MASTER_BILL_REMARK);
   }
   bottomRemarks.push(HOTEL_TRANSFER_REMARK);
@@ -78,8 +80,8 @@ function getFlightDetailsCopy(category) {
     ...base,
     deadline: FLIGHT_DEADLINE,
     secretariatEmail: SECRETARIAT_EMAIL,
-    transferTable: category === 'GMB' ? null : TRANSFER_TABLE,
-    showBottomRemarks: category !== 'GMB',
+    transferTable: resolved === 'GMB' ? null : TRANSFER_TABLE,
+    showBottomRemarks: resolved !== 'GMB',
     bottomRemarks,
   };
 }

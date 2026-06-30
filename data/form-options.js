@@ -1,4 +1,5 @@
 const options = require('./form-options.json');
+const { normalizeCategoryValue } = require('./category-aliases');
 
 const EVENT_DATE_PREFIXES = new Set(['arrival', 'departure', 'checkIn', 'checkOut']);
 
@@ -47,10 +48,18 @@ function getTimeOptions(prefix, part) {
   return getOptions(fields[part]);
 }
 
+function getCategoryLabel(value) {
+  if (!value) return '';
+  const normalized = normalizeCategoryValue(value);
+  const match = getOptions('titleGroup').find((o) => o.value === normalized);
+  return match?.label || value;
+}
+
 module.exports = {
   getOptions,
   getDateOptions,
   getTimeOptions,
+  getCategoryLabel,
   DATE_FIELDS,
   TIME_FIELDS,
 };

@@ -1,4 +1,5 @@
 const entitlements = require('./field-entitlements.json');
+const formOptions = require('./form-options');
 const { entitlementKey } = require('./category-aliases');
 const { sortByEntitlementOrder } = require('./form-field-order');
 const { AWARDEES_CATEGORIES } = require('./category-flows');
@@ -91,7 +92,7 @@ function formatPhone(countryCode, areaCode, number) {
 
 function getConfirmDisplay(category, body, resolveLabel) {
   const fields = getRegistrationFields(category);
-  const part1 = [{ label: 'Category', value: category || '—' }];
+  const part1 = [{ label: 'Category', value: formOptions.getCategoryLabel(category) || category || '—' }];
   const part2 = [];
 
   fields.forEach((field) => {

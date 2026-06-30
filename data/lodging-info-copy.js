@@ -6,6 +6,7 @@
  * Group 3: KR SMT
  */
 const { AWARDEES_CATEGORIES } = require('./category-flows');
+const { resolveCategory } = require('./category-aliases');
 
 const WESTIN_SEOUL = {
   name: 'The Westin Seoul Parnas',
@@ -124,41 +125,43 @@ const APMB_TIER_CATEGORIES = [
   'AP Country Manager',
   'AP Hub Manager',
   'Guests',
-  'Others', // legacy records
 ];
 
 function getLodgingInfoGroup(category) {
-  if (!category) return null;
-  if (AWARDEES_OC_CATEGORIES.includes(category)) return 'awardees_oc_others';
-  if (category === 'KR SMT' || category === 'VN SMT') return 'kr_smt';
-  if (APMB_TIER_CATEGORIES.includes(category)) return 'apmb_tier';
-  if (category === 'GMB') return 'awardees_oc_others';
+  const resolved = resolveCategory(category);
+  if (!resolved) return null;
+  if (AWARDEES_OC_CATEGORIES.includes(resolved)) return 'awardees_oc_others';
+  if (resolved === 'KR SMT' || resolved === 'VN SMT') return 'kr_smt';
+  if (APMB_TIER_CATEGORIES.includes(resolved)) return 'apmb_tier';
+  if (resolved === 'GMB') return 'awardees_oc_others';
   return 'awardees_oc_others';
 }
 
 function getLodgingRemarksVisible(category) {
-  if (!category || category === 'GMB' || category === 'Organising Committee') return false;
+  const resolved = resolveCategory(category);
+  if (!resolved || resolved === 'GMB' || resolved === 'Organising Committee') return false;
   const groupKey = getLodgingInfoGroup(category);
   if (!groupKey) return false;
   return LODGING_INFO_COPY[groupKey]?.showRemarks !== false;
 }
 
 function getLodgingInfoCopy(category) {
-  const groupKey = getLodgingInfoGroup(category);
+  const resolved = resolveCategory(category);
+  const groupKey = getLodgingInfoGroup(resolved);
   if (!groupKey) return null;
 
   const base = { ...LODGING_INFO_COPY[groupKey] };
-  if (category === 'Organising Committee') {
+  if (resolved === 'Organising Committee') {
     base.remarkBullets = ORGANISING_COMMITTEE_REMARK_BULLETS;
     base.showRemarks = false;
-  } else if (AWARDEES_CATEGORIES.includes(category)) {
+  } else if (AWARDEES_CATEGORIES.includes(resolved)) {
     base.remarkBullets = AWARDEES_REMARK_BULLETS;
     base.numberedRemarks = AWARDEES_NUMBERED_REMARKS;
   }
 
   return {
     ...base,
-    showRemarks: getLodgingRemarksVisible(category),
+    showRemarks: getLodgingRemarksVisible(resolved),
   };
 }
 

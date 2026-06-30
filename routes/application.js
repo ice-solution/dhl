@@ -9,6 +9,7 @@ const {
   parseApplicationBody,
   mergeApplicationData,
   syncUserProfile,
+  migrateLegacyGuestCategory,
 } = require('../lib/application-data');
 const { saveUserPhoto } = require('../lib/upload-photos');
 
@@ -16,6 +17,7 @@ const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.get('/application', requireAuth, async (req, res) => {
+  await migrateLegacyGuestCategory(req.user);
   const application = await Application.findOne({ user: req.user._id });
   res.render('application-form', buildApplicationRenderContext(req.user, application, {
     success: req.query.success || null,

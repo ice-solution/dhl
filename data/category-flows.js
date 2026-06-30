@@ -3,12 +3,13 @@
  * awardees | gmb | oc | kr_smt | others
  */
 const { APPLICATION_SECTION_ORDER } = require('./form-field-order');
+const { resolveCategory } = require('./category-aliases');
 
 const AWARDEES_CATEGORIES = [
   'Employee of the Year - Overall Excellence',
   'Supervisor of the Year',
   "DHL's Got Heart Finalist",
-  'Employee of the Year - Sales Excellence',
+  'Others',
 ];
 
 const GMB_FLOW_CATEGORIES = [
@@ -26,9 +27,13 @@ CATEGORY_TO_FLOW['Organising Committee'] = 'oc';
 CATEGORY_TO_FLOW['KR SMT'] = 'kr_smt';
 CATEGORY_TO_FLOW['VN SMT'] = 'kr_smt'; // legacy records
 CATEGORY_TO_FLOW.Guests = 'others';
-CATEGORY_TO_FLOW.Others = 'others'; // legacy records
+CATEGORY_TO_FLOW.Others = 'awardees';
+CATEGORY_TO_FLOW['Employee of the Year - Sales Excellence'] = 'awardees'; // legacy records
 
-/** Section order per workflow diagram (aligned with OVERVIEW FORM SUMMARY) */
+function getFlowType(category) {
+  return CATEGORY_TO_FLOW[resolveCategory(category)] || 'gmb';
+}
+
 const FLOW_SECTIONS = {
   awardees: APPLICATION_SECTION_ORDER,
   gmb: APPLICATION_SECTION_ORDER.filter((s) => s !== 'tour' && s !== 'photo'),
@@ -97,14 +102,11 @@ const CATEGORY_RULE_OVERRIDES = {
   },
 };
 
-function getFlowType(category) {
-  return CATEGORY_TO_FLOW[category] || 'gmb';
-}
-
 function getFlowSections(category) {
-  const flow = getFlowType(category);
+  const resolved = resolveCategory(category);
+  const flow = getFlowType(resolved);
   let sections = FLOW_SECTIONS[flow] || FLOW_SECTIONS.gmb;
-  const override = CATEGORY_RULE_OVERRIDES[category];
+  const override = CATEGORY_RULE_OVERRIDES[resolved] || CATEGORY_RULE_OVERRIDES[category];
   if (override?.excludedSections?.length) {
     sections = sections.filter((s) => !override.excludedSections.includes(s));
   }
@@ -112,9 +114,10 @@ function getFlowSections(category) {
 }
 
 function getFlowRules(category) {
-  const flow = getFlowType(category);
+  const resolved = resolveCategory(category);
+  const flow = getFlowType(resolved);
   const rules = { ...(FLOW_FIELD_RULES[flow] || FLOW_FIELD_RULES.gmb) };
-  const override = CATEGORY_RULE_OVERRIDES[category];
+  const override = CATEGORY_RULE_OVERRIDES[resolved] || CATEGORY_RULE_OVERRIDES[category];
   if (override?.flight === false) {
     rules.flight = false;
   }
@@ -133,6 +136,7 @@ module.exports = {
   GMB_FLOW_CATEGORIES,
   CATEGORY_TO_FLOW,
   FLOW_SECTIONS,
+  resolveCategory,
   getFlowType,
   getFlowSections,
   getFlowRules,
