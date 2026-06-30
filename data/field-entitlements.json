@@ -717,7 +717,7 @@
       "section": "TOUR SELECTION",
       "name": "PLEASE SELECT YOUR PREFERRED YOUR OPTION",
       "key": "please_select_your_preferred_your_option",
-      "typeHint": "Option 1 - Cultural Experience Tour​",
+      "typeHint": "Option 1: Hanbok Experience & Palace Tour",
       "optionsHint": "<dropbox selections>",
       "visibility": {
         "GMB": false,

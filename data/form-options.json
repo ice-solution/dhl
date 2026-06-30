@@ -3478,20 +3478,24 @@
       "label": "Please select"
     },
     {
-      "value": "Option 1 - Cultural Experience Tour",
-      "label": "Option 1 - Cultural Experience Tour"
+      "value": "Option 1: Hanbok Experience & Palace Tour",
+      "label": "Option 1: Hanbok Experience & Palace Tour"
     },
     {
-      "value": "Option 2 - Korean Folk Heritage Tour",
-      "label": "Option 2 - Korean Folk Heritage Tour"
+      "value": "Option 2: Folk Village Tour",
+      "label": "Option 2: Folk Village Tour"
     },
     {
-      "value": "Option 3 - Wellness",
-      "label": "Option 3 - Wellness"
+      "value": "Option 3A: Yoga Class",
+      "label": "Option 3A: Yoga Class"
     },
     {
-      "value": "Option 4 - Free & Easy",
-      "label": "Option 4 - Free & Easy"
+      "value": "Option 3B: Pilates Class",
+      "label": "Option 3B: Pilates Class"
+    },
+    {
+      "value": "Option 4: Free & Easy",
+      "label": "Option 4: Free & Easy"
     }
   ],
   "aodaiColor": [

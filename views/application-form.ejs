@@ -380,9 +380,8 @@
     <!-- Tour Selection (Awardees only) -->
     <div data-app-section-wrap="tour" class="<%= sectionClass('tour') %>">
       <h2 class="section-title" data-app-section="tour">Tour Selection</h2>
-      <p class="text-xs text-gray-500 mb-4">Please select your preferred tour option. <a href="#" class="text-gold underline">Tour details PDF</a></p>
+      <p class="text-xs text-gray-400 mb-4">Please select one daytime activities option for 9 Sep</p>
       <div class="max-w-md <%= fieldClass('tourSelection') %>" data-app-field="tourSelection">
-        <label class="form-label">Please select your preferred option</label>
         <%- include('partials/select-field', { name: 'tourSelection', options: getOptions('tour'), selected: tour.tourSelection }) %>
       </div>
       <div class="flex justify-end mt-4">
