@@ -34,20 +34,25 @@ function getExtraOptions() {
 
 function resolveLabel(key, value) {
   if (!value) return '';
-  const extra = getExtraOptions();
-  const options = extra[key] || formOptions.getOptions(key);
+  const options = getRegisterOptions(key);
   const match = options.find((o) => String(o.value) === String(value));
   return match?.label || value;
 }
 
+function getRegisterOptions(key) {
+  if (key === 'salutation') {
+    return getExtraOptions().salutation;
+  }
+  return formOptions.getOptions(key);
+}
+
 function renderRegisterForm(res, { error = null, values = {}, selectedCategory = '' } = {}) {
-  const extra = getExtraOptions();
   res.render('register/form', {
     categories: categoryOptions,
     selectedCategory,
     dietaryOptions: DIETARY_OPTIONS,
     visibilityMatrix,
-    getOptions: (key) => extra[key] || formOptions.getOptions(key),
+    getOptions: getRegisterOptions,
     error,
     values,
   });
