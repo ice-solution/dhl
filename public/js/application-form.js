@@ -158,9 +158,14 @@
     return [...form.querySelectorAll('input[type="file"]')].some((input) => input.files?.length > 0);
   }
 
+  function getFormActionUrl(form) {
+    // Named controls shadow form.action — multiple Save buttons use name="action"
+    return form.getAttribute('action') || window.location.pathname;
+  }
+
   async function submitMultipartForm(form) {
     const token = getCsrfToken(form);
-    const response = await fetch(form.action, {
+    const response = await fetch(getFormActionUrl(form), {
       method: 'POST',
       body: new FormData(form),
       headers: token ? { 'X-CSRF-Token': token } : {},
