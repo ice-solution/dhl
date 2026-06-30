@@ -380,7 +380,7 @@
     <!-- Tour Selection (Awardees only) -->
     <div data-app-section-wrap="tour" class="<%= sectionClass('tour') %>">
       <h2 class="section-title" data-app-section="tour">Tour Selection</h2>
-      <p class="text-xs text-gray-400 mb-4">Please select one daytime activities option for 9 Sep</p>
+      <p class="text-xs text-gray-400 mb-4">Please select one daytime activities option for 9 Sep. <a href="<%= siteDocuments.tourSelection %>" class="text-gold underline" target="_blank" rel="noopener noreferrer">Tour and Activity selection (PDF)</a></p>
       <div class="max-w-md <%= fieldClass('tourSelection') %>" data-app-field="tourSelection">
         <%- include('partials/select-field', { name: 'tourSelection', options: getOptions('tour'), selected: tour.tourSelection }) %>
       </div>
