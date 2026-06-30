@@ -80,8 +80,8 @@ function getFlightDetailsCopy(category) {
     ...base,
     deadline: FLIGHT_DEADLINE,
     secretariatEmail: SECRETARIAT_EMAIL,
-    transferTable: resolved === 'GMB' ? null : TRANSFER_TABLE,
-    showBottomRemarks: resolved !== 'GMB',
+    transferTable: (resolved === 'GMB' || resolved === 'Organising Committee') ? null : TRANSFER_TABLE,
+    showBottomRemarks: resolved !== 'GMB' && resolved !== 'Organising Committee',
     bottomRemarks,
   };
 }

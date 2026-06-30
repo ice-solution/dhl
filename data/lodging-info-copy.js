@@ -58,18 +58,9 @@ const AWARDEES_REMARK_BULLETS = [
 const AWARDEES_NUMBERED_REMARKS = [
   'Any extras and incidentals will be on guests\' own account.',
   'Other special requests will be subject to hotel availability upon check-in.',
-  {
-    text: 'Standard check-in time is 15:00 and check-out time is 11:00. Complimentary early check-in and late check-out requests are subject to room availability and very likely will not be accommodated. Guests may store their luggage with the concierge if the room is not yet ready.',
-    highlight: true,
-  },
-  {
-    text: 'Late check-out will incur an additional charge of 50% of the room rate. For check-outs after 18:00, a full night\'s room charge will apply. Any unapproved early check in/late check-out charges may be borne by the employee if not pre-approved by the Event Organizing Team.',
-    highlight: true,
-  },
-  {
-    text: 'The room reservations you indicate on this registration will be booked by DHL and guaranteed. Should you not take up the room as a result of flight changes or other arrangements, the hotel will still levy room cancellation charges to you - unless you update the Event Secretariat changes by 24 July 2026.',
-    highlight: true,
-  },
+  'Standard check-in time is 15:00 and check-out time is 11:00. Complimentary early check-in and late check-out requests are subject to room availability and very likely will not be accommodated. Guests may store their luggage with the concierge if the room is not yet ready.',
+  'Late check-out will incur an additional charge of 50% of the room rate. For check-outs after 18:00, a full night\'s room charge will apply. Any unapproved early check in/late check-out charges may be borne by the employee if not pre-approved by the Event Organizing Team.',
+  'The room reservations you indicate on this registration will be booked by DHL and guaranteed. Should you not take up the room as a result of flight changes or other arrangements, the hotel will still levy room cancellation charges to you - unless you update the Event Secretariat changes by 24 July 2026.',
   'One night non refundable deposit will be charged upon reservation.',
 ];
 

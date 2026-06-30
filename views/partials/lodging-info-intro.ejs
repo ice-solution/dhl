@@ -54,8 +54,7 @@
   <ol class="app-lodging-remarks-list app-lodging-remarks-list--numbered">
     <% lodgingInfoCopy.numberedRemarks.forEach((item) => { %>
     <% const remarkText = typeof item === 'string' ? item : item.text; %>
-    <% const remarkClass = typeof item === 'object' && item.highlight ? 'app-lodging-remark-highlight' : ''; %>
-    <li class="<%= remarkClass %>"><%= remarkText %></li>
+    <li><%= remarkText %></li>
     <% }); %>
   </ol>
   <% } %>

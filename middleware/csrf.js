@@ -1,6 +1,13 @@
 const csrf = require('csurf');
 
-const csrfProtection = csrf();
+function readCsrfToken(req) {
+  return (req.body && req.body._csrf)
+    || (req.query && req.query._csrf)
+    || req.headers['x-csrf-token']
+    || req.headers['x-xsrf-token'];
+}
+
+const csrfProtection = csrf({ value: readCsrfToken });
 
 function exposeCsrfToken(req, res, next) {
   try {

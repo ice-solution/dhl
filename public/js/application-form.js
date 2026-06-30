@@ -148,12 +148,66 @@
     });
   }
 
+  function getCsrfToken(form) {
+    return document.querySelector('meta[name="csrf-token"]')?.content
+      || form.querySelector('input[name="_csrf"]')?.value
+      || '';
+  }
+
+  function hasSelectedFiles(form) {
+    return [...form.querySelectorAll('input[type="file"]')].some((input) => input.files?.length > 0);
+  }
+
+  async function submitMultipartForm(form) {
+    const token = getCsrfToken(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: token ? { 'X-CSRF-Token': token } : {},
+      credentials: 'same-origin',
+    });
+
+    if (response.redirected) {
+      window.location.href = response.url;
+      return;
+    }
+
+    const html = await response.text();
+    document.open();
+    document.write(html);
+    document.close();
+  }
+
   function handleFormSubmit(e) {
     const form = e.currentTarget;
     const submitter = e.submitter;
     const action = submitter?.getAttribute('value') ?? submitter?.value ?? '';
 
-    // Save Section / Save Draft / Save Changes — no validation
+    // Multipart only when uploading photos — CSRF token sent via header
+    if (hasSelectedFiles(form)) {
+      e.preventDefault();
+      clearRequiredOnHiddenFields();
+      if (action === 'submit') {
+        const agreement = form.querySelector('[name="agreementAccepted"]');
+        const socialPolicy = form.querySelector('[name="socialEventPolicyAccepted"]');
+        if (agreement && !agreement.checked) {
+          agreement.reportValidity();
+          return;
+        }
+        if (socialPolicy && !socialPolicy.checked) {
+          socialPolicy.reportValidity();
+          return;
+        }
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+      }
+      submitMultipartForm(form);
+      return;
+    }
+
+    // Save Section / Save Draft / Save Changes — no validation (urlencoded + _csrf field)
     if (action === 'save' || submitter?.hasAttribute('formnovalidate')) {
       clearRequiredOnHiddenFields();
       form.setAttribute('novalidate', 'novalidate');
