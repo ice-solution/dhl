@@ -86,6 +86,9 @@ function validateRegistration(body) {
   if (!body.photoConsent) {
     errors.push('You must agree to the photo/video notice.');
   }
+  if (!body.socialEventPolicyConsent) {
+    errors.push('You must agree to the Social Event Policy declaration.');
+  }
 
   return { category, workEmail, password, errors };
 }
@@ -131,6 +134,7 @@ async function createRegistration(req, body) {
     galaMainCourse: body.galaMainCourse || '',
     shirtSize: body.shirtSize || '',
     photoConsent: !!body.photoConsent,
+    socialEventPolicyConsent: !!body.socialEventPolicyConsent,
   });
 
   await Application.create({
@@ -163,6 +167,8 @@ async function createRegistration(req, body) {
     status: 'draft',
     hasChanges: true,
     registrationConfirmationEmailSent: false,
+    socialEventPolicyAccepted: !!body.socialEventPolicyConsent,
+    agreementAccepted: !!body.photoConsent,
   });
 
   return user;

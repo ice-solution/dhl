@@ -115,7 +115,7 @@
         </div>
 
         <div class="reg-field reg-field--hidden" data-reg-field="specialPhysicalCondition">
-          <label class="form-label"><span class="reg-required">*</span> Special Physical Condition</label>
+          <label class="form-label">Special Physical Condition</label>
           <div class="radio-group flex gap-6">
             <label><input type="radio" name="specialPhysicalCondition" value="Yes" <%= val('specialPhysicalCondition') === 'Yes' ? 'checked' : '' %>> Yes</label>
             <label><input type="radio" name="specialPhysicalCondition" value="No" <%= val('specialPhysicalCondition', 'No') === 'No' ? 'checked' : '' %>> No</label>
@@ -158,6 +158,12 @@
         <%- include('../partials/agreement-block', {
           checkboxName: 'photoConsent',
           checked: !!v.photoConsent,
+          required: true,
+        }) %>
+
+        <%- include('../partials/social-event-policy-block', {
+          checkboxName: 'socialEventPolicyConsent',
+          checked: !!v.socialEventPolicyConsent,
           required: true,
         }) %>
 

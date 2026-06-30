@@ -1,8 +1,8 @@
 /**
  * LODGING INFORMATION copy from fields_details.xlsx → sheet "LODGING INFORMATION"
  *
- * Group 1: AWARDEES + Organising Committee + Others
- * Group 2: APMB / AP Country Manager / AP Hub Manager / GHO
+ * Group 1: AWARDEES + Organising Committee + Guests
+ * Group 2: APMB / AP Country Manager / AP Hub Manager
  * Group 3: KR SMT
  */
 const { AWARDEES_CATEGORIES } = require('./category-flows');
@@ -24,22 +24,63 @@ const SHARED_NUMBERED_REMARKS = [
   'One night non refundable deposit will be charged upon reservation',
 ];
 
-const AWARDEES_OC_OTHERS_REMARK_BULLETS = [
+const APMB_TIER_REMARK_BULLETS = [
+  'Payment has already been made for 2 nights on 08-10 September 2026.',
+  'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Club Studio Single Occupancy with Club Access includes 1 breakfast is ~KRW 580,800/room/night.',
+  'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT, totally 21%',
+  'Any additional breakfast is required - the rate is ~KRW42,350 inclusive of 21% tax & service charge',
+];
+
+const APMB_TIER_NUMBERED_REMARKS = [
+  'Any extras and incidentals will be on guests\' own account.',
+  'Other special requests will be subject to hotel availability upon check-in.',
+  'Standard check-in time is 15:00 and check-out time is 11:00. Complimentary early check-in and late check-out requests are subject to room availability and may not be accommodated. Guests may store their luggage with the concierge if the room is not yet ready.',
+  'Late check-out will incur an additional charge of 50% of the room rate. For check-outs after 18:00, a full night\'s room charge will apply.',
+  'The room reservations you indicate on this registration will be booked by DHL and guaranteed. Should you not take up the room as a result of flight changes or other arrangements, the hotel will still levy room cancellation charges to you - unless you update the Event secretariat changes by 24 July 2026.',
+  'One night non refundable deposit will be charged upon reservation.',
+];
+
+const AWARDEES_OC_GUESTS_REMARK_BULLETS = [
   'Payment has already been made for 4 nights on 06 -10 September 2026.',
   'No complimentary early check-in and/or late check-out will be provided. Please adjust your room reservation to accommodate your requirements.',
   'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Guest Room, Single Occupancy includes 1 breakfast is ~KRW 375,100/room/night',
   'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT',
 ];
 
-// Organising Committee: same group as Awardees/Others but without the payment sentence.
-const ORGANISING_COMMITTEE_REMARK_BULLETS = AWARDEES_OC_OTHERS_REMARK_BULLETS.slice(1);
+const AWARDEES_REMARK_BULLETS = [
+  'Payment has already been made for 4 nights on 06 -10 September 2026.',
+  'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Guest Room, Single Occupancy includes 1 breakfast is ~KRW 375,100/room/night',
+  'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT',
+  'Any additional breakfast is required - the rate is ~KRW42,350 inclusive of 21% tax & service charge',
+];
+
+const AWARDEES_NUMBERED_REMARKS = [
+  'Any extras and incidentals will be on guests\' own account.',
+  'Other special requests will be subject to hotel availability upon check-in.',
+  {
+    text: 'Standard check-in time is 15:00 and check-out time is 11:00. Complimentary early check-in and late check-out requests are subject to room availability and very likely will not be accommodated. Guests may store their luggage with the concierge if the room is not yet ready.',
+    highlight: true,
+  },
+  {
+    text: 'Late check-out will incur an additional charge of 50% of the room rate. For check-outs after 18:00, a full night\'s room charge will apply. Any unapproved early check in/late check-out charges may be borne by the employee if not pre-approved by the Event Organizing Team.',
+    highlight: true,
+  },
+  {
+    text: 'The room reservations you indicate on this registration will be booked by DHL and guaranteed. Should you not take up the room as a result of flight changes or other arrangements, the hotel will still levy room cancellation charges to you - unless you update the Event Secretariat changes by 24 July 2026.',
+    highlight: true,
+  },
+  'One night non refundable deposit will be charged upon reservation.',
+];
+
+// Organising Committee: same group as Guests but without the payment sentence.
+const ORGANISING_COMMITTEE_REMARK_BULLETS = AWARDEES_OC_GUESTS_REMARK_BULLETS.slice(1);
 
 const LODGING_INFO_COPY = {
   awardees_oc_others: {
     key: 'awardees_oc_others',
     hotel: WESTIN_SEOUL,
     showRemarks: true,
-    remarkBullets: AWARDEES_OC_OTHERS_REMARK_BULLETS,
+    remarkBullets: AWARDEES_OC_GUESTS_REMARK_BULLETS,
     numberedRemarks: SHARED_NUMBERED_REMARKS,
     accommodationTable: null,
   },
@@ -47,12 +88,8 @@ const LODGING_INFO_COPY = {
     key: 'apmb_tier',
     hotel: WESTIN_SEOUL,
     showRemarks: true,
-    remarkBullets: [
-      'Payment has already been made for 2 nights on 08 - 10 September 2026.',
-      'Additional room charges for early arrivals or late departure for personal stays will be borne by attendees. Room rate for Club Studio Single Occupancy with Club Access includes 1 breakfast is ~KRW 580,800/room/night.',
-      'Room rates stated are inclusive of 10% service charge & 11% prevailing VAT, totally 21%',
-    ],
-    numberedRemarks: SHARED_NUMBERED_REMARKS,
+    remarkBullets: APMB_TIER_REMARK_BULLETS,
+    numberedRemarks: APMB_TIER_NUMBERED_REMARKS,
     accommodationTable: null,
   },
   kr_smt: {
@@ -77,22 +114,22 @@ const LODGING_INFO_COPY = {
   },
 };
 
-const AWARDEES_OC_OTHERS_CATEGORIES = [
+const AWARDEES_OC_CATEGORIES = [
   ...AWARDEES_CATEGORIES,
   'Organising Committee',
-  'Others',
 ];
 
 const APMB_TIER_CATEGORIES = [
   'APMB',
   'AP Country Manager',
   'AP Hub Manager',
-  'GHO',
+  'Guests',
+  'Others', // legacy records
 ];
 
 function getLodgingInfoGroup(category) {
   if (!category) return null;
-  if (AWARDEES_OC_OTHERS_CATEGORIES.includes(category)) return 'awardees_oc_others';
+  if (AWARDEES_OC_CATEGORIES.includes(category)) return 'awardees_oc_others';
   if (category === 'KR SMT' || category === 'VN SMT') return 'kr_smt';
   if (APMB_TIER_CATEGORIES.includes(category)) return 'apmb_tier';
   if (category === 'GMB') return 'awardees_oc_others';
@@ -100,7 +137,7 @@ function getLodgingInfoGroup(category) {
 }
 
 function getLodgingRemarksVisible(category) {
-  if (!category || category === 'GMB') return false;
+  if (!category || category === 'GMB' || category === 'Organising Committee') return false;
   const groupKey = getLodgingInfoGroup(category);
   if (!groupKey) return false;
   return LODGING_INFO_COPY[groupKey]?.showRemarks !== false;
@@ -113,6 +150,10 @@ function getLodgingInfoCopy(category) {
   const base = { ...LODGING_INFO_COPY[groupKey] };
   if (category === 'Organising Committee') {
     base.remarkBullets = ORGANISING_COMMITTEE_REMARK_BULLETS;
+    base.showRemarks = false;
+  } else if (AWARDEES_CATEGORIES.includes(category)) {
+    base.remarkBullets = AWARDEES_REMARK_BULLETS;
+    base.numberedRemarks = AWARDEES_NUMBERED_REMARKS;
   }
 
   return {
@@ -123,7 +164,7 @@ function getLodgingInfoCopy(category) {
 
 module.exports = {
   LODGING_INFO_COPY,
-  AWARDEES_OC_OTHERS_CATEGORIES,
+  AWARDEES_OC_CATEGORIES,
   APMB_TIER_CATEGORIES,
   getLodgingInfoGroup,
   getLodgingInfoCopy,

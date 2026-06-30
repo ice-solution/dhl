@@ -96,6 +96,7 @@ const applicationSchema = new mongoose.Schema({
   },
 
   agreementAccepted: { type: Boolean, default: false },
+  socialEventPolicyAccepted: { type: Boolean, default: false },
 
   costume: {
     height: String,

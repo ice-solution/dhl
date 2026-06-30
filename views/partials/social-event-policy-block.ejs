@@ -1,0 +1,19 @@
+<% const policyCheckboxName = typeof checkboxName !== 'undefined' ? checkboxName : 'socialEventPolicyAccepted'; %>
+<% const policyChecked = typeof checked !== 'undefined' ? checked : false; %>
+<% const policyReadonly = typeof readonly !== 'undefined' ? readonly : false; %>
+<% const policyRequired = typeof required !== 'undefined' ? required : false; %>
+
+<div class="reg-agreement reg-agreement--social-policy">
+  <label class="reg-checkbox-label reg-checkbox-label--block<%= policyReadonly ? ' reg-checkbox-label--readonly' : '' %>">
+    <input
+      type="checkbox"
+      name="<%= policyCheckboxName %>"
+      value="1"
+      class="accent-gold"
+      <%= policyChecked ? 'checked' : '' %>
+      <%= policyReadonly ? 'disabled' : '' %>
+      <%= policyRequired ? 'required' : '' %>
+    >
+    <span>I have participated the Social Event Policy training and hereby acknowledge and agree to uphold the principles of the DHL Code of Conduct (available on Smart Connect) for the Employee of the Year 2025 event.</span>
+  </label>
+</div>

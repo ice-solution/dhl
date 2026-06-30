@@ -19,7 +19,11 @@
 <% if (typeof flightDetailsCopy !== 'undefined' && flightDetailsCopy && block === 'bottom' && flightDetailsCopy.showBottomRemarks) { %>
 <div class="app-flight-intro app-flight-intro--bottom">
   <p class="app-flight-remarks-heading"><strong>Remarks:</strong></p>
-  <p><%= flightDetailsCopy.bottomRemarksText %></p>
+  <% const remarks = flightDetailsCopy.bottomRemarks
+    || (flightDetailsCopy.bottomRemarksText ? [flightDetailsCopy.bottomRemarksText] : []); %>
+  <% remarks.forEach((paragraph) => { %>
+  <p><%= paragraph %></p>
+  <% }); %>
 
   <% if (flightDetailsCopy.transferTable) { %>
   <p class="app-flight-intro-table-title"><%= flightDetailsCopy.transferTable.title %></p>

@@ -166,7 +166,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <div class="<%= fieldClass('specialPhysicalCondition') %>" data-app-field="specialPhysicalCondition">
-          <label class="form-label">Special Physical Condition <span class="form-required">*</span></label>
+          <label class="form-label">Special Physical Condition</label>
           <%- include('partials/select-field', { name: 'specialPhysicalCondition', options: getOptions('specialPhysicalCondition'), selected: prof.specialPhysicalCondition || user.specialPhysicalCondition }) %>
         </div>
         <div class="<%= fieldClass('specialPhysicalConditionYes') %>" data-app-field="specialPhysicalConditionYes">
@@ -178,7 +178,7 @@
       <div class="<%= fieldClass('dietaryRequirements') %> mt-4" data-app-field="dietaryRequirements">
         <p class="form-label mb-2">Special Dietary Requirements <span class="form-required">*</span></p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <% const dietOptions = ['No Preference','Halal - No Pork / No Lard','Strict Halal','No Beef','No Spicy','No Raw Food','No Seafood','Vegetarian','Vegan','Gluten Free']; %>
+          <% const dietOptions = ['No Preference','Halal - No Pork / No Lard','Strict Halal','No Beef','No Spicy','No Raw Food','No Seafood','Vegetarian','Vegan']; %>
           <% dietOptions.forEach((d) => { %>
             <label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
               <input type="checkbox" name="dietaryRequirements" value="<%= d %>" class="accent-gold" <%= dietarySelected.includes(d) ? 'checked' : '' %>>
@@ -452,6 +452,12 @@
       <%- include('partials/agreement-block', {
         checkboxName: 'agreementAccepted',
         checked: !!(app.agreementAccepted || user.photoConsent),
+        required: true,
+      }) %>
+      <%- include('partials/social-event-policy-block', {
+        checkboxName: 'socialEventPolicyAccepted',
+        checked: !!(app.socialEventPolicyAccepted || user.socialEventPolicyConsent),
+        required: true,
       }) %>
     </div>
 
@@ -474,6 +480,7 @@
   window.APP_LODGING_REMARKS_BY_CATEGORY = <%- JSON.stringify(lodgingRemarksByCategory) %>;
   window.APP_FLIGHT_GROUP_BY_CATEGORY = <%- JSON.stringify(flightGroupByCategory) %>;
   window.APP_LODGING_GROUP_BY_CATEGORY = <%- JSON.stringify(lodgingGroupByCategory) %>;
+  window.APP_LODGING_WITHOUT_ACCOMMODATION = <%- JSON.stringify(lodgingWithoutAccommodationByCategory) %>;
   window.APP_ACCOMMODATION = <%- JSON.stringify(accommodationAnswer || '') %>;
 </script>
 <script src="/js/application-form.js"></script>

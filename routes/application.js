@@ -33,10 +33,10 @@ router.post('/application', requireAuth, upload.fields([
 
     const uniformFile = req.files?.uniformPhotoFile?.[0];
     const niceFile = req.files?.nicePhotoFile?.[0];
-    if (uniformFile) {
+    if (uniformFile?.buffer?.length) {
       data.photoUpload.uniformPhoto = await saveUserPhoto(req.session.userId, 'uniform', uniformFile);
     }
-    if (niceFile) {
+    if (niceFile?.buffer?.length) {
       data.photoUpload.nicePhoto = await saveUserPhoto(req.session.userId, 'nice', niceFile);
     }
 

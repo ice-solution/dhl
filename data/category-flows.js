@@ -6,9 +6,9 @@ const { APPLICATION_SECTION_ORDER } = require('./form-field-order');
 
 const AWARDEES_CATEGORIES = [
   'Employee of the Year - Overall Excellence',
-  'Employee of the Year - Sales Excellence',
   'Supervisor of the Year',
   "DHL's Got Heart Finalist",
+  'Employee of the Year - Sales Excellence',
 ];
 
 const GMB_FLOW_CATEGORIES = [
@@ -16,7 +16,6 @@ const GMB_FLOW_CATEGORIES = [
   'APMB',
   'AP Country Manager',
   'AP Hub Manager',
-  'GHO',
 ];
 
 const CATEGORY_TO_FLOW = {};
@@ -26,7 +25,8 @@ GMB_FLOW_CATEGORIES.forEach((c) => { CATEGORY_TO_FLOW[c] = 'gmb'; });
 CATEGORY_TO_FLOW['Organising Committee'] = 'oc';
 CATEGORY_TO_FLOW['KR SMT'] = 'kr_smt';
 CATEGORY_TO_FLOW['VN SMT'] = 'kr_smt'; // legacy records
-CATEGORY_TO_FLOW.Others = 'others';
+CATEGORY_TO_FLOW.Guests = 'others';
+CATEGORY_TO_FLOW.Others = 'others'; // legacy records
 
 /** Section order per workflow diagram (aligned with OVERVIEW FORM SUMMARY) */
 const FLOW_SECTIONS = {
@@ -87,11 +87,13 @@ const FLOW_FIELD_RULES = {
 const CATEGORY_RULE_OVERRIDES = {
   'KR SMT': {
     flight: false,
-    excludedSections: ['flight'],
+    excludedSections: ['flight', 'accommodation'],
+    lodgingWithoutAccommodation: true,
   },
   'VN SMT': {
     flight: false,
-    excludedSections: ['flight'],
+    excludedSections: ['flight', 'accommodation'],
+    lodgingWithoutAccommodation: true,
   },
 };
 
@@ -115,6 +117,9 @@ function getFlowRules(category) {
   const override = CATEGORY_RULE_OVERRIDES[category];
   if (override?.flight === false) {
     rules.flight = false;
+  }
+  if (override?.lodgingWithoutAccommodation) {
+    rules.lodgingWithoutAccommodation = true;
   }
   return rules;
 }

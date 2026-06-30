@@ -3,7 +3,8 @@
  */
 const CATEGORY_ENTITLEMENT_KEY = {
   'VN SMT': 'KR SMT', // legacy records
-  Others: 'Other',
+  Guests: 'Other',
+  Others: 'Other', // legacy records
 };
 
 function entitlementKey(category) {

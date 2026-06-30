@@ -17,6 +17,21 @@ const TRANSFER_TABLE = {
   ],
 };
 
+const AIRPORT_TRANSFER_MASTER_BILL_REMARK =
+  'Airport transfers for one participant (to and from the airport) are included in the master bill.';
+
+const HOTEL_TRANSFER_REMARK =
+  'Should you need to book any additional hotel transfers, please see below information for your reference.';
+
+const CATEGORIES_WITH_AIRPORT_MASTER_BILL_REMARK = [
+  'APMB',
+  'AP Country Manager',
+  'AP Hub Manager',
+  'Guests',
+  'Others', // legacy records
+  ...AWARDEES_CATEGORIES,
+];
+
 const FLIGHT_DETAILS_COPY = {
   included_awardee_gmb: {
     key: 'included_awardee_gmb',
@@ -53,14 +68,19 @@ function getFlightDetailsCopy(category) {
   if (!group) return null;
 
   const base = FLIGHT_DETAILS_COPY[group];
+  const bottomRemarks = [];
+  if (CATEGORIES_WITH_AIRPORT_MASTER_BILL_REMARK.includes(category)) {
+    bottomRemarks.push(AIRPORT_TRANSFER_MASTER_BILL_REMARK);
+  }
+  bottomRemarks.push(HOTEL_TRANSFER_REMARK);
+
   return {
     ...base,
     deadline: FLIGHT_DEADLINE,
     secretariatEmail: SECRETARIAT_EMAIL,
     transferTable: category === 'GMB' ? null : TRANSFER_TABLE,
     showBottomRemarks: category !== 'GMB',
-    bottomRemarksText:
-      'Should you need to book any additional hotel transfers, please see below information for your reference.',
+    bottomRemarks,
   };
 }
 

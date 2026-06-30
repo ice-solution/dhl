@@ -17,7 +17,7 @@ const FIELD_MAP = {
   gender: { id: 'gender', label: 'Gender', type: 'select', optionsKey: 'gender', required: true, section: 'part2a' },
   office_phone: { id: 'officePhone', label: 'Office Phone', type: 'phone', required: false, section: 'part2a' },
   mobile_phone: { id: 'mobilePhone', label: 'Mobile Phone', type: 'phone', required: true, section: 'part2a' },
-  special_physical_condition: { id: 'specialPhysicalCondition', label: 'Special Physical Condition', type: 'yesno', required: true, section: 'part2a' },
+  special_physical_condition: { id: 'specialPhysicalCondition', label: 'Special Physical Condition', type: 'yesno', required: false, section: 'part2a' },
   special_dietary_requirements: { id: 'dietaryRequirements', label: 'Special Dietary Requirements', type: 'checkboxes', required: true, section: 'part2b' },
   other_dietary_requirments_food_allegies_if_any: { id: 'otherDietaryRequirements', label: 'Other Dietary Requirements / Food Allergies (if any)', type: 'text', required: false, section: 'part2b' },
   gala_dinner_main_course: { id: 'galaMainCourse', label: 'Gala Dinner Main Course', type: 'select', optionsKey: 'galaMainCourse', required: true, section: 'part2b' },
@@ -34,7 +34,6 @@ const DIETARY_OPTIONS = [
   'No Seafood',
   'Vegetarian',
   'Vegan',
-  'Gluten Free',
 ];
 
 function isFieldVisible(fieldKey, category) {

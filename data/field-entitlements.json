@@ -703,7 +703,7 @@
         "APMB": true,
         "AP Country Manager": true,
         "AP Hub Manager": true,
-        "KR SMT": true,
+        "KR SMT": false,
         "GHO": true,
         "Organising Committee": true,
         "Other": true,

@@ -5,7 +5,7 @@
   const requiredFields = new Set([
     'jobTitle', 'functionUnit', 'businessUnit', 'globalId', 'workEmail', 'password', 'confirmPassword',
     'salutation', 'surname', 'givenName', 'nameOnBadge', 'gender', 'mobilePhone',
-    'specialPhysicalCondition', 'dietaryRequirements', 'galaMainCourse', 'shirtSize',
+    'dietaryRequirements', 'galaMainCourse', 'shirtSize',
   ]);
   const optionalFields = new Set(['officePhone', 'otherDietaryRequirements']);
 

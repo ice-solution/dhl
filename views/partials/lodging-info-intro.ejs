@@ -45,14 +45,17 @@
   <% if (lodgingInfoCopy.remarkBullets && lodgingInfoCopy.remarkBullets.length) { %>
   <ul class="app-lodging-remarks-list">
     <% lodgingInfoCopy.remarkBullets.forEach((item) => { %>
-    <li><%= item %></li>
+    <% const bulletText = typeof item === 'string' ? item : item.text; %>
+    <li><%= bulletText %></li>
     <% }); %>
   </ul>
   <% } %>
   <% if (lodgingInfoCopy.numberedRemarks && lodgingInfoCopy.numberedRemarks.length) { %>
   <ol class="app-lodging-remarks-list app-lodging-remarks-list--numbered">
     <% lodgingInfoCopy.numberedRemarks.forEach((item) => { %>
-    <li><%= item %></li>
+    <% const remarkText = typeof item === 'string' ? item : item.text; %>
+    <% const remarkClass = typeof item === 'object' && item.highlight ? 'app-lodging-remark-highlight' : ''; %>
+    <li class="<%= remarkClass %>"><%= remarkText %></li>
     <% }); %>
   </ol>
   <% } %>

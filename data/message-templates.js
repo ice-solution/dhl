@@ -7,7 +7,7 @@ const {
 } = require('../lib/registration-summary');
 
 const SECRETARIAT_EMAIL = 'apeceoy@dhl.com';
-const ENQUIRY_EMAIL = 'secretariat@dhlapeoy.com';
+const ENQUIRY_EMAIL = 'apeceoy@dhl.com';
 const REGISTRATION_DEADLINE = '24 July 2026';
 const EVENT_NAME = 'DHL EOY 2025';
 const EMAIL_FONT = 'Arial, Helvetica, sans-serif';

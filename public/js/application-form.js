@@ -6,11 +6,13 @@
   const flightGroupByCategory = window.APP_FLIGHT_GROUP_BY_CATEGORY || {};
   const lodgingGroupByCategory = window.APP_LODGING_GROUP_BY_CATEGORY || {};
 
+  const lodgingWithoutAccommodationByCategory = window.APP_LODGING_WITHOUT_ACCOMMODATION || {};
+
   const requiredFields = new Set([
     'jobTitle', 'functionUnit', 'businessUnit', 'globalId',
     'salutation', 'firstName', 'surname', 'nameOnTag', 'gender',
     'mobileCountryCode', 'mobileAreaCode', 'mobileNumber',
-    'dietaryRequirements', 'galaMainCourse', 'shirtSize', 'specialPhysicalCondition',
+    'dietaryRequirements', 'galaMainCourse', 'shirtSize',
     'arrivalDate', 'arrivalTime', 'airlineRegistration', 'arrivalFlightNo', 'airportPickup',
     'departureDate', 'departureTime', 'departureAirline', 'departureFlightNo', 'airportDropoff',
     'accommodationRequired', 'emergencyName', 'emergencyContactNumber',
@@ -71,7 +73,8 @@
   function applyVisibility(category) {
     const map = visibility[category] || {};
     const accommodationAnswer = getAccommodationAnswer();
-    const lodgingVisible = accommodationAnswer === 'Yes';
+    const lodgingWithoutAccommodation = lodgingWithoutAccommodationByCategory[category] === true;
+    const lodgingVisible = lodgingWithoutAccommodation || accommodationAnswer === 'Yes';
     const lodgingRemarks = getLodgingRemarks(category);
 
     document.querySelectorAll('[data-app-field]').forEach((el) => {
@@ -99,7 +102,7 @@
       const sectionId = wrap.dataset.appSectionWrap;
       let visible = false;
       if (sectionId === 'lodging') {
-        visible = lodgingVisible && map.accommodationRequired === true;
+        visible = lodgingVisible && (lodgingWithoutAccommodation || map.accommodationRequired === true);
       } else if (sectionId === 'profileSummary') {
         const ids = sectionFields.profileSummary || [];
         visible = ids.some((id) => id === 'category' || id === 'accountUserId' || map[id] === true);
@@ -152,12 +155,26 @@
 
     // Save Section / Save Draft / Save Changes — no validation
     if (action === 'save' || submitter?.hasAttribute('formnovalidate')) {
+      clearRequiredOnHiddenFields();
+      form.setAttribute('novalidate', 'novalidate');
       return;
     }
 
     // Submit Application — validate visible fields only
     if (action === 'submit') {
       clearRequiredOnHiddenFields();
+      const agreement = form.querySelector('[name="agreementAccepted"]');
+      const socialPolicy = form.querySelector('[name="socialEventPolicyAccepted"]');
+      if (agreement && !agreement.checked) {
+        e.preventDefault();
+        agreement.reportValidity();
+        return;
+      }
+      if (socialPolicy && !socialPolicy.checked) {
+        e.preventDefault();
+        socialPolicy.reportValidity();
+        return;
+      }
       if (!form.checkValidity()) {
         e.preventDefault();
         form.reportValidity();

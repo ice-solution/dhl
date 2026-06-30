@@ -139,10 +139,10 @@ router.post('/admin/users/:userId/edit', requireAdmin, upload.fields([
 
     const uniformFile = req.files?.uniformPhotoFile?.[0];
     const niceFile = req.files?.nicePhotoFile?.[0];
-    if (uniformFile) {
+    if (uniformFile?.buffer?.length) {
       data.photoUpload.uniformPhoto = await saveUserPhoto(userId, 'uniform', uniformFile);
     }
-    if (niceFile) {
+    if (niceFile?.buffer?.length) {
       data.photoUpload.nicePhoto = await saveUserPhoto(userId, 'nice', niceFile);
     }
 

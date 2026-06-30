@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema({
   galaMainCourse: { type: String, default: '' },
   shirtSize: { type: String, default: '' },
   photoConsent: { type: Boolean, default: false },
+  socialEventPolicyConsent: { type: Boolean, default: false },
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {

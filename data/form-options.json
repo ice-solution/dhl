@@ -30,28 +30,18 @@
       "group": "Non Awardees"
     },
     {
-      "value": "GHO",
-      "label": "GHO",
-      "group": "Non Awardees"
-    },
-    {
       "value": "Organising Committee",
       "label": "Organising Committee",
       "group": "Non Awardees"
     },
     {
-      "value": "Others",
-      "label": "Others",
+      "value": "Guests",
+      "label": "Guests",
       "group": "Non Awardees"
     },
     {
       "value": "Employee of the Year - Overall Excellence",
-      "label": "Employee of the Year - Overall Excellence",
-      "group": "Awardees"
-    },
-    {
-      "value": "Employee of the Year - Sales Excellence",
-      "label": "Employee of the Year - Sales Excellence",
+      "label": "Employee of the Year",
       "group": "Awardees"
     },
     {
@@ -62,6 +52,11 @@
     {
       "value": "DHL's Got Heart Finalist",
       "label": "DHL's Got Heart Finalist",
+      "group": "Awardees"
+    },
+    {
+      "value": "Employee of the Year - Sales Excellence",
+      "label": "Others",
       "group": "Awardees"
     }
   ],
@@ -3611,6 +3606,10 @@
     {
       "value": "",
       "label": "Please select"
+    },
+    {
+      "value": "S",
+      "label": "S"
     },
     {
       "value": "M",

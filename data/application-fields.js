@@ -81,6 +81,7 @@ function isAppFieldVisible(fieldId, category, options = {}) {
   const { accommodationAnswer } = options;
   const rules = getFlowRules(category);
   const useXlsxOnly = hasEntitlementAlias(category);
+  const lodgingWithoutAccommodation = rules.lodgingWithoutAccommodation === true;
 
   if (fieldId === 'specialPhysicalCondition' || fieldId === 'specialPhysicalConditionYes') {
     if (useXlsxOnly) {
@@ -113,7 +114,11 @@ function isAppFieldVisible(fieldId, category, options = {}) {
   const lodgingFields = APPLICATION_SECTIONS.lodging;
   if (lodgingFields.includes(fieldId)) {
     if (!isFlowSectionEnabled(category, 'lodging')) return false;
-    if (!isEntitlementVisible('do_you_require_accommodation_during_event_period', category)) return false;
+    if (!lodgingWithoutAccommodation
+      && !isEntitlementVisible('do_you_require_accommodation_during_event_period', category)) {
+      return false;
+    }
+    if (lodgingWithoutAccommodation) return true;
     const answer = accommodationAnswer !== undefined
       ? accommodationAnswer
       : null;
@@ -163,6 +168,8 @@ function isAppSectionVisible(sectionId, category, options = {}) {
   if (!isFlowSectionEnabled(category, sectionId)) return false;
 
   if (sectionId === 'lodging') {
+    const rules = getFlowRules(category);
+    if (rules.lodgingWithoutAccommodation) return true;
     if (!isEntitlementVisible('do_you_require_accommodation_during_event_period', category)) return false;
     const answer = options.accommodationAnswer;
     return answer === 'Yes';

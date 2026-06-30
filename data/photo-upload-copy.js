@@ -9,7 +9,7 @@ const PHOTO_UPLOAD_COPY = {
     'Coloured copy with high resolution (Minimum: 1MB in jpeg / jpg / png format )',
     'Please name the file with your Business Unit and Full Name (e.g. HK_Simon Chan Tai Man Photo / HK_Simon Chan Tai Man Nice Photo)',
     {
-      html: 'Please note the deadline to receive the photos is <strong><span class="app-photo-underline">24 July 2026</span></strong>, the collected photos will be used for EOY 2025 booklet or event production.',
+      html: 'Please note the deadline to receive the photos is <strong><span class="app-photo-underline">24 July 2026</span></strong>, the collected photos will be used for event production.',
     },
   ],
   referenceImages: [
