@@ -7,7 +7,7 @@
   const lodgingGroupByCategory = window.APP_LODGING_GROUP_BY_CATEGORY || {};
 
   const lodgingWithoutAccommodationByCategory = window.APP_LODGING_WITHOUT_ACCOMMODATION || {};
-  const sectionVisibilityByCategory = window.APP_SECTION_VISIBILITY_BY_CATEGORY || {};
+  const lodgingSectionEnabledByCategory = window.APP_LODGING_SECTION_ENABLED || {};
   const currentFlowRules = window.APP_FLOW_RULES || {};
 
   function hasLodgingWithoutAccommodation(category) {
@@ -16,6 +16,10 @@
       return true;
     }
     return false;
+  }
+
+  function isLodgingSectionEnabled(category) {
+    return lodgingSectionEnabledByCategory[category] !== false;
   }
 
   function isLodgingContentVisible(category, map, accommodationAnswer) {
@@ -99,7 +103,7 @@
       let visible = map[id] === true;
 
       if (isLodgingField(id)) {
-        visible = lodgingVisible;
+        visible = isLodgingSectionEnabled(category) && lodgingVisible;
         if (!lodgingRemarks && id === 'otherRequests') {
           visible = false;
         }
@@ -117,8 +121,7 @@
       const sectionId = wrap.dataset.appSectionWrap;
       let visible = false;
       if (sectionId === 'lodging') {
-        const serverLodging = sectionVisibilityByCategory[category]?.lodging;
-        if (serverLodging === false) {
+        if (!isLodgingSectionEnabled(category)) {
           visible = false;
         } else if (hasLodgingWithoutAccommodation(category)) {
           visible = true;
