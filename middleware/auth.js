@@ -32,8 +32,16 @@ function requireAdmin(req, res, next) {
   res.redirect('/admin/login');
 }
 
+function requirePasswordChanged(req, res, next) {
+  if (req.user?.mustChangePassword) {
+    return res.redirect('/change-password');
+  }
+  return next();
+}
+
 module.exports = {
   requireAuth,
   requireAdmin,
+  requirePasswordChanged,
   clearUserSession,
 };

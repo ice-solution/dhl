@@ -2,7 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const Application = require('../models/Application');
 const User = require('../models/User');
-const { requireAuth, clearUserSession } = require('../middleware/auth');
+const { requireAuth, requirePasswordChanged, clearUserSession } = require('../middleware/auth');
 const { sendApplicationSaveEmail } = require('../lib/registration-emails');
 const {
   buildApplicationRenderContext,
@@ -16,7 +16,7 @@ const { saveUserPhoto } = require('../lib/upload-photos');
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-router.get('/application', requireAuth, async (req, res) => {
+router.get('/application', requireAuth, requirePasswordChanged, async (req, res) => {
   await migrateLegacyGuestCategory(req.user);
   const application = await Application.findOne({ user: req.user._id });
   res.render('application-form', buildApplicationRenderContext(req.user, application, {
@@ -24,7 +24,7 @@ router.get('/application', requireAuth, async (req, res) => {
   }));
 });
 
-router.post('/application', requireAuth, upload.fields([
+router.post('/application', requireAuth, requirePasswordChanged, upload.fields([
   { name: 'uniformPhotoFile', maxCount: 1 },
   { name: 'nicePhotoFile', maxCount: 1 },
 ]), async (req, res) => {

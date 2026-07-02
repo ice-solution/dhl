@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
-const { requireAuth, clearUserSession } = require('../middleware/auth');
+const { requireAuth, requirePasswordChanged, clearUserSession } = require('../middleware/auth');
 const { sendEmail } = require('../lib/email');
 const { generatePassword } = require('../lib/password');
 const { getSiteUrl } = require('../lib/site-url');
@@ -23,11 +23,25 @@ function findUserByEmail(email) {
   });
 }
 
+function getPostLoginRedirect(user) {
+  return user.mustChangePassword ? '/change-password' : '/application';
+}
+
+function validateNewPassword(password, confirmPassword) {
+  if (!password || password.length < 6) {
+    return 'Password must be at least 6 characters.';
+  }
+  if (password !== confirmPassword) {
+    return 'Passwords do not match.';
+  }
+  return null;
+}
+
 router.get('/login', async (req, res) => {
   if (req.session.userId) {
     const user = await User.findById(req.session.userId);
     if (user) {
-      return res.redirect('/application');
+      return res.redirect(getPostLoginRedirect(user));
     }
     clearUserSession(req);
   }
@@ -38,7 +52,7 @@ router.get('/forgot-password', async (req, res) => {
   if (req.session.userId) {
     const user = await User.findById(req.session.userId);
     if (user) {
-      return res.redirect('/application');
+      return res.redirect(getPostLoginRedirect(user));
     }
     clearUserSession(req);
   }
@@ -95,6 +109,7 @@ router.post('/forgot-password', async (req, res) => {
     });
 
     user.password = newPassword;
+    user.mustChangePassword = true;
     await user.save();
 
     res.render('forgot-password', {
@@ -126,7 +141,7 @@ router.post('/login', async (req, res) => {
 
     req.session.userId = user._id.toString();
     req.session.displayName = user.fullName || user.userId;
-    res.redirect('/application');
+    res.redirect(getPostLoginRedirect(user));
   } catch (err) {
     console.error(err);
     res.render('login', {
@@ -142,7 +157,40 @@ router.get('/logout', (req, res) => {
   });
 });
 
-router.get('/account', requireAuth, async (req, res) => {
+router.get('/change-password', requireAuth, async (req, res) => {
+  if (!req.user.mustChangePassword) {
+    return res.redirect('/application');
+  }
+  res.render('change-password', { error: null });
+});
+
+router.post('/change-password', requireAuth, async (req, res) => {
+  if (!req.user.mustChangePassword) {
+    return res.redirect('/application');
+  }
+
+  const password = req.body.password || '';
+  const confirmPassword = req.body.confirmPassword || '';
+  const validationError = validateNewPassword(password, confirmPassword);
+
+  if (validationError) {
+    return res.render('change-password', { error: validationError });
+  }
+
+  try {
+    req.user.password = password;
+    req.user.mustChangePassword = false;
+    await req.user.save();
+    res.redirect('/application');
+  } catch (err) {
+    console.error('Change password error:', err);
+    res.render('change-password', {
+      error: 'Unable to update password. Please try again.',
+    });
+  }
+});
+
+router.get('/account', requireAuth, requirePasswordChanged, async (req, res) => {
   res.render('account', { user: req.user });
 });
 
