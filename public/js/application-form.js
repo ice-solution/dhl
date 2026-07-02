@@ -7,6 +7,21 @@
   const lodgingGroupByCategory = window.APP_LODGING_GROUP_BY_CATEGORY || {};
 
   const lodgingWithoutAccommodationByCategory = window.APP_LODGING_WITHOUT_ACCOMMODATION || {};
+  const sectionVisibilityByCategory = window.APP_SECTION_VISIBILITY_BY_CATEGORY || {};
+  const currentFlowRules = window.APP_FLOW_RULES || {};
+
+  function hasLodgingWithoutAccommodation(category) {
+    if (lodgingWithoutAccommodationByCategory[category] === true) return true;
+    if (category === window.APP_CATEGORY && currentFlowRules.lodgingWithoutAccommodation === true) {
+      return true;
+    }
+    return false;
+  }
+
+  function isLodgingContentVisible(category, map, accommodationAnswer) {
+    if (hasLodgingWithoutAccommodation(category)) return true;
+    return accommodationAnswer === 'Yes' && map.accommodationRequired === true;
+  }
 
   const requiredFields = new Set([
     'jobTitle', 'functionUnit', 'businessUnit', 'globalId',
@@ -73,8 +88,8 @@
   function applyVisibility(category) {
     const map = visibility[category] || {};
     const accommodationAnswer = getAccommodationAnswer();
-    const lodgingWithoutAccommodation = lodgingWithoutAccommodationByCategory[category] === true;
-    const lodgingVisible = lodgingWithoutAccommodation || accommodationAnswer === 'Yes';
+    const lodgingWithoutAccommodation = hasLodgingWithoutAccommodation(category);
+    const lodgingVisible = isLodgingContentVisible(category, map, accommodationAnswer);
     const lodgingRemarks = getLodgingRemarks(category);
 
     document.querySelectorAll('[data-app-field]').forEach((el) => {
@@ -102,7 +117,14 @@
       const sectionId = wrap.dataset.appSectionWrap;
       let visible = false;
       if (sectionId === 'lodging') {
-        visible = lodgingVisible && (lodgingWithoutAccommodation || map.accommodationRequired === true);
+        const serverLodging = sectionVisibilityByCategory[category]?.lodging;
+        if (serverLodging === false) {
+          visible = false;
+        } else if (hasLodgingWithoutAccommodation(category)) {
+          visible = true;
+        } else {
+          visible = isLodgingContentVisible(category, map, accommodationAnswer);
+        }
       } else if (sectionId === 'profileSummary') {
         const ids = sectionFields.profileSummary || [];
         visible = ids.some((id) => id === 'category' || id === 'accountUserId' || map[id] === true);

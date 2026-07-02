@@ -76,7 +76,7 @@ const FLOW_FIELD_RULES = {
     flight: true,
     tour: false,
     photo: false,
-    lodgingRemarks: true,
+    lodgingRemarks: false,
   },
   others: {
     specialPhysicalCondition: false,
@@ -92,13 +92,11 @@ const FLOW_FIELD_RULES = {
 const CATEGORY_RULE_OVERRIDES = {
   'KR SMT': {
     flight: false,
-    excludedSections: ['flight', 'accommodation'],
-    lodgingWithoutAccommodation: true,
+    excludedSections: ['flight', 'accommodation', 'lodging'],
   },
   'VN SMT': {
     flight: false,
-    excludedSections: ['flight', 'accommodation'],
-    lodgingWithoutAccommodation: true,
+    excludedSections: ['flight', 'accommodation', 'lodging'],
   },
 };
 
@@ -135,6 +133,7 @@ module.exports = {
   AWARDEES_CATEGORIES,
   GMB_FLOW_CATEGORIES,
   CATEGORY_TO_FLOW,
+  CATEGORY_RULE_OVERRIDES,
   FLOW_SECTIONS,
   resolveCategory,
   getFlowType,
