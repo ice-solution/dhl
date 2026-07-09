@@ -19,6 +19,24 @@
   <div class="admin-review-alert admin-review-alert--error mb-6">Failed to delete user. Please try again.</div>
   <% } %>
 
+  <form method="GET" action="/admin" class="admin-user-search mb-6 flex flex-wrap items-end gap-3">
+    <div class="flex-1 min-w-[240px]">
+      <label class="form-label" for="adminSearch">Search by name or email</label>
+      <input
+        type="search"
+        id="adminSearch"
+        name="search"
+        class="form-input"
+        placeholder="Name or email"
+        value="<%= typeof search !== 'undefined' ? search : '' %>"
+      >
+    </div>
+    <button type="submit" class="btn-gold">Search</button>
+    <% if (typeof search !== 'undefined' && search) { %>
+    <a href="/admin" class="admin-review-logout">Clear</a>
+    <% } %>
+  </form>
+
   <div class="overflow-x-auto border border-gray-800 rounded-sm">
     <table class="w-full text-sm text-left">
       <thead class="bg-gray-900 text-xs uppercase tracking-wider text-gray-400">
@@ -38,7 +56,9 @@
       <tbody class="divide-y divide-gray-800">
         <% if (rows.length === 0) { %>
         <tr>
-          <td colspan="10" class="px-4 py-8 text-center text-gray-500">No users found.</td>
+          <td colspan="10" class="px-4 py-8 text-center text-gray-500">
+            <%= (typeof search !== 'undefined' && search) ? 'No users found for this search.' : 'No users found.' %>
+          </td>
         </tr>
         <% } %>
         <% rows.forEach(row => { %>

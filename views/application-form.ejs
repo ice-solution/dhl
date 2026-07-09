@@ -178,7 +178,7 @@
       <div class="<%= fieldClass('dietaryRequirements') %> mt-4" data-app-field="dietaryRequirements">
         <p class="form-label mb-2">Special Dietary Requirements <span class="form-required">*</span></p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-          <% const dietOptions = ['No Preference','Halal - No Pork / No Lard','Strict Halal','No Beef','No Spicy','No Raw Food','No Seafood','Vegetarian','Vegan']; %>
+          <% const dietOptions = ['No Preference','Halal - No Pork / No Lard','No Beef','No Spicy','No Raw Food','No Seafood','Vegetarian','Vegan']; %>
           <% dietOptions.forEach((d) => { %>
             <label class="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
               <input type="checkbox" name="dietaryRequirements" value="<%= d %>" class="accent-gold" <%= dietarySelected.includes(d) ? 'checked' : '' %>>

@@ -28,7 +28,6 @@ const FIELD_MAP = {
 const DIETARY_OPTIONS = [
   'No Preference',
   'Halal - No Pork / No Lard',
-  'Strict Halal',
   'No Beef',
   'No Spicy',
   'No Raw Food',

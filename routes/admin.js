@@ -16,6 +16,54 @@ const {
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
+function escapeRegex(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function buildUserSearchFilter(search) {
+  const term = (search || '').trim();
+  if (!term) return {};
+  const regex = { $regex: escapeRegex(term), $options: 'i' };
+  return {
+    $or: [
+      { userId: regex },
+      { email: regex },
+      { fullName: regex },
+      { surname: regex },
+      { givenName: regex },
+    ],
+  };
+}
+
+async function findUsersForAdminSearch(search) {
+  const term = (search || '').trim();
+  if (!term) {
+    return User.find().sort({ createdAt: -1 }).lean();
+  }
+
+  const regex = { $regex: escapeRegex(term), $options: 'i' };
+  const matchedUserIds = new Set();
+
+  const usersByProfile = await User.find(buildUserSearchFilter(term)).select('_id').lean();
+  usersByProfile.forEach((user) => matchedUserIds.add(user._id.toString()));
+
+  const matchingApps = await Application.find({
+    $or: [
+      { 'profile.surname': regex },
+      { 'profile.firstName': regex },
+      { 'accountLogin.fullName': regex },
+    ],
+  }).select('user').lean();
+
+  matchingApps.forEach((app) => matchedUserIds.add(app.user.toString()));
+
+  if (matchedUserIds.size === 0) {
+    return [];
+  }
+
+  return User.find({ _id: { $in: [...matchedUserIds] } }).sort({ createdAt: -1 }).lean();
+}
+
 router.get('/admin/login', (req, res) => {
   if (req.session.isAdmin) {
     return res.redirect('/admin');
@@ -44,7 +92,8 @@ router.get('/admin/logout', (req, res) => {
 });
 
 router.get('/admin', requireAdmin, async (req, res) => {
-  const users = await User.find().sort({ createdAt: -1 }).lean();
+  const search = (req.query.search || '').trim();
+  const users = await findUsersForAdminSearch(search);
   const applications = await Application.find().lean();
   const appMap = Object.fromEntries(applications.map((a) => [a.user.toString(), a]));
 
@@ -64,6 +113,7 @@ router.get('/admin', requireAdmin, async (req, res) => {
 
   res.render('admin/users', {
     rows,
+    search,
     success: req.query.success || null,
     error: req.query.error || null,
   });
