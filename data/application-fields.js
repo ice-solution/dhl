@@ -128,11 +128,14 @@ function isAppFieldVisible(fieldId, category, options = {}) {
 
   if (APPLICATION_SECTIONS.flight.includes(fieldId)) {
     if (!isFlowSectionEnabled(category, 'flight')) return false;
+    const flightEntKey = APPLICATION_FIELD_MAP[fieldId];
     if (useXlsxOnly) {
-      const flightEntKey = APPLICATION_FIELD_MAP[fieldId];
       return flightEntKey ? isEntitlementVisible(flightEntKey, category) : false;
     }
-    return rules.flight === true;
+    if (rules.flight !== true) return false;
+    // Respect field entitlements (e.g. hide APEC card for awardees)
+    if (flightEntKey && !isEntitlementVisible(flightEntKey, category)) return false;
+    return true;
   }
   if (APPLICATION_SECTIONS.tour.includes(fieldId)) {
     if (!useXlsxOnly && (!rules.tour || !isFlowSectionEnabled(category, 'tour'))) return false;

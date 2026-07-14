@@ -45,7 +45,7 @@
     <div class="admin-review-meta-item">
       <span class="admin-review-meta-label">Last Updated</span>
       <span class="admin-review-meta-value">
-        <%= review.updatedAt ? new Date(review.updatedAt).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' }) : '—' %>
+        <%= review.updatedAt ? new Date(review.updatedAt).toLocaleString('en-GB', { timeZone: 'Asia/Hong_Kong', dateStyle: 'short', timeStyle: 'short' }) : '—' %>
       </span>
     </div>
     <div class="admin-review-meta-item">
