@@ -8,7 +8,20 @@ const EVENT_DATE_DAY_OPTIONS = [
   ...['03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13'].map((d) => ({ value: d, label: d })),
 ];
 
+const DEPARTURE_DATE_DAY_OPTIONS = [
+  { value: '', label: 'Please select' },
+  ...Array.from({ length: 31 }, (_, i) => {
+    const d = String(i + 1).padStart(2, '0');
+    return { value: d, label: d };
+  }),
+];
+
 const EVENT_DATE_MONTH_OPTIONS = [{ value: '09', label: 'September' }];
+
+const DEPARTURE_DATE_MONTH_OPTIONS = [
+  { value: '09', label: 'September' },
+  { value: '10', label: 'October' },
+];
 
 const EVENT_DATE_YEAR_OPTIONS = [{ value: '2026', label: '2026' }];
 
@@ -34,6 +47,11 @@ function getOptions(fieldName) {
 function getDateOptions(prefix, part) {
   const fields = DATE_FIELDS[prefix];
   if (!fields) return [];
+  if (prefix === 'departure') {
+    if (part === 'day') return DEPARTURE_DATE_DAY_OPTIONS;
+    if (part === 'month') return DEPARTURE_DATE_MONTH_OPTIONS;
+    if (part === 'year') return EVENT_DATE_YEAR_OPTIONS;
+  }
   if (EVENT_DATE_PREFIXES.has(prefix)) {
     if (part === 'day') return EVENT_DATE_DAY_OPTIONS;
     if (part === 'month') return EVENT_DATE_MONTH_OPTIONS;
