@@ -7,6 +7,7 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "seed": "node scripts/seed.js",
+    "pack-photos": "node scripts/pack-photos.js",
     "extract-options": "node scripts/extract-form-options.js",
     "extract-entitlements": "python3 scripts/extract-field-entitlements.py"
   },
