@@ -402,7 +402,8 @@
             <p class="app-photo-preview-label">Current upload</p>
           </div>
           <% } %>
-          <input type="file" name="uniformPhotoFile" accept="image/jpeg,.jpg,.jpeg,image/png,.png" class="form-input">
+          <input type="file" name="uniformPhotoFile" accept="image/jpeg,.jpg,.jpeg,image/png,.png" class="form-input" data-max-bytes="10485760">
+          <p class="text-xs text-gray-500 mt-1">Maximum file size: 10MB</p>
           <input type="hidden" name="uniformPhoto" value="<%= photos.uniformPhoto || '' %>">
         </div>
         <div class="<%= fieldClass('nicePhoto') %>" data-app-field="nicePhoto">
@@ -413,7 +414,8 @@
             <p class="app-photo-preview-label">Current upload</p>
           </div>
           <% } %>
-          <input type="file" name="nicePhotoFile" accept="image/jpeg,.jpg,.jpeg,image/png,.png" class="form-input">
+          <input type="file" name="nicePhotoFile" accept="image/jpeg,.jpg,.jpeg,image/png,.png" class="form-input" data-max-bytes="10485760">
+          <p class="text-xs text-gray-500 mt-1">Maximum file size: 10MB</p>
           <input type="hidden" name="nicePhoto" value="<%= photos.nicePhoto || '' %>">
         </div>
         <div class="<%= fieldClass('winnerMessage') %>" data-app-field="winnerMessage">

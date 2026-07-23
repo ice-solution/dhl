@@ -5,7 +5,7 @@ const Application = require('../models/Application');
 const { requireAdmin } = require('../middleware/auth');
 const { buildAdminReview, createReviewSnapshot } = require('../lib/admin-review');
 const { exportToBuffer, buildExportFilename } = require('../lib/admin-export');
-const { deleteUserUploads, saveUserPhoto } = require('../lib/upload-photos');
+const { deleteUserUploads, saveUserPhoto, MAX_BYTES } = require('../lib/upload-photos');
 const {
   buildApplicationRenderContext,
   parseApplicationBody,
@@ -14,7 +14,10 @@ const {
 } = require('../lib/application-data');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_BYTES },
+});
 
 function escapeRegex(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');

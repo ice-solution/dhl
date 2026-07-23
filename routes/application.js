@@ -11,10 +11,40 @@ const {
   syncUserProfile,
   migrateLegacyGuestCategory,
 } = require('../lib/application-data');
-const { saveUserPhoto } = require('../lib/upload-photos');
+const { saveUserPhoto, MAX_BYTES } = require('../lib/upload-photos');
 
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_BYTES },
+});
+
+function handlePhotoUpload(req, res, next) {
+  upload.fields([
+    { name: 'uniformPhotoFile', maxCount: 1 },
+    { name: 'nicePhotoFile', maxCount: 1 },
+  ])(req, res, async (err) => {
+    if (!err) return next();
+
+    const message = err instanceof multer.MulterError && err.code === 'LIMIT_FILE_SIZE'
+      ? 'Photo file is too large. Please upload a file under 10MB.'
+      : (err.message || 'Failed to upload photo. Please try again.');
+
+    if (!req.session?.userId) {
+      return res.redirect('/login');
+    }
+    const user = await User.findById(req.session.userId);
+    if (!user) {
+      clearUserSession(req);
+      return res.redirect('/login');
+    }
+    const application = await Application.findOne({ user: req.session.userId });
+    return res.render('application-form', buildApplicationRenderContext(user, application, {
+      error: message,
+      success: null,
+    }));
+  });
+}
 
 router.get('/application', requireAuth, requirePasswordChanged, async (req, res) => {
   await migrateLegacyGuestCategory(req.user);
@@ -24,10 +54,7 @@ router.get('/application', requireAuth, requirePasswordChanged, async (req, res)
   }));
 });
 
-router.post('/application', requireAuth, requirePasswordChanged, upload.fields([
-  { name: 'uniformPhotoFile', maxCount: 1 },
-  { name: 'nicePhotoFile', maxCount: 1 },
-]), async (req, res) => {
+router.post('/application', requireAuth, requirePasswordChanged, handlePhotoUpload, async (req, res) => {
   try {
     const existing = await Application.findOne({ user: req.session.userId });
     const parsed = parseApplicationBody(req.body);

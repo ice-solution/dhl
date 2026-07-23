@@ -183,6 +183,44 @@
     return [...form.querySelectorAll('input[type="file"]')].some((input) => input.files?.length > 0);
   }
 
+  const DEFAULT_PHOTO_MAX_BYTES = 10 * 1024 * 1024;
+  const PHOTO_TOO_LARGE_MESSAGE = 'Photo file is too large. Please upload a file under 10MB.';
+
+  function getPhotoMaxBytes(input) {
+    const raw = input?.dataset?.maxBytes;
+    const parsed = raw ? Number(raw) : NaN;
+    return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_PHOTO_MAX_BYTES;
+  }
+
+  function validatePhotoFileInput(input) {
+    const file = input.files?.[0];
+    if (!file) {
+      input.setCustomValidity('');
+      return true;
+    }
+    if (file.size > getPhotoMaxBytes(input)) {
+      input.setCustomValidity(PHOTO_TOO_LARGE_MESSAGE);
+      return false;
+    }
+    input.setCustomValidity('');
+    return true;
+  }
+
+  function validateSelectedPhotoFiles(form) {
+    const inputs = [...form.querySelectorAll('input[type="file"][name$="PhotoFile"]')];
+    let firstInvalid = null;
+    inputs.forEach((input) => {
+      if (!validatePhotoFileInput(input) && !firstInvalid) {
+        firstInvalid = input;
+      }
+    });
+    if (firstInvalid) {
+      firstInvalid.reportValidity();
+      return false;
+    }
+    return true;
+  }
+
   function getFormActionUrl(form) {
     // Named controls shadow form.action — multiple Save buttons use name="action"
     return form.getAttribute('action') || window.location.pathname;
@@ -217,6 +255,9 @@
     if (hasSelectedFiles(form)) {
       e.preventDefault();
       clearRequiredOnHiddenFields();
+      if (!validateSelectedPhotoFiles(form)) {
+        return;
+      }
       if (action === 'submit') {
         const agreement = form.querySelector('[name="agreementAccepted"]');
         const socialPolicy = form.querySelector('[name="socialEventPolicyAccepted"]');
@@ -282,6 +323,15 @@
     });
     document.querySelector('[name="functionUnit"]')?.addEventListener('change', () => {
       applyVisibility(categorySelect?.value || '');
+    });
+
+    document.querySelectorAll('input[type="file"][name$="PhotoFile"]').forEach((input) => {
+      input.addEventListener('change', () => {
+        if (!validatePhotoFileInput(input)) {
+          input.reportValidity();
+          input.value = '';
+        }
+      });
     });
 
     document.getElementById('applicationForm')?.addEventListener('submit', handleFormSubmit);

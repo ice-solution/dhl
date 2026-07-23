@@ -7,6 +7,7 @@ const PHOTO_UPLOAD_COPY = {
       html: 'Awardee Photo (<span class="app-photo-underline">Front, Portrait, Adequate Lighting, Clean Background</span>)',
     },
     'Coloured copy with high resolution (Minimum: 1MB in jpeg / jpg / png format )',
+    'Please ensure each photo file is under 10MB.',
     'Please name the file with your Business Unit and Full Name (e.g. HK_Simon Chan Tai Man Photo / HK_Simon Chan Tai Man Nice Photo)',
     {
       html: 'Please note the deadline to receive the photos is <strong><span class="app-photo-underline">24 July 2026</span></strong>, the collected photos will be used for event production.',
