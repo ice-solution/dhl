@@ -15,6 +15,7 @@ const { SITE_DOCUMENTS } = require('./data/site-documents');
 const { logEmailConfigOnStartup } = require('./lib/email');
 const { configureSecurity } = require('./middleware/security');
 const { csrfProtection, exposeCsrfToken, handleCsrfError } = require('./middleware/csrf');
+const { siteClosedRedirect } = require('./middleware/site-closed');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,6 +59,8 @@ app.use((req, res, next) => {
   res.locals.siteDocuments = SITE_DOCUMENTS;
   next();
 });
+
+app.use(siteClosedRedirect);
 
 app.use(homeRoutes);
 app.use(registerRoutes);

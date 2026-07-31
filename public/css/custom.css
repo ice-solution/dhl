@@ -127,6 +127,40 @@ button {
   text-decoration: underline;
 }
 
+.thank-you-page {
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.thank-you-title {
+  color: #fff;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  margin-bottom: 1.25rem;
+}
+
+.thank-you-message {
+  color: #9ca3af;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  max-width: 36rem;
+}
+
+.thank-you-email {
+  color: #c9a84c;
+  text-decoration: none;
+}
+
+.thank-you-email:hover {
+  color: #e8d5a3;
+  text-decoration: underline;
+}
+
 .forgot-password-page {
   color: #e5e7eb;
 }

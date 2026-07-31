@@ -45,6 +45,8 @@
 
 <% const onRegisterFlow = typeof activeNav !== 'undefined' && activeNav === 'registration'; %>
 <% const onLoginFlow = typeof activeNav !== 'undefined' && activeNav === 'login'; %>
+<% const hideNav = typeof showNav !== 'undefined' && showNav === false; %>
+<% if (!hideNav) { %>
 <% if (session && session.userId) { %>
 <nav class="nav-bar" id="siteNav">
   <div class="nav-bar-inner nav-bar-inner--wrap">
@@ -62,5 +64,6 @@
 </nav>
 <% } %>
 <div class="nav-bar-spacer" id="navBarSpacer" aria-hidden="true"></div>
+<% } %>
 
 <main class="flex-1">
